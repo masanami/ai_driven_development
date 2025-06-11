@@ -146,8 +146,11 @@ cd your-product
 git remote add ai-framework-remote <this-repo-url>
 git subtree add --prefix ai-framework ai-framework-remote main --squash
 
-# 2. プロダクト固有設定ディレクトリ作成
-mkdir -p .ai/{overrides,project_docs,knowledge_base}
+# 2. 最小構成セットアップAdd commentMore actions
+mkdir -p .ai/{workflows,contexts,logs}
+mkdir -p .ai/agent_communication/{inbox,outbox,processed,templates}
+echo ".ai/logs/" >> .gitignore
+echo ".ai/agent_communication/processed/" >> .gitignore
 
 # 3. Claude Codeで参照ディレクトリ設定
 # ai-framework/project/ と .ai/ を参照対象に追加
@@ -158,11 +161,12 @@ git worktree add ../agent-your-feature feature/your-feature
 ```
 
 ### **📖 詳細な使用方法**
-**[→ USAGE.md で詳細な導入・カスタマイズ手順を確認](./USAGE.md)**
-- 🎨 プロジェクト固有カスタマイズ（オーバーライド方式）
-- 💬 エージェント向けプロンプト指示例
-- 📝 実用的なテンプレート集
-- 🚀 実際の運用例（ECサイト開発など）
+**[→ USAGE.md で詳細な導入・開発フロー手順を確認](./USAGE.md)**Add commentMore actions
+- 🚀 クイックスタート（ゼロから新規 / 既存プロジェクトに追加）
+- ⚙️ Claude Code設定・ディレクトリ構造
+- 🤖 リーダーエージェント起動・初期設定
+- 📋 基本的な開発フロー（9ステップ詳細ガイド）
+- 🔄 更新・メンテナンス・トラブルシューティング
 
 ---
 
@@ -320,18 +324,34 @@ your-product/
 
 ## 🔄 ワークフロー例
 
-### **典型的な開発フロー**
+### **実際の開発フロー（8ステップ）**Add commentMore actions
+
+詳細な手順は **[USAGE.md](./USAGE.md)** を参照してください。
+
+```mermaidAdd commentMore actions
+graph TD
+    A[Step 1: 要件定義書作成] --> B[Step 2: 基本設計]
+    B --> C[Step 3: タスク分割・並列準備]
+    C --> D[Step 4: 並列実装開始]
+    D --> E[Step 5: PRレビュー]
+    E --> F[Step 6: マージ・コンフリクト解消]
+    F --> G[Step 7: 統合テスト・E2Eテスト]
+    G --> H[Step 8: 最終品質確認・本番準備]
+```
+
+### **エージェント協働パターン**
 
 ```mermaid
-graph TD
-    A[User Story] --> B[Leader Agent: 要件分析]
-    B --> C[Leader Agent: タスク分割]
-    C --> D[Engineer Agent 1: 機能A実装]
-    C --> E[Engineer Agent 2: 機能B実装]
-    D --> F[QA Agent: テスト設計]
+graph LR
+    A[👤 User] --> B[🤖 Leader Agent]
+    B --> C[🤖 Engineer Agent 1]
+    B --> D[🤖 Engineer Agent 2]
+    B --> E[🤖 Engineer Agent 3]
+    C --> F[🧪 QA Agent]
+    D --> F
     E --> F
-    F --> G[Leader Agent: 統合・レビュー]
-    G --> H[本番デプロイ]
+    F --> B
+    B --> A
 ```
 
 ---
