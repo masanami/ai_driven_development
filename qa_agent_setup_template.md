@@ -12,8 +12,8 @@
 以下を読み込んでQAエージェント設定を完了してください：
 
 ## 📚 必須ドキュメント
-- @ai-framework/project/02_agent_role_definitions.md
-- @ai-framework/project/06_multi_agent_operational_workflow.md
+- @ai-framework/02_agent_role_definitions.md
+- @ai-framework/06_multi_agent_operational_workflow.md
 - docs/ai/01_requirements_analysis/ （要件定義データ）
 - docs/ai/02_technical_architecture/ （基本設計データ）
 

@@ -153,7 +153,7 @@ echo ".ai/logs/" >> .gitignore
 echo ".ai/agent_communication/processed/" >> .gitignore
 
 # 3. Claude Codeで参照ディレクトリ設定
-# ai-framework/project/ と .ai/ を参照対象に追加
+# ai-framework/ と .ai/ を参照対象に追加
 
 # 4. 開発開始
 git checkout -b feature/your-feature
@@ -204,7 +204,7 @@ your-product/
 // .claude/settings.json
 {
   "ai.referenceDirectories": [
-    "ai-framework/project/",          // 共通フレームワーク
+    "ai-framework/",                  // 共通フレームワーク
     ".ai/project_docs/",              // プロジェクト特化ドキュメント
     ".ai/knowledge_base/",            // カスタム知識ベース
     ".ai/overrides/",                 // オーバーライド設定
@@ -213,7 +213,7 @@ your-product/
   "ai.priority": {
     ".ai/overrides/": "highest",      // カスタマイズが最優先
     ".ai/project_docs/": "high",      // プロジェクト特化が次
-    "ai-framework/project/": "medium" // 共通フレームワークは補完
+    "ai-framework/": "medium"         // 共通フレームワークは補完
   }
 }
 ```
@@ -228,7 +228,7 @@ your-product/
 1. **最優先**: `.ai/overrides/` - プロジェクト特化カスタマイズ
 2. **高優先**: `.ai/project_docs/` - プロジェクト固有ドキュメント  
 3. **中優先**: `.ai/knowledge_base/` - カスタム知識ベース
-4. **補完用**: `ai-framework/project/` - 共通フレームワーク（ベース）
+4. **補完用**: `ai-framework/` - 共通フレームワーク（ベース）
 
 ⚠️ **重要**: 同じ内容の情報がある場合、必ず上位の優先度を採用してください。
 例：`03_knowledge_base_architecture.md` が複数ある場合 → `.ai/overrides/` 版を使用
@@ -247,7 +247,7 @@ your-product/
 **オーバーライド優先**: 以下の順で情報を確認してください
 1. `.ai/overrides/XX_custom.md` ← **最優先**
 2. `.ai/project_docs/XX.md` 
-3. `ai-framework/project/XX.md` ← 補完用
+3. `ai-framework/XX.md` ← 補完用
 
 ### 🔧 実装ルール  
 - **プロジェクト固有設定**（`.ai/`）を基準に実装
@@ -255,7 +255,7 @@ your-product/
 - カスタムエージェント定義に従って機能実装
 
 ### 例：知識ベース参照時
-❌ `ai-framework/project/03_knowledge_base_architecture.md`だけ見る
+❌ `ai-framework/03_knowledge_base_architecture.md`だけ見る
 ⭕ `.ai/overrides/03_knowledge_base_architecture_custom.md`を**最優先**で参照
 ```
 
@@ -266,7 +266,7 @@ your-product/
 ### 📋 テスト基準の優先度
 1. `.ai/overrides/qa_standards_custom.md` ← **プロジェクト特化基準**
 2. `.ai/project_docs/testing_requirements.md`
-3. `ai-framework/project/06_multi_agent_operational_workflow.md` ← 基本フロー
+3. `ai-framework/06_multi_agent_operational_workflow.md` ← 基本フロー
 
 ### 🎯 プロジェクト特化テスト
 - **業界固有のテストケース**を重視
@@ -286,7 +286,7 @@ your-product/
 # 🚀 [プロジェクト名] 開発開始
 
 ## 📚 参照情報の優先度
-`.ai/overrides/` > `.ai/project_docs/` > `ai-framework/project/`
+`.ai/overrides/` > `.ai/project_docs/` > `ai-framework/`
 
 ## 🎯 今回のタスク
 [具体的なタスク内容]

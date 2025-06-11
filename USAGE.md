@@ -49,7 +49,7 @@ echo ".ai/agent_communication/processed/" >> .gitignore
 ```json
 {
   "ai.referenceDirectories": [
-    "ai-framework/project/",
+    "ai-framework/",
     ".ai/",
     "src/"
   ]
@@ -78,7 +78,7 @@ your-project/
 
 ### **Leader Agent (Claude Code) セットアップ**
 
-**@ai-framework/project/leader_agent_setup_template.md** の基本セットアップ指示を使用してください：
+**@ai-framework/leader_agent_setup_template.md** の基本セットアップ指示を使用してください：
 
 ```markdown
 1. テンプレートから基本セットアップ指示をコピー
@@ -96,7 +96,7 @@ your-project/
 ```markdown
 # Claude Codeに指示
 "新しいプロジェクトの要件定義を作成します。
-@ai-framework/project/03_knowledge_base_architecture.md の
+@ai-framework/03_knowledge_base_architecture.md の
 AI-First YAML主導アーキテクチャに従って、
 docs/ai/01_requirements_analysis/ 配下に構造化データを作成してください。
 
@@ -121,7 +121,7 @@ docs/ai/01_requirements_analysis/ 配下に構造化データを作成してく�
 ```markdown
 # Claude Codeに指示
 "要件定義に基づいて基本設計を行ってください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 1-2 基本設計・協働準備に従って、
 docs/ai/02_technical_architecture/ 配下に構造化データを作成してください。
 
@@ -151,7 +151,7 @@ docs/ai/02_technical_architecture/ 配下に構造化データを作成してく
 ```markdown
 # Claude Codeに指示
 "基本設計に基づいてタスク分割を行ってください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 2-1 タスク分割に従って実施してください。
 
 以下を実行してください：
@@ -166,12 +166,12 @@ Phase 2-1 タスク分割に従って実施してください。
 #### **Step 3-2: テスト設計・TDD準備** (QAエージェント) ⚡ 3-1と並列実行
 ```markdown
 # QAエージェント（Claude Code）起動・指示
-@ai-framework/project/qa_agent_setup_template.md の
+@ai-framework/qa_agent_setup_template.md の
 基本セットアップ指示を使用してQAエージェントを起動してください。
 
 # QAエージェントに指示
 "基本設計に基づいてテスト設計・TDD準備を行ってください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 2-2 テスト設計・TDD準備に従って実施してください。
 
 以下を実行してください：
@@ -187,7 +187,7 @@ Phase 2-2 テスト設計・TDD準備に従って実施してください。
 ```markdown
 # Claude Codeに指示（タスク分割完了後）
 "並列開発環境を構築してください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 2-3 並列環境構築に従って実施してください。
 
 以下を実行してください：
@@ -210,11 +210,11 @@ Phase 2-3 並列環境構築に従って実施してください。
 
 # ユーザー承認後、リーダーエージェント（Claude Code）への指示
 "準備完了を確認しました。並列実装を開始してください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 3 TDD並列実装に従って、各エンジニアエージェントに開発開始指示を送ってください。
 
 ## エンジニアエージェント セットアップ
-@ai-framework/project/engineer_agent_setup_template.md の
+@ai-framework/engineer_agent_setup_template.md の
 基本セットアップ指示を使用して、各エンジニアエージェントを起動・設定してください。
 
 ## 実施手順
@@ -239,7 +239,7 @@ Phase 3 TDD並列実装に従って、各エンジニアエージェントに開
 ```markdown
 # エンジニアエージェントのPR作成完了後、Claude Codeに指示
 "PRレビューを実施してください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 4-1 PRレビューに従って実施してください。
 
 ## 自動チェック実行
@@ -277,7 +277,7 @@ Phase 4-1 PRレビューに従って実施してください。
 ```markdown
 # Claude Codeに指示（ユーザーレビュー完了後）
 "マージ・コンフリクト解消を実施してください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 4-2 マージ・コンフリクト解消に従って実施してください。
 
 ## マージ前チェック
@@ -306,7 +306,7 @@ Phase 4-2 マージ・コンフリクト解消に従って実施してくださ�
 ```markdown
 # QAエージェントに指示
 "統合テスト・E2Eテストを実施してください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 5-1 統合テスト・E2Eテストに従って実施してください。
 
 ## システム統合テスト
@@ -342,7 +342,7 @@ Phase 5-1 統合テスト・E2Eテストに従って実施してください。
 ```markdown
 # QAエージェント・リーダーエージェントに指示
 "最終品質確認・本番準備を実施してください。
-@ai-framework/project/06_multi_agent_operational_workflow.md の
+@ai-framework/06_multi_agent_operational_workflow.md の
 Phase 5-2 最終品質確認・本番準備に従って実施してください。
 
 ## 包括的品質確認
@@ -478,4 +478,4 @@ git subtree pull --prefix ai-framework ai-framework-remote main --squash --force
 
 ---
 
-*このガイドで基本的な使用は可能です。詳細が必要な場合は各プロジェクトドキュメント（ai-framework/project/）を参照してください。*
+*このガイドで基本的な使用は可能です。詳細が必要な場合は各プロジェクトドキュメント（ai-framework/）を参照してください。*

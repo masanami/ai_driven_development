@@ -19,10 +19,10 @@ AIマルチエージェント開発体制をセットアップしてください
 以下を読み込んでフレームワークを理解し、開発体制を構築してください：
 
 ## 📚 必須ドキュメント
-- @ai-framework/project/01_ai_driven_development_requirements.md
-- @ai-framework/project/02_agent_role_definitions.md  
-- @ai-framework/project/06_multi_agent_operational_workflow.md
-- @ai-framework/project/03_knowledge_base_architecture.md
+- @ai-framework/01_ai_driven_development_requirements.md
+- @ai-framework/02_agent_role_definitions.md
+- @ai-framework/06_multi_agent_operational_workflow.md
+- @ai-framework/03_knowledge_base_architecture.md
 
 ## 🎯 あなたの役割
 - **統合リーダー**: 要件整理・基本設計・統合指揮・進捗管理
