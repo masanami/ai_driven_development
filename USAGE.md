@@ -13,7 +13,8 @@
 mkdir my-new-project && cd my-new-project
 
 # 2. AIフレームワーク追加
-git submodule add <this-repo-url> ai-framework
+git remote add ai-framework-remote <this-repo-url>
+git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ
 mkdir -p .ai/{workflows,contexts,logs}
@@ -30,16 +31,14 @@ echo ".ai/agent_communication/processed/" >> .gitignore
 cd existing-project
 
 # 2. AIフレームワーク追加
-git submodule add <this-repo-url> ai-framework
+git remote add ai-framework-remote <this-repo-url>
+git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ  
 mkdir -p .ai/{workflows,contexts,logs}
 mkdir -p .ai/agent_communication/{inbox,outbox,processed,templates}
 echo ".ai/logs/" >> .gitignore
 echo ".ai/agent_communication/processed/" >> .gitignore
-
-# 4. サブモジュール初期化
-git submodule update --init --recursive
 ```
 
 ---
@@ -374,15 +373,10 @@ Phase 5-2 最終品質確認・本番準備に従って実施してください�
 
 ```bash
 # フレームワーク更新
-cd ai-framework
-git pull origin main
-cd ..
-git add ai-framework
-git commit -m "Update AI framework"
+git subtree pull --prefix ai-framework ai-framework-remote main --squash
 
 # チーム同期
 git pull
-git submodule update --recursive
 
 # 通信ファイルクリーンアップ
 rm -f .ai/agent_communication/processed/*
@@ -415,10 +409,10 @@ chmod 755 .ai/agent_communication/outbox/
 git worktree prune
 ```
 
-**Q: サブモジュール更新失敗**
+**Q: subtree更新失敗**
 ```bash
 # 強制更新
-git submodule update --init --recursive --force
+git subtree pull --prefix ai-framework ai-framework-remote main --squash --force
 ```
 
 ---

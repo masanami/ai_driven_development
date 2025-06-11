@@ -141,9 +141,10 @@
 
 ### **⚡ 5分クイックスタート**
 ```bash
-# 1. プロダクトリポジトリにサブモジュール追加
+# 1. プロダクトリポジトリにsubtree追加
 cd your-product
-git submodule add <this-repo-url> ai-framework
+git remote add ai-framework-remote <this-repo-url>
+git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 2. プロダクト固有設定ディレクトリ作成
 mkdir -p .ai/{overrides,project_docs,knowledge_base}
