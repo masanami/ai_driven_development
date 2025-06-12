@@ -11,42 +11,31 @@ AIエージェントの「長期記憶」と「共有知」として機能する
 
 ### 基本方針: AI-Driven Knowledge Management
 - **AI最優先**: YAML構造化データをマスターソースとして管理
-- **自動生成**: 人間用Markdownドキュメントの自動生成・同期
 - **構造化重視**: AIエージェントの処理効率を最大化
 - **セマンティック最適化**: 機械学習・自然言語処理に最適化された形式
 - **一貫性保証**: 構造化データによる品質・整合性の自動保証
+- **シンプル管理**: 単一ソース（docs/ai/）による統一管理
 
-### 二層アーキテクチャ
+### AI-First アーキテクチャ
 ```
 docs/ (Knowledge Base Root)
-├── ai/                              # AI主導層（マスターデータ）
-│   ├── 01_requirements_analysis/      # YAML構造化要件データ
-│   ├── 02_technical_architecture/     # YAML技術アーキテクチャ
-│   ├── 03_business_logic/            # YAML ビジネスロジック定義
-│   ├── 04_development_standards/      # YAML 開発標準・規約
-│   ├── 05_api_specifications/        # YAML API仕様データ
-│   ├── 06_quality_assurance/         # YAML 品質保証設定
-│   ├── 07_infrastructure/            # YAML インフラ設定
-│   ├── 08_user_experience/           # YAML UX/UI データ
-│   └── 09_knowledge_management/      # YAML メタ管理データ
-└── human/                           # 人間参照層（自動生成）
-    ├── 01_requirements_analysis/      # 自動生成Markdownドキュメント
-    ├── 02_technical_architecture/     
-    ├── 03_business_logic/            
-    ├── 04_development_standards/      
-    ├── 05_api_specifications/        
-    ├── 06_quality_assurance/         
-    ├── 07_infrastructure/            
-    ├── 08_user_experience/           
-    └── 09_knowledge_management/      
+└── ai/                              # AI主導層（統一管理）
+    ├── 01_requirements_analysis/      # YAML構造化要件データ
+    ├── 02_technical_architecture/     # YAML技術アーキテクチャ
+    ├── 03_business_logic/            # YAML ビジネスロジック定義
+    ├── 04_development_standards/      # YAML 開発標準・規約
+    ├── 05_api_specifications/        # YAML API仕様データ
+    ├── 06_quality_assurance/         # YAML 品質保証設定
+    ├── 07_infrastructure/            # YAML インフラ設定
+    ├── 08_user_experience/           # YAML UX/UI データ
+    └── 09_knowledge_management/      # YAML メタ管理データ
 ```
 
 ### AI-First ストレージ戦略
-- **マスターデータ**: YAML構造化ファイル (ai/ディレクトリ)
+- **マスターデータ**: YAML構造化ファイル (docs/ai/ディレクトリ)
 - **セマンティック処理**: OpenAI Embeddings + Vector Database
-- **自動変換**: YAML → Markdown自動生成エンジン
-- **リアルタイム同期**: GitHub Actions (AIエージェント活動トリガー)
 - **品質保証**: YAML Schema バリデーション + 自動テスト
+- **直接アクセス**: AIエージェントによる直接読み書き最適化
 
 ---
 
@@ -86,16 +75,7 @@ ai/01_requirements_analysis/
     └── dependency_graph.yaml        # 🕸️ 依存関係グラフ
 ```
 
-#### 📖 自動生成ドキュメント (human/01_requirements_analysis/)
-```
-human/01_requirements_analysis/
-├── README.md                        # 📖 自動生成ナビゲーション
-├── business_overview.md             # 📝 ビジネス要求概要
-├── user_stories_guide.md            # 👥 ユーザーストーリーガイド
-├── acceptance_criteria_list.md      # ✅ 受入基準一覧
-├── technical_requirements.md        # ⚙️ 技術要件サマリー
-└── requirements_dashboard.md        # 📊 要件ダッシュボード
-```
+
 
 #### 🤖 YAML構造化データ例
 ```yaml
@@ -144,31 +124,7 @@ stories:
       updated_at: "2024-12-29T10:00:00Z"
 ```
 
-#### 🔄 自動生成例 (Markdown)
-```markdown
-# ユーザーストーリーガイド
 
-> 🤖 このドキュメントはAIシステムにより自動生成されています
-> 📅 最終更新: 2024-12-29 10:00:00
-
-## 📋 ストーリー一覧
-
-### 🔴 高優先度ストーリー
-
-#### US001: ユーザー登録機能 
-**ユーザーとして**、メールアドレスとパスワードでアカウントを作成したい
-**なぜなら**、サービスを利用開始できるため
-
-**受入基準:**
-- ✅ 有効なメールアドレス形式でのみ登録可能
-- ✅ パスワードは8文字以上で英数字記号混在
-
-**詳細情報:**
-- 優先度: 高
-- 工数見積: 13ポイント
-- リスクレベル: 中
-- 関連機能: メール認証、パスワードポリシー
-```
 
 #### 👥 管理責任: PM-Tech Lead Agent (YAML直接操作)
 
@@ -458,22 +414,22 @@ ai/09_knowledge_management/
 
 ---
 
-## 🔄 AI-First 自動生成システム
+## 🔄 AI-First データ管理システム
 
-### YAML → Markdown 変換エンジン
+### YAML構造化データ管理
 ```yaml
-自動生成プロセス:
-  1. YAML構造化データの更新検知
+データ管理プロセス:
+  1. YAML構造化データの直接更新
   2. スキーマバリデーション・品質チェック
-  3. テンプレートエンジンによるMarkdown生成
-  4. 人間用ナビゲーション・リンクの自動作成
-  5. GitHub Actions によるhuman/ディレクトリ更新
+  3. AIエージェント間のデータ共有・同期
+  4. セマンティック検索・関係性分析
+  5. 自動品質監視・改善提案
 
-生成規則:
-  - YAML metadata → Frontmatter変換
-  - 構造化データ → 読みやすい表・リスト形式
-  - 関係性データ → クロスリファレンスリンク
-  - 自動目次・索引・検索支援の生成
+管理規則:
+  - YAML metadata による構造化管理
+  - 関係性データによるクロスリファレンス
+  - 自動インデックス・検索最適化
+  - AIエージェント直接アクセス最適化
 ```
 
 ### 品質保証システム
@@ -484,11 +440,11 @@ ai/09_knowledge_management/
   - 依存関係検証
   - パフォーマンス影響分析
 
-生成品質管理:
-  - Markdownの読みやすさスコア
-  - リンク切れ検出
-  - 構造の一貫性確認
-  - アクセシビリティチェック
+データ品質管理:
+  - 構造化データの一貫性確認
+  - セマンティック関係性検証
+  - AIアクセス効率最適化
+  - 知識ベース完全性チェック
 ```
 
 ---
@@ -501,22 +457,22 @@ AI最優先基盤セットアップ:
   - YAML Schema定義・バリデーション設定
   - AIエージェント直接操作環境構築
   - 構造化データ品質管理システム
-  - 基本的なYAML→Markdown変換エンジン
+  - セマンティック検索・インデックス構築
 
 既存docs/からAI-First移行:
   - 既存Markdownファイル → YAML構造化データ抽出
-  - requirements_definition/ → ai/01_requirements_analysis/
-  - design/ → ai/02_technical_architecture/ + ai/03_business_logic/
-  - procedure/ → ai/04_development_standards/ + ai/07_infrastructure/
+  - requirements_definition/ → docs/ai/01_requirements_analysis/
+  - design/ → docs/ai/02_technical_architecture/ + docs/ai/03_business_logic/
+  - procedure/ → docs/ai/04_development_standards/ + docs/ai/07_infrastructure/
 ```
 
-### Phase 2: 自動生成システム稼働 (Week 3-4)
+### Phase 2: AI直接アクセス最適化 (Week 3-4)
 ```yaml
-完全自動化実現:
-  - 高品質Markdown自動生成システム
+AI処理最適化実現:
+  - 高速YAML直接アクセスシステム
   - リアルタイム同期・更新システム
   - AIエージェント知識アクセス最適化
-  - 人間用ナビゲーション・検索システム
+  - セマンティック関係性分析強化
 
 品質管理強化:
   - 自動品質チェック・アラート
@@ -530,7 +486,7 @@ AI自律システム完成:
   - AIエージェント主導の知識更新・学習
   - 高度なセマンティック検索・推奨
   - 自己改善・最適化システム
-  - 人間フィードバック統合システム
+  - 構造化データ品質自動管理
 ```
 
 ---
@@ -540,7 +496,6 @@ AI自律システム完成:
 ### AI処理効率指標
 ```yaml
 処理効率:
-  - YAML直接操作によるAI処理速度: >5倍向上
   - 構造化データ検索精度: >95%
   - 自動タスク完了率: >90%
   - エージェント間協調効率: <1min平均
@@ -549,18 +504,15 @@ AI自律システム完成:
   - 構造化データ整合性: >99%
   - 自動バリデーション成功率: >98%
   - 知識ベース最新性: >95%
-  - 自動生成Markdown品質スコア: >4.0/5.0
 ```
 
-### 人間利用効率指標
+### システム運用効率指標
 ```yaml
-使いやすさ（自動生成ドキュメント）:
-  - 情報検索時間: <1分平均（自動生成による改善）
-  - ドキュメント理解度: >90%
-  - 自動生成品質満足度: >4.0/5.0
-  - 手動更新作業削減率: >80%
+運用効率:
+  - YAML直接アクセス速度: <100ms平均
+  - 知識ベース更新自動化率: >90%
 ```
 
 ---
 
-*この知識ベース設計は、AIエージェントの処理効率を最大化し、構造化データ主導による高品質な自動化開発環境を実現します。人間用ドキュメントは高品質な自動生成により提供され、AI-Firstの開発プロセスを支援します。* 
+*この知識ベース設計は、AIエージェントの処理効率を最大化し、YAML構造化データによる統一管理でシンプルかつ高品質な自動化開発環境を実現します。AI-Firstの開発プロセスを直接的にサポートし、効率的な知識管理を提供します。* 
