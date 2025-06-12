@@ -14,8 +14,6 @@
 ## 📚 必須ドキュメント
 - @ai-framework/02_agent_role_definitions.md
 - @ai-framework/06_multi_agent_operational_workflow.md
-- docs/ai/01_requirements_analysis/ （要件定義データ）
-- docs/ai/02_technical_architecture/ （基本設計データ）
 
 ## 🎯 あなたの役割
 - **タスク**: [具体的なタスク名を記載]
@@ -71,6 +69,12 @@ TDD並列実装の準備が完了しました。タスク配布をお待ちし�
 - **依存関係**: [他のタスクとの連携事項]
 - **レビュー要件**: [特別なレビュー観点]
 ```
+
+### **プロジェクト知識ベース**
+- .ai/knowledge_base/01_requirements_analysis/ （要件定義データ）
+- .ai/knowledge_base/02_technical_architecture/ （基本設計データ）
+- .ai/contexts/ （プロジェクト固有コンテキスト）
+- .ai/workflows/ （開発手順・ワークフロー）
 
 ---
 

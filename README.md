@@ -176,12 +176,12 @@ git worktree add ../agent-your-feature feature/your-feature
 ```
 your-project/
 ├── ai-framework/               # 共通フレームワーク（直接編集可能）
-├── docs/ai/                    # プロジェクト固有データ
-│   ├── 01_requirements_analysis/
-│   ├── 02_technical_architecture/
-│   ├── 03_development_progress/
-│   └── 04_quality_assurance/
 ├── .ai/
+│   ├── knowledge_base/         # AI用構造化データ（YAML中心）
+│   │   ├── 01_requirements_analysis/  # 要件定義YAML
+│   │   ├── 02_technical_architecture/  # 技術設計YAML
+│   │   ├── 03_development_progress/    # 開発進捗YAML
+│   │   └── 04_quality_assurance/       # QA結果YAML
 │   ├── workflows/              # 作業手順
 │   ├── contexts/               # プロジェクト知識
 │   ├── logs/                   # 開発記録
@@ -194,11 +194,10 @@ your-project/
 {
   "ai.referenceDirectories": [
     "ai-framework/",
-    "docs/ai/",
     ".ai/"
   ],
   "ai.directoryPriorities": {
-    "docs/ai/": "highest",
+    ".ai/knowledge_base/": "highest",
     "ai-framework/": "medium",
     ".ai/": "low"
   }
@@ -206,19 +205,29 @@ your-project/
 ```
 
 ### **参照優先順位**
-1. **最優先**: `docs/ai/` - プロジェクト固有データ
+1. **最優先**: `.ai/knowledge_base/` - AI用構造化データ（YAML中心）
 2. **中優先**: `ai-framework/` - 共通フレームワーク（プロジェクト用にカスタマイズ可能）
-3. **低優先**: `.ai/` - 作業用データ
+3. **低優先**: `.ai/` - 作業用データ・ログ・通信ファイル
 
-**例**: 同名ファイルがある場合 → `docs/ai/` 版を優先参照
+**役割分担**:
+- `.ai/knowledge_base/`: AIエージェントが読み書きする構造化データ
+- `.ai/`: 作業用データ・ログ・通信ファイル
 
 ### **カスタマイズ方法**
 
-#### **パターン1: プロジェクト固有データ作成**
+#### **パターン1: AI用構造化データ作成**
 ```bash
-# docs/ai/ にプロジェクト固有ファイルを作成
-mkdir -p docs/ai/custom_specs/
-echo "# プロジェクト固有仕様" > docs/ai/custom_specs/project_requirements.md
+# .ai/knowledge_base/ にYAML構造化データを作成
+mkdir -p .ai/knowledge_base/custom_specs/
+cat > .ai/knowledge_base/custom_specs/project_config.yaml << EOF
+project:
+  name: "My Project"
+  type: "web_application"
+  tech_stack:
+    - "Next.js"
+    - "TypeScript"
+    - "PostgreSQL"
+EOF
 ```
 
 #### **パターン2: フレームワークファイル直接編集**
@@ -240,16 +249,14 @@ git subtree pull --prefix ai-framework ai-framework-remote main --squash
 git log --oneline ai-framework/
 ```
 
-### **�� プロンプト例**
-
 ### **基本セットアップ**
 ```markdown
 このプロジェクトはAI駆動マルチエージェント開発フレームワークを使用しています。
 
 ## 参照優先順位
-1. docs/ai/ - プロジェクト固有データ（最優先）
+1. .ai/knowledge_base/ - AI用構造化データ（最優先）
 2. ai-framework/ - 共通フレームワーク
-3. .ai/ - 作業用データ
+3. .ai/ - 作業用データ・ログ・通信ファイル
 
 ## 主要参照ファイル
 - ai-framework/01_ai_driven_development_requirements.md
@@ -257,21 +264,22 @@ git log --oneline ai-framework/
 - ai-framework/03_knowledge_base_architecture.md
 - ai-framework/06_multi_agent_operational_workflow.md
 
-プロジェクト固有の要件は docs/ai/ 配下を参照してください。
+## データ格納場所
+- AI用構造化データ: .ai/knowledge_base/ 配下（YAML中心）
 ```
 
 ### **要件定義フェーズ**
 ```markdown
 @ai-framework/03_knowledge_base_architecture.md のAI-First アーキテクチャに従って、
-docs/ai/01_requirements_analysis/ 配下に要件定義を作成してください。
+.ai/knowledge_base/01_requirements_analysis/ 配下に要件定義をYAML形式で作成してください。
 
-段階的にヒアリングして、YAML構造化データとして精緻に作成してください。
+段階的にヒアリングして、構造化データとして精緻に作成してください。
 ```
 
 ### **設計フェーズ**  
 ```markdown
 @ai-framework/06_multi_agent_operational_workflow.md の Phase 1-2 に従って、
-docs/ai/02_technical_architecture/ 配下に技術設計を作成してください。
+.ai/knowledge_base/02_technical_architecture/ 配下に技術設計をYAML形式で作成してください。
 
 以下を段階的に設計してください：
 1. 技術スタック選定
@@ -290,6 +298,8 @@ docs/ai/02_technical_architecture/ 配下に技術設計を作成してくださ
 
 Red-Green-Refactorサイクルで実装し、
 進捗は .ai/agent_communication/outbox/ に報告してください。
+
+実装ログは .ai/logs/ に記録してください。
 ```
 
 ### **QAフェーズ**
@@ -303,7 +313,7 @@ QAエージェントとして品質保証を実施してください。
 3. E2Eテスト実行
 4. パフォーマンステスト
 
-結果は docs/ai/04_quality_assurance/ に記録してください。
+結果は .ai/knowledge_base/04_quality_assurance/ にYAML形式で記録してください。
 ```
 
 ---

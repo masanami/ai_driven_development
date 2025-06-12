@@ -1,4 +1,4 @@
-# 知識ベース設計・構築計画
+# 🧠 AI-First 知識ベースアーキテクチャ
 
 ## 📚 知識ベース概要
 
@@ -18,8 +18,8 @@ AIエージェントの「長期記憶」と「共有知」として機能する
 
 ### AI-First アーキテクチャ
 ```
-docs/ (Knowledge Base Root)
-└── ai/                              # AI主導層（統一管理）
+.ai/ (Knowledge Base Root)
+└── knowledge_base/                   # AI主導層（統一管理）
     ├── 01_requirements_analysis/      # YAML構造化要件データ
     ├── 02_technical_architecture/     # YAML技術アーキテクチャ
     ├── 03_business_logic/            # YAML ビジネスロジック定義
@@ -32,7 +32,7 @@ docs/ (Knowledge Base Root)
 ```
 
 ### AI-First ストレージ戦略
-- **マスターデータ**: YAML構造化ファイル (docs/ai/ディレクトリ)
+- **マスターデータ**: YAML構造化ファイル (.ai/knowledge_base/ディレクトリ)
 - **セマンティック処理**: OpenAI Embeddings + Vector Database
 - **品質保証**: YAML Schema バリデーション + 自動テスト
 - **直接アクセス**: AIエージェントによる直接読み書き最適化
@@ -46,9 +46,9 @@ docs/ (Knowledge Base Root)
 #### 🎯 AI-First 設計思想
 AIエージェントが直接操作・更新できる構造化要件データを中心とした管理
 
-#### 📄 AI主導ファイル構成 (ai/01_requirements_analysis/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/01_requirements_analysis/)
 ```
-ai/01_requirements_analysis/
+.ai/knowledge_base/01_requirements_analysis/
 ├── _meta/
 │   ├── category_config.yaml         # カテゴリ設定・ルール
 │   ├── validation_schema.yaml       # バリデーションスキーマ
@@ -135,9 +135,9 @@ stories:
 #### 🎯 AI-First 設計思想
 技術的意思決定をAIエージェントが自律的に管理・更新できる構造化アーキテクチャ定義
 
-#### 📄 AI主導ファイル構成 (ai/02_technical_architecture/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/02_technical_architecture/)
 ```
-ai/02_technical_architecture/
+.ai/knowledge_base/02_technical_architecture/
 ├── _meta/
 │   ├── architecture_schema.yaml     # アーキテクチャスキーマ定義
 │   ├── validation_rules.yaml        # 技術制約・バリデーション
@@ -171,9 +171,9 @@ ai/02_technical_architecture/
 
 ### 03_Business_Logic/ - ビジネスロジック・ドメイン知識
 
-#### 📄 AI主導ファイル構成 (ai/03_business_logic/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/03_business_logic/)
 ```
-ai/03_business_logic/
+.ai/knowledge_base/03_business_logic/
 ├── _meta/
 │   ├── domain_schema.yaml           # ドメインモデルスキーマ
 │   ├── business_rules_schema.yaml   # ビジネスルール定義スキーマ
@@ -206,9 +206,9 @@ ai/03_business_logic/
 
 ### 04_Development_Standards/ - 開発標準・コーディング規約
 
-#### 📄 AI主導ファイル構成 (ai/04_development_standards/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/04_development_standards/)
 ```
-ai/04_development_standards/
+.ai/knowledge_base/04_development_standards/
 ├── _meta/
 │   ├── standards_schema.yaml        # 開発標準スキーマ
 │   ├── enforcement_rules.yaml       # 強制ルール・自動チェック
@@ -241,9 +241,9 @@ ai/04_development_standards/
 
 ### 05_API_Specifications/ - API仕様・インターフェース
 
-#### 📄 AI主導ファイル構成 (ai/05_api_specifications/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/05_api_specifications/)
 ```
-ai/05_api_specifications/
+.ai/knowledge_base/05_api_specifications/
 ├── _meta/
 │   ├── api_schema_definitions.yaml  # API スキーマ定義
 │   ├── validation_rules.yaml        # API仕様バリデーション
@@ -276,9 +276,9 @@ ai/05_api_specifications/
 
 ### 06_Quality_Assurance/ - 品質保証・テスト戦略
 
-#### 📄 AI主導ファイル構成 (ai/06_quality_assurance/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/06_quality_assurance/)
 ```
-ai/06_quality_assurance/
+.ai/knowledge_base/06_quality_assurance/
 ├── _meta/
 │   ├── qa_schema.yaml               # QA データスキーマ
 │   ├── automation_config.yaml       # テスト自動化設定
@@ -311,9 +311,9 @@ ai/06_quality_assurance/
 
 ### 07_Infrastructure/ - インフラ・運用知識
 
-#### 📄 AI主導ファイル構成 (ai/07_infrastructure/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/07_infrastructure/)
 ```
-ai/07_infrastructure/
+.ai/knowledge_base/07_infrastructure/
 ├── _meta/
 │   ├── infrastructure_schema.yaml   # インフラスキーマ定義
 │   ├── automation_rules.yaml        # 自動化ルール
@@ -346,9 +346,9 @@ ai/07_infrastructure/
 
 ### 08_User_Experience/ - UX/UI設計知識
 
-#### 📄 AI主導ファイル構成 (ai/08_user_experience/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/08_user_experience/)
 ```
-ai/08_user_experience/
+.ai/knowledge_base/08_user_experience/
 ├── _meta/
 │   ├── design_system_schema.yaml    # デザインシステムスキーマ
 │   ├── ux_metrics_config.yaml       # UXメトリクス設定
@@ -381,9 +381,9 @@ ai/08_user_experience/
 
 ### 09_Knowledge_Management/ - AIエージェント学習・知識管理
 
-#### 📄 AI主導ファイル構成 (ai/09_knowledge_management/)
+#### 📄 AI主導ファイル構成 (.ai/knowledge_base/09_knowledge_management/)
 ```
-ai/09_knowledge_management/
+.ai/knowledge_base/09_knowledge_management/
 ├── _meta/
 │   ├── knowledge_schema.yaml        # 知識管理スキーマ
 │   ├── learning_algorithms.yaml     # 学習アルゴリズム設定
@@ -459,11 +459,12 @@ AI最優先基盤セットアップ:
   - 構造化データ品質管理システム
   - セマンティック検索・インデックス構築
 
-既存docs/からAI-First移行:
+既存プロジェクトからAI-First移行:
   - 既存Markdownファイル → YAML構造化データ抽出
-  - requirements_definition/ → docs/ai/01_requirements_analysis/
-  - design/ → docs/ai/02_technical_architecture/ + docs/ai/03_business_logic/
-  - procedure/ → docs/ai/04_development_standards/ + docs/ai/07_infrastructure/
+  - requirements_document → .ai/knowledge_base/01_requirements_analysis/
+  - architecture_document → .ai/knowledge_base/02_technical_architecture/
+  - specifications_document → .ai/knowledge_base/03_business_logic/
+  - procedures_document → .ai/knowledge_base/04_development_standards/
 ```
 
 ### Phase 2: AI直接アクセス最適化 (Week 3-4)
@@ -515,4 +516,4 @@ AI自律システム完成:
 
 ---
 
-*この知識ベース設計は、AIエージェントの処理効率を最大化し、YAML構造化データによる統一管理でシンプルかつ高品質な自動化開発環境を実現します。AI-Firstの開発プロセスを直接的にサポートし、効率的な知識管理を提供します。* 
+*この知識ベース設計は、AIエージェントの処理効率を最大化し、YAML構造化データによる統一管理でシンプルかつ高品質な自動化開発環境を実現します。AI-Firstの開発プロセスを直接的にサポートし、効率的な知識管理を提供します。*

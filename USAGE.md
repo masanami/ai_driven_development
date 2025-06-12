@@ -98,7 +98,7 @@ your-project/
 "新しいプロジェクトの要件定義を作成します。
 @ai-framework/03_knowledge_base_architecture.md の
 AI-First YAML主導アーキテクチャに従って、
-docs/ai/01_requirements_analysis/ 配下に構造化データを作成してください。
+.ai/knowledge_base/01_requirements_analysis/ 配下に構造化データを作成してください。
 
 ビジネス要求から詳細なユーザーストーリーまで、
 段階的にヒアリングして精緻に作成してください。"
@@ -123,7 +123,7 @@ docs/ai/01_requirements_analysis/ 配下に構造化データを作成してく�
 "要件定義に基づいて基本設計を行ってください。
 @ai-framework/06_multi_agent_operational_workflow.md の
 Phase 1-2 基本設計・協働準備に従って、
-docs/ai/02_technical_architecture/ 配下に構造化データを作成してください。
+.ai/knowledge_base/02_technical_architecture/ 配下に構造化データを作成してください。
 
 以下の設計を段階的にヒアリングして精緻に作成してください：
 1. 技術スタック選定
