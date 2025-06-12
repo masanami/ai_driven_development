@@ -172,152 +172,138 @@ git worktree add ../agent-your-feature feature/your-feature
 
 ## 🎨 プロジェクト固有カスタマイズ
 
-### **📚 知識ベース・ドキュメントのカスタマイズ方法**
-
-共通フレームワーク（`ai-framework/`）をプロジェクトごとにカスタマイズする**オーバーライド方式**：
-
-```bash
-# プロダクト固有の知識ベース構築
-your-product/
-├── ai-framework/                    # 共通フレームワーク（読み取り専用）
-├── docs/
-│   └── ai/                          # AI-First構造化データ（統一管理）
-│       ├── 01_requirements_analysis/  # YAML構造化要件データ
-│       ├── 02_technical_architecture/  # YAML技術アーキテクチャ
-│       ├── 03_business_logic/          # YAML ビジネスロジック定義
-│       └── ...                         # その他のカテゴリ
-└── .ai/
-    ├── overrides/                   # フレームワーク拡張・上書き
-    │   ├── 03_knowledge_base_architecture_custom.md
-    │   └── 02_agent_role_definitions_extended.md
-    ├── contexts/                    # プロダクト固有コンテキスト
-    └── templates/                   # カスタムテンプレート
+### **プロジェクト構造**
+```
+your-project/
+├── ai-framework/               # 共通フレームワーク（直接編集可能）
+├── docs/ai/                    # プロジェクト固有データ
+│   ├── 01_requirements_analysis/
+│   ├── 02_technical_architecture/
+│   ├── 03_development_progress/
+│   └── 04_quality_assurance/
+├── .ai/
+│   ├── workflows/              # 作業手順
+│   ├── contexts/               # プロジェクト知識
+│   ├── logs/                   # 開発記録
+│   └── agent_communication/    # エージェント間通信
+└── src/                        # プロダクトコード
 ```
 
-### **🌟 オーバーライド方式の特徴**
-- **共通フレームワーク更新の恩恵**を受けながらカスタマイズ可能
-- **プロジェクト固有設定**を最優先で適用
-- **Claude Codeの優先度設定**でスムーズな参照
-- **チーム開発**でも混乱しない明確な構造
-
-### **🔧 Claude Code設定（カスタマイズ対応）**
-
+### **Claude Code設定 (.claude/settings.json)**
 ```json
-// .claude/settings.json
 {
   "ai.referenceDirectories": [
-    "ai-framework/",                  // 共通フレームワーク
-    "docs/ai/",                       // AI-First構造化データ
-    ".ai/overrides/",                 // オーバーライド設定
-    "src/"                            // プロダクトコード
+    "ai-framework/",
+    "docs/ai/",
+    ".ai/"
   ],
-  "ai.priority": {
-    ".ai/overrides/": "highest",      // カスタマイズが最優先
-    "docs/ai/": "high",               // AI-First構造化データが次
-    "ai-framework/": "medium"         // 共通フレームワークは補完
+  "ai.directoryPriorities": {
+    "docs/ai/": "highest",
+    "ai-framework/": "medium",
+    ".ai/": "low"
   }
 }
 ```
 
-### **💬 プロンプト指示例（オーバーライド優先）**
+### **参照優先順位**
+1. **最優先**: `docs/ai/` - プロジェクト固有データ
+2. **中優先**: `ai-framework/` - 共通フレームワーク（プロジェクト用にカスタマイズ可能）
+3. **低優先**: `.ai/` - 作業用データ
 
-#### **Claude Code（Leader Agent）への指示**
-```markdown
-## 📋 参照優先度（重要）
-以下の順序で情報を参照してください：
+**例**: 同名ファイルがある場合 → `docs/ai/` 版を優先参照
 
-1. **最優先**: `.ai/overrides/` - プロジェクト特化カスタマイズ
-2. **高優先**: `docs/ai/` - AI-First構造化データ
-3. **補完用**: `ai-framework/` - 共通フレームワーク（ベース）
+### **カスタマイズ方法**
 
-⚠️ **重要**: 同じ内容の情報がある場合、必ず上位の優先度を採用してください。
-例：`03_knowledge_base_architecture.md` が複数ある場合 → `.ai/overrides/` 版を使用
-
-## 🎯 このプロジェクトの特徴
-- 業界: [ECサイト/SaaS/など]
-- 技術スタック: [Next.js, TypeScript, など]
-- 特化エージェント: [agent-payment-integration, agent-seo-optimization, など]
+#### **パターン1: プロジェクト固有データ作成**
+```bash
+# docs/ai/ にプロジェクト固有ファイルを作成
+mkdir -p docs/ai/custom_specs/
+echo "# プロジェクト固有仕様" > docs/ai/custom_specs/project_requirements.md
 ```
 
-#### **Claude Code（Engineer Agents）への指示**
-```markdown
-## 🤖 エージェント作業指示
-
-### 📚 情報参照ルール
-**オーバーライド優先**: 以下の順で情報を確認してください
-1. `.ai/overrides/XX_custom.md` ← **最優先**
-2. `docs/ai/XX/` ← AI-First構造化データ
-3. `ai-framework/XX.md` ← 補完用
-
-### 🔧 実装ルール  
-- **プロジェクト固有設定**（`.ai/`）を基準に実装
-- 共通フレームワークは**参考程度**に留める
-- カスタムエージェント定義に従って機能実装
-
-### 例：知識ベース参照時
-❌ `ai-framework/03_knowledge_base_architecture.md`だけ見る
-⭕ `.ai/overrides/03_knowledge_base_architecture_custom.md`を**最優先**で参照
+#### **パターン2: フレームワークファイル直接編集**
+```bash
+# ai-framework/ のファイルを直接編集
+vim ai-framework/03_knowledge_base_architecture.md
+# プロジェクト固有の変更を直接記述
 ```
 
-#### **QA Agent専用指示**
-```markdown
-## 🧪 テスト・品質保証指示
+### **フレームワーク更新時の運用**
+```bash
+# 1. フレームワーク更新
+git subtree pull --prefix ai-framework ai-framework-remote main --squash
 
-### 📋 テスト基準の優先度
-1. `.ai/overrides/qa_standards_custom.md` ← **プロジェクト特化基準**
-2. `docs/ai/06_quality_assurance/` ← AI-First品質保証データ
-3. `ai-framework/06_multi_agent_operational_workflow.md` ← 基本フロー
+# 2. コンフリクトがある場合は手動解決
+# プロジェクト固有の変更を維持しながらマージ
 
-### 🎯 プロジェクト特化テスト
-- **業界固有のテストケース**を重視
-- **カスタムエージェントの動作確認**
-- **プロジェクト固有の品質基準**を適用
-
-例：ECサイトの場合
-- 決済処理の完全性テスト
-- 在庫同期の整合性テスト  
-- SEO要件の充足確認
+# 3. 更新内容確認
+git log --oneline ai-framework/
 ```
 
-### **📝 実用的なプロンプトテンプレート**
+### **�� プロンプト例**
 
-#### **開発開始時の基本プロンプト**
+### **基本セットアップ**
 ```markdown
-# 🚀 [プロジェクト名] 開発開始
+このプロジェクトはAI駆動マルチエージェント開発フレームワークを使用しています。
 
-## 📚 参照情報の優先度
-`.ai/overrides/` > `docs/ai/` > `ai-framework/`
+## 参照優先順位
+1. docs/ai/ - プロジェクト固有データ（最優先）
+2. ai-framework/ - 共通フレームワーク
+3. .ai/ - 作業用データ
 
-## 🎯 今回のタスク
-[具体的なタスク内容]
+## 主要参照ファイル
+- ai-framework/01_ai_driven_development_requirements.md
+- ai-framework/02_agent_role_definitions.md  
+- ai-framework/03_knowledge_base_architecture.md
+- ai-framework/06_multi_agent_operational_workflow.md
 
-## ⚠️ 重要な注意事項
-- プロジェクト特化設定（`.ai/`配下）を**必ず最優先**で参照
-- 共通フレームワークは基本的なフロー理解のみに使用
-- カスタムエージェント定義（`docs/ai/02_technical_architecture/`）に従って実装
-
-## 🔧 参照すべき特化ドキュメント
-- [ ] `.ai/overrides/03_knowledge_base_architecture_custom.md`
-- [ ] `docs/ai/02_technical_architecture/`
-- [ ] `docs/ai/01_requirements_analysis/`
+プロジェクト固有の要件は docs/ai/ 配下を参照してください。
 ```
 
-#### **機能実装時のプロンプト例**
+### **要件定義フェーズ**
 ```markdown
-# 🛠️ [機能名] 実装タスク
+@ai-framework/03_knowledge_base_architecture.md のAI-First アーキテクチャに従って、
+docs/ai/01_requirements_analysis/ 配下に要件定義を作成してください。
 
-@.ai/overrides/02_agent_role_definitions_extended.md を参照して、
-この機能に最適なエージェント構成で実装してください。
+段階的にヒアリングして、YAML構造化データとして精緻に作成してください。
+```
 
-## 📋 実装方針
-1. **プロジェクト特化設定を最優先**で適用
-2. `docs/ai/02_technical_architecture/` の技術スタックに準拠
-3. カスタムエージェント（agent-[feature-name]）として実装
+### **設計フェーズ**  
+```markdown
+@ai-framework/06_multi_agent_operational_workflow.md の Phase 1-2 に従って、
+docs/ai/02_technical_architecture/ 配下に技術設計を作成してください。
 
-## ⚠️ 絶対に確認すること
-- [ ] `.ai/overrides/` にカスタマイズ版があるか確認
-- [ ] プロジェクト特化の制約・要件を反映
-- [ ] 業界固有のベストプラクティスを適用
+以下を段階的に設計してください：
+1. 技術スタック選定
+2. システムアーキテクチャ設計  
+3. データベース設計
+4. API仕様設計
+```
+
+### **実装フェーズ**
+```markdown
+@ai-framework/engineer_agent_setup_template.md を参照して、
+エンジニアエージェントとしてTDD実装を開始してください。
+
+担当タスク: [具体的なタスク名]
+作業ブランチ: [ブランチ名]
+
+Red-Green-Refactorサイクルで実装し、
+進捗は .ai/agent_communication/outbox/ に報告してください。
+```
+
+### **QAフェーズ**
+```markdown
+@ai-framework/qa_agent_setup_template.md を参照して、
+QAエージェントとして品質保証を実施してください。
+
+以下のテストを実行してください：
+1. 単体テスト検証
+2. 統合テスト実行
+3. E2Eテスト実行
+4. パフォーマンステスト
+
+結果は docs/ai/04_quality_assurance/ に記録してください。
 ```
 
 ---
