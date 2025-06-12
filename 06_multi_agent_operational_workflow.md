@@ -71,7 +71,7 @@ workflow:
   5. 最終要件定義書の確定
 
 deliverables:
-  - 要件定義書 (GitHub Wiki)
+  - 要件定義書 (.ai/knowledge_base/01_requirements_analysis/)
   - 機能要求一覧 (GitHub Issues)
   - 受け入れ基準 (GitHub Issues)
 ```
@@ -109,6 +109,16 @@ workflow:
   4. 並列実行可能なタスクを特定
   5. タスク優先度付け
 
+execution_details:
+  task_breakdown_process:
+    - 機能要求を並列実行可能なタスクに分割
+    - タスク間の依存関係を分析・整理
+    - タスク優先度付け
+    - 実装スケジュール作成
+  
+  completion_action:
+    - テスト設計とのタスク分割結果を共有
+
 deliverables:
   - タスク分割表 (GitHub Issues)
   - 依存関係図
@@ -119,6 +129,10 @@ deliverables:
 ```yaml
 参加者: QAエージェント (Claude Code)
 トリガー: 基本設計完了・ユーザーのテスト設計指示
+
+setup_requirement:
+  - QAエージェント（Claude Code）起動・指示
+  - @ai-framework/qa_agent_setup_template.md の基本セットアップ指示を使用
 
 tdd_preparation:
   test_strategy:
@@ -139,6 +153,16 @@ tdd_preparation:
     - テスト環境要件
     - CI/CDテストパイプライン設計
 
+execution_details:
+  implementation_tasks:
+    - テスト駆動開発戦略の策定
+    - 機能別テストケース設計
+    - テストデータ設計・モック・スタブ仕様
+    - CI/CDテストパイプライン設計
+  
+  completion_action:
+    - TDD実装ガイドライン・テストケース仕様書を配布
+
 deliverables:
   - TDD実装ガイドライン
   - 機能別テストケース仕様書
@@ -150,7 +174,7 @@ deliverables:
 #### **2-3. 並列環境構築** 🤖
 ```yaml
 参加者: リーダーエージェント
-トリガー: ユーザーの環境構築指示
+トリガー: ユーザーの環境構築指示（タスク分割完了後）
 
 environment_setup:
   git_worktree_creation:
@@ -173,6 +197,16 @@ environment_isolation:
   - データベース接続情報の個別設定
   - ポート番号の重複回避設定
   - テスト実行ポートの分離
+
+execution_details:
+  implementation_tasks:
+    - 機能別ブランチの作成
+    - git worktree環境の構築
+    - 各エージェント専用作業ディレクトリの準備
+    - テスト実行環境の分離設定
+  
+  completion_action:
+    - 環境構築状況を整理して確認をお願いします
 ```
 
 ### **Phase 3: TDD並列実装**
@@ -181,6 +215,35 @@ environment_isolation:
 ```yaml
 参加者: エンジニアエージェント (複数Claude Code)
 トリガー: リーダーエージェントのタスク配布・テスト仕様完了
+
+preparation_checklist:
+  - タスク分割の妥当性・粒度確認
+  - 依存関係・実行順序の確認
+  - TDD戦略・テスト設計の確認
+  - git worktree環境・ブランチ構成の確認
+  - エージェント配置・役割分担の確認
+
+setup_requirements:
+  engineer_agent_setup:
+    - @ai-framework/engineer_agent_setup_template.md の基本セットアップ指示を使用
+    - 各エンジニアエージェントを起動・設定
+
+execution_workflow:
+  implementation_steps:
+    - 各タスクに対応するClaude Codeエンジニアエージェントの起動・配置
+    - セットアップテンプレートを使用したエージェント初期化
+    - git worktree環境での作業開始指示
+    - TDD（Red-Green-Refactor）サイクルでの実装指示
+    - エージェント間通信体制の確立・監視開始
+
+agent_communication_management:
+  periodic_instructions:
+    - "各エージェント、受信ファイル（.ai/agent_communication/inbox/）を確認・処理してください"
+    - "進捗状況・課題を .ai/agent_communication/outbox/ に報告してください"
+    - "設計変更・依存関係の課題があれば、関連エージェントに通知してください"
+  
+  completion_action:
+    - 各エンジニアエージェントへの開始指示を送信して、並列TDD実装を開始
 
 tdd_workflow:
   red_phase:
@@ -283,6 +346,31 @@ github_integration:
 参加者: ユーザー・リーダーエージェント
 トリガー: エンジニアエージェントのPR作成完了通知
 
+execution_details:
+  automated_checks:
+    - 全テストケース実行・成功確認
+    - テストカバレッジ基準達成確認（> 90%）
+    - コード品質チェック（ESLint/Prettier）
+    - セキュリティスキャン
+    - パフォーマンステスト
+  
+  leader_agent_review:
+    - TDD原則遵守確認
+    - テストケース品質評価
+    - 実装とテストの整合性確認
+    - リファクタリング品質評価
+  
+  user_review_items:
+    - ビジネスロジックの正確性確認
+    - 受け入れ基準の達成確認
+    - UX/UI の確認（該当する場合）
+    - API仕様変更の妥当性（該当する場合）
+    - データベーススキーマ変更の妥当性（該当する場合）
+  
+  completion_action:
+    - ユーザーレビューが必要な項目を整理して報告
+    - ユーザー確認完了後: "レビュー完了しました。マージを実行してください。"
+
 tdd_review_workflow:
   automated_checks:
     - 全テストケース実行・成功確認
@@ -320,6 +408,26 @@ review_criteria:
 参加者: リーダーエージェント
 トリガー: ユーザーのレビュー完了
 
+execution_details:
+  merge_pre_checks:
+    - マージ前の統合テスト実行
+    - テスト競合の自動解決
+    - テストデータ統合・調整
+  
+  conflict_resolution_strategy:
+    - テストケース競合の優先度判定
+    - 実装競合の自動調整
+    - 複雑な競合はエージェント間協議で解決
+  
+  post_merge_actions:
+    - 統合テストスイート実行
+    - 回帰テスト実行
+    - パフォーマンステスト実行
+    - デプロイメント準備
+  
+  completion_action:
+    - 統合結果を報告
+
 merge_strategy:
   test_driven_merge:
     - マージ前の統合テスト実行
@@ -344,6 +452,33 @@ post_merge_actions:
 ```yaml
 参加者: QAエージェント
 トリガー: ユーザーの統合テスト開始指示
+
+execution_details:
+  system_integration_tests:
+    - サービス間連携テスト
+    - API統合テスト実行
+    - データフロー統合テスト
+    - セキュリティ統合テスト
+  
+  e2e_tests:
+    - ユーザーシナリオテスト実行
+    - ブラウザ自動化テスト
+    - モバイル対応テスト
+    - アクセシビリティテスト
+  
+  performance_tests:
+    - 負荷テスト実行
+    - ストレステスト実行
+    - メモリリークテスト
+    - レスポンス時間測定
+  
+  test_execution_strategy:
+    - 段階的テスト実行
+    - 失敗時の自動分析・報告
+    - パフォーマンス基準達成確認
+  
+  completion_action:
+    - 統合テスト結果を報告
 
 integration_testing:
   system_integration:
@@ -374,6 +509,28 @@ test_execution_strategy:
 ```yaml
 参加者: QAエージェント・リーダーエージェント
 トリガー: 統合テスト完了
+
+execution_details:
+  comprehensive_quality_checks:
+    - 全機能の統合確認
+    - 非機能要件の達成確認
+    - セキュリティ要件の達成確認
+    - パフォーマンス要件の達成確認
+  
+  production_readiness_checks:
+    - 本番環境互換性確認
+    - デプロイメント手順検証
+    - ロールバック手順確認
+    - 監視・アラート設定確認
+  
+  deliverable_creation:
+    - 統合テスト結果レポート
+    - パフォーマンステスト結果
+    - セキュリティ検査結果
+    - 本番リリース準備完了報告
+  
+  completion_action:
+    - 本番リリース準備完了報告を提出
 
 final_quality_assurance:
   comprehensive_testing:

@@ -56,9 +56,54 @@
 
 ## 📋 最初に読むべきドキュメント
 
-1. **[01_ai_driven_development_requirements.md](./01_ai_driven_development_requirements.md)** - なぜ・何を・どのようにAIを活用するか
-2. **[02_agent_role_definitions.md](./02_agent_role_definitions.md)** - エージェントの役割分担
-3. **[06_multi_agent_operational_workflow.md](./06_multi_agent_operational_workflow.md)** - 実際の運用手順
+1. **[01_ai_driven_development_requirements.md](./01_ai_driven_development_requirements.md)** - 🎯 なぜ・何を・どのようにAIを活用するか
+2. **[02_agent_role_definitions.md](./02_agent_role_definitions.md)** - 👥 エージェントの役割分担・責任範囲
+3. **[06_multi_agent_operational_workflow.md](./06_multi_agent_operational_workflow.md)** - 🔄 実際の運用手順・実装フロー
+4. **[03_knowledge_base_architecture.md](./03_knowledge_base_architecture.md)** - 🧠 知識ベース管理・データ構造化方法
+
+---
+
+## 🚀 クイックスタート
+
+### **新規プロジェクト開始**
+```bash
+# 1. プロジェクト作成
+mkdir my-new-project && cd my-new-project
+
+# 2. AIフレームワーク追加
+git remote add ai-framework-remote <this-repo-url>
+git subtree add --prefix ai-framework ai-framework-remote main --squash
+
+# 3. 最小構成セットアップ
+mkdir -p .ai/{workflows,contexts,logs}
+mkdir -p .ai/agent_communication/{inbox,outbox,processed,templates}
+echo ".ai/logs/" >> .gitignore
+echo ".ai/agent_communication/processed/" >> .gitignore
+
+# 4. 開発開始
+# USAGE.md の指示に従ってClaude Codeで開発開始
+```
+
+### **既存プロジェクトに追加**
+```bash
+# 1. 既存プロジェクトのルートで実行
+cd existing-project
+
+# 2. AIフレームワーク追加
+git remote add ai-framework-remote <this-repo-url>
+git subtree add --prefix ai-framework ai-framework-remote main --squash
+
+# 3. 最小構成セットアップ  
+mkdir -p .ai/{workflows,contexts,logs}
+mkdir -p .ai/agent_communication/{inbox,outbox,processed,templates}
+echo ".ai/logs/" >> .gitignore
+echo ".ai/agent_communication/processed/" >> .gitignore
+
+# 4. 開発開始
+# USAGE.md の指示に従ってClaude Codeで開発開始
+```
+
+**📖 詳細な開発手順は [USAGE.md](./USAGE.md) を参照してください**
 
 ---
 
@@ -137,39 +182,6 @@
 
 ---
 
-## 📝 使用方法
-
-### **⚡ 5分クイックスタート**
-```bash
-# 1. プロダクトリポジトリにsubtree追加
-cd your-product
-git remote add ai-framework-remote <this-repo-url>
-git subtree add --prefix ai-framework ai-framework-remote main --squash
-
-# 2. 最小構成セットアップAdd commentMore actions
-mkdir -p .ai/{workflows,contexts,logs}
-mkdir -p .ai/agent_communication/{inbox,outbox,processed,templates}
-echo ".ai/logs/" >> .gitignore
-echo ".ai/agent_communication/processed/" >> .gitignore
-
-# 3. Claude Codeで参照ディレクトリ設定
-# ai-framework/ と .ai/ を参照対象に追加
-
-# 4. 開発開始
-git checkout -b feature/your-feature
-git worktree add ../agent-your-feature feature/your-feature
-```
-
-### **📖 詳細な使用方法**
-**[→ USAGE.md で詳細な導入・開発フロー手順を確認](./USAGE.md)**Add commentMore actions
-- 🚀 クイックスタート（ゼロから新規 / 既存プロジェクトに追加）
-- ⚙️ Claude Code設定・ディレクトリ構造
-- 🤖 リーダーエージェント起動・初期設定
-- 📋 基本的な開発フロー（9ステップ詳細ガイド）
-- 🔄 更新・メンテナンス・トラブルシューティング
-
----
-
 ## 🎨 プロジェクト固有カスタマイズ
 
 ### **プロジェクト構造**
@@ -204,151 +216,30 @@ your-project/
 }
 ```
 
-### **参照優先順位**
-1. **最優先**: `.ai/knowledge_base/` - AI用構造化データ（YAML中心）
-2. **中優先**: `ai-framework/` - 共通フレームワーク（プロジェクト用にカスタマイズ可能）
-3. **低優先**: `.ai/` - 作業用データ・ログ・通信ファイル
-
-**役割分担**:
-- `.ai/knowledge_base/`: AIエージェントが読み書きする構造化データ
-- `.ai/`: 作業用データ・ログ・通信ファイル
-
-### **カスタマイズ方法**
-
-#### **パターン1: AI用構造化データ作成**
+### **フレームワーク更新**
 ```bash
-# .ai/knowledge_base/ にYAML構造化データを作成
-mkdir -p .ai/knowledge_base/custom_specs/
-cat > .ai/knowledge_base/custom_specs/project_config.yaml << EOF
-project:
-  name: "My Project"
-  type: "web_application"
-  tech_stack:
-    - "Next.js"
-    - "TypeScript"
-    - "PostgreSQL"
-EOF
-```
-
-#### **パターン2: フレームワークファイル直接編集**
-```bash
-# ai-framework/ のファイルを直接編集
-vim ai-framework/03_knowledge_base_architecture.md
-# プロジェクト固有の変更を直接記述
-```
-
-### **フレームワーク更新時の運用**
-```bash
-# 1. フレームワーク更新
+# フレームワーク更新
 git subtree pull --prefix ai-framework ai-framework-remote main --squash
 
-# 2. コンフリクトがある場合は手動解決
-# プロジェクト固有の変更を維持しながらマージ
+# チーム同期
+git pull
 
-# 3. 更新内容確認
-git log --oneline ai-framework/
-```
-
-### **基本セットアップ**
-```markdown
-このプロジェクトはAI駆動マルチエージェント開発フレームワークを使用しています。
-
-## 参照優先順位
-1. .ai/knowledge_base/ - AI用構造化データ（最優先）
-2. ai-framework/ - 共通フレームワーク
-3. .ai/ - 作業用データ・ログ・通信ファイル
-
-## 主要参照ファイル
-- ai-framework/01_ai_driven_development_requirements.md
-- ai-framework/02_agent_role_definitions.md  
-- ai-framework/03_knowledge_base_architecture.md
-- ai-framework/06_multi_agent_operational_workflow.md
-
-## データ格納場所
-- AI用構造化データ: .ai/knowledge_base/ 配下（YAML中心）
-```
-
-### **要件定義フェーズ**
-```markdown
-@ai-framework/03_knowledge_base_architecture.md のAI-First アーキテクチャに従って、
-.ai/knowledge_base/01_requirements_analysis/ 配下に要件定義をYAML形式で作成してください。
-
-段階的にヒアリングして、構造化データとして精緻に作成してください。
-```
-
-### **設計フェーズ**  
-```markdown
-@ai-framework/06_multi_agent_operational_workflow.md の Phase 1-2 に従って、
-.ai/knowledge_base/02_technical_architecture/ 配下に技術設計をYAML形式で作成してください。
-
-以下を段階的に設計してください：
-1. 技術スタック選定
-2. システムアーキテクチャ設計  
-3. データベース設計
-4. API仕様設計
-```
-
-### **実装フェーズ**
-```markdown
-@ai-framework/engineer_agent_setup_template.md を参照して、
-エンジニアエージェントとしてTDD実装を開始してください。
-
-担当タスク: [具体的なタスク名]
-作業ブランチ: [ブランチ名]
-
-Red-Green-Refactorサイクルで実装し、
-進捗は .ai/agent_communication/outbox/ に報告してください。
-
-実装ログは .ai/logs/ に記録してください。
-```
-
-### **QAフェーズ**
-```markdown
-@ai-framework/qa_agent_setup_template.md を参照して、
-QAエージェントとして品質保証を実施してください。
-
-以下のテストを実行してください：
-1. 単体テスト検証
-2. 統合テスト実行
-3. E2Eテスト実行
-4. パフォーマンステスト
-
-結果は .ai/knowledge_base/04_quality_assurance/ にYAML形式で記録してください。
+# 通信ファイルクリーンアップ
+rm -f .ai/agent_communication/processed/*
 ```
 
 ---
 
-## 🔄 ワークフロー例
+## 🔄 開発フロー
 
-### **実際の開発フロー（8ステップ）**Add commentMore actions
+**詳細な開発手順・プロンプト例・トラブルシューティングは [USAGE.md](./USAGE.md) を参照してください**
 
-詳細な手順は **[USAGE.md](./USAGE.md)** を参照してください。
-
-```mermaidAdd commentMore actions
-graph TD
-    A[Step 1: 要件定義書作成] --> B[Step 2: 基本設計]
-    B --> C[Step 3: タスク分割・並列準備]
-    C --> D[Step 4: 並列実装開始]
-    D --> E[Step 5: PRレビュー]
-    E --> F[Step 6: マージ・コンフリクト解消]
-    F --> G[Step 7: 統合テスト・E2Eテスト]
-    G --> H[Step 8: 最終品質確認・本番準備]
-```
-
-### **エージェント協働パターン**
-
-```mermaid
-graph LR
-    A[👤 User] --> B[🤖 Leader Agent]
-    B --> C[🤖 Engineer Agent 1]
-    B --> D[🤖 Engineer Agent 2]
-    B --> E[🤖 Engineer Agent 3]
-    C --> F[🧪 QA Agent]
-    D --> F
-    E --> F
-    F --> B
-    B --> A
-```
+### **基本的な流れ**
+1. 🚀 **開始**: `@ai-framework/leader_agent_setup_template.md` でリーダーエージェント起動
+2. 🎯 **要件定義**: 対話的ヒアリングで要件整理
+3. 🏗️ **設計**: 技術選定・アーキテクチャ設計
+4. ⚡ **実装**: 並列TDD実装
+5. ✅ **完成**: 統合テスト・品質確認
 
 ---
 
