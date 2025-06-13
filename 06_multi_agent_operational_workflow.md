@@ -150,27 +150,54 @@ deliverables:
   - エージェント環境は既に起動・待機状態
   - ./ai-framework/scripts/quick-start.sh または ./ai-framework/scripts/setup-agent-communication.sh + ./ai-framework/scripts/start-agents.sh で構築済み
 
-workflow:
-  1. 機能要求を親タスクに分割
-  2. 親タスクを適度な粒度の子タスクに分解
-  3. タスク間の依存関係を分析
-  4. 並列実行可能なタスクを特定
-  5. タスク優先度付け
-  6. 各タスクをGitHub Issuesとして作成
+# 🆕 CRITICAL CHECKPOINT: タスク分割完了後は必ずGitHub Issues作成を実行
+execution_workflow:
+  phase_1_task_breakdown:
+    1. 機能要求を親タスクに分割
+    2. 親タスクを適度な粒度の子タスクに分解
+    3. タスク間の依存関係を分析
+    4. 並列実行可能なタスクを特定
+    5. タスク優先度付け
+    6. タスク分割ファイル作成（.ai/tasks/）
+    
+  # 🚨 MANDATORY STEP: GitHub Issues作成は必須実行項目
+  phase_2_github_issues_creation:
+    mandatory_execution_steps:
+      1. "タスク分割が完了しました。続いてGitHub Issuesを作成します"
+      2. 各タスクごとにGitHub Issue作成を実行
+      3. Issue作成結果の確認・報告
+      4. "GitHub Issues作成が完了しました。エンジニアエージェントへのタスク分配準備完了です"
+    
+    github_issue_creation_template:
+      title: "[TASK] {機能名} - {タスク概要}"
+      body: |
+        ## 📋 タスク概要
+        {詳細な要件説明}
+        
+        ## ✅ 受け入れ基準
+        - [ ] {基準1}
+        - [ ] {基準2}
+        - [ ] {基準3}
+        
+        ## 🔗 依存関係
+        - 依存Issue: #{依存するIssue番号}
+        
+        ## 📝 実装メモ
+        {技術的な留意点}
+      labels: ["feature", "priority-{high/medium/low}", "area-{frontend/backend/api}"]
+      assignees: []  # エージェント分配時に設定
+    
+    # 🔄 実行確認ループ
+    execution_verification:
+      - Issue作成実行後、必ず作成結果を確認
+      - 作成失敗時は再実行
+      - 全Issue作成完了まで継続
 
-github_issues_creation:
-  issue_template:
-    - タイトル: 機能名・タスク概要
-    - 説明: 詳細な要件・受け入れ基準
-    - ラベル: 機能分類・優先度・担当領域
-    - マイルストーン: リリース予定
-    - 依存関係: 関連Issue番号
-  
-  issue_examples:
-    - "Issue #1: ユーザー認証API実装"
-    - "Issue #2: データ管理CRUD機能実装"
-    - "Issue #3: API統合・外部連携機能実装"
-    - "Issue #4: E2Eテスト実装"
+# 🛑 STOP POINT: 実装フェーズには進まない
+leader_agent_role_limitation:
+  strict_rule: "リーダーエージェントは実装を行わない"
+  next_phase_trigger: "GitHub Issues作成完了後、ユーザーの明示的なタスク分配指示を待つ"
+  user_instruction_required: "「エンジニアエージェントにタスクを分配してください」のユーザー指示"
 
 execution_details:
   task_breakdown_process:
@@ -185,7 +212,7 @@ execution_details:
     - E2Eテスト設計とのタスク分割結果を共有
 
 deliverables:
-  - GitHub Issues（各タスク）
+  - GitHub Issues（各タスク・作成済み）
   - 依存関係図
   - 実装スケジュール
   - Issue番号一覧表
@@ -242,13 +269,88 @@ deliverables:
 ##### **3-1. GitHub Issues割り当て・環境構築** 🤖➡️🤖🤖
 ```yaml
 参加者: LEADERエージェント → エンジニアエージェント
-トリガー: GitHub Issues作成完了・ユーザーのタスク分配開始指示
+トリガー: ユーザーの明示的なタスク分配開始指示
 
 前提条件:
   - 全エージェントが既に起動・待機状態
   - LEADERエージェント: GitHub Issues作成完了・タスク分配準備完了
   - engineer-1, engineer-2, engineer-3: 汎用エンジニア・タスク分配待ち
   - qa-agent: E2Eテスト設計・実装準備完了
+
+# 🆕 LEADER AGENT MANDATORY PROTOCOL
+leader_agent_instructions:
+  critical_recognition:
+    - "私はリーダーエージェントです。実装は行いません"
+    - "エンジニアエージェント（engineer-1, engineer-2, engineer-3）に作業を分配します"
+    - "各エンジニアエージェントは別のClaude Codeインスタンスです"
+  
+  mandatory_communication_protocol:
+    step_1_team_notification:
+      message: |
+        🚨 マルチエージェント体制でのタスク分配を開始します
+        
+        **エンジニアエージェント各位へ:**
+        - engineer-1: 汎用エンジニア・タスク分配待ち
+        - engineer-2: 汎用エンジニア・タスク分配待ち  
+        - engineer-3: 汎用エンジニア・タスク分配待ち
+        - qa-agent: E2Eテスト設計・実装待ち
+        
+        GitHub Issues が作成済みです。各エージェントにタスクを分配します。
+    
+    step_2_individual_task_assignment:
+      engineer_1_assignment:
+        message: |
+          **engineer-1への指示:**
+          担当Issue: Issue #{Issue番号}（{機能名}）
+          作業内容: {詳細な作業内容}
+          
+          以下の手順で作業を開始してください:
+          1. GitHub Issue #{Issue番号} を確認
+          2. git worktree add ../issue-{番号}-{機能名} feature/issue-{番号}-{機能名}
+          3. 作業ディレクトリに移動
+          4. TDD で実装開始
+          
+          作業開始後、進捗を報告してください。
+      
+      engineer_2_assignment:
+        message: |
+          **engineer-2への指示:**
+          [同様のフォーマットで個別指示]
+      
+      engineer_3_assignment:
+        message: |
+          **engineer-3への指示:**
+          [同様のフォーマットで個別指示]
+    
+    step_3_confirmation_protocol:
+      - 各エンジニアエージェントからの「作業開始しました」確認を待つ
+      - 確認完了後、並列実装フェーズに移行
+      - "全エンジニアエージェントへのタスク分配が完了しました。並列実装を開始してください。"
+
+# 🔄 エージェント間通信の明確化
+agent_communication_examples:
+  leader_to_engineer:
+    format: "**engineer-{番号}への指示:** {具体的な指示内容}"
+    confirmation_required: true
+  
+  engineer_to_leader:
+    format: "**LEADERへの報告:** {進捗・完了・課題報告}"
+    response_expected: true
+  
+  engineer_to_engineer:
+    format: "**engineer-{番号}への連絡:** {技術的な質問・情報共有}"
+    coordination_purpose: true
+
+# 🛑 CRITICAL RULE: リーダーエージェントは実装しない
+leader_implementation_prevention:
+  strict_prohibition:
+    - "リーダーエージェントは絶対に実装コードを書かない"
+    - "実装はエンジニアエージェントの専門領域"
+    - "リーダーの役割は指示・調整・進捗管理のみ"
+  
+  redirect_instruction:
+    - 実装要求があった場合: "実装はengineer-{番号}エージェントが担当します"
+    - 技術的質問があった場合: "技術的な詳細は担当エンジニアエージェントに確認してください"
 
 github_issues_assignment:
   issue_assignment_process:
@@ -286,9 +388,10 @@ github_workflow_integration:
   - PR作成時にIssue番号を自動リンク
   - Issue完了時の自動クローズ設定
   
-  completion_action:
-  - 各エンジニアエージェントのIssue確認・環境構築完了確認
+completion_action:
+  - 各エンジニアエージェントのタスク受諾・環境構築完了確認
   - TDD並列実装開始準備完了報告
+  - "エンジニアエージェントが並列で実装作業を開始しました。進捗を監視します。"
 ```
 
 ##### **3-2. TDD並列実装実行** 🤖⚡🤖⚡
@@ -296,12 +399,35 @@ github_workflow_integration:
 参加者: エンジニアエージェント (複数Claude Code)
 トリガー: 動的タスク分配・環境構築完了
 
+# 🆕 エンジニアエージェント個別認識強化
+engineer_agent_identity:
+  individual_recognition:
+    engineer_1: "私はengineer-1です。Issue #{担当Issue番号}を担当します"
+    engineer_2: "私はengineer-2です。Issue #{担当Issue番号}を担当します"  
+    engineer_3: "私はengineer-3です。Issue #{担当Issue番号}を担当します"
+  
+  role_clarity:
+    - "私は実装専門のエンジニアエージェントです"
+    - "LEADERからの指示に従ってTDD実装を行います"
+    - "進捗・課題・完了はLEADERに報告します"
+
 execution_workflow:
   implementation_steps:
     - 各エンジニアエージェントが担当機能のworktree環境で作業開始
     - TDD（Red-Green-Refactor）サイクルでの実装
     - リアルタイム直接通信による協調・質疑応答
     - 進捗・課題の即座共有・解決
+
+# 🔄 実装進捗報告プロトコル
+progress_reporting_protocol:
+  regular_updates:
+    format: "**LEADERへの進捗報告:** Issue #{番号} - {進捗状況}"
+    frequency: "重要なマイルストーン達成時"
+    content: "Red/Green/Refactorフェーズの進捗・課題・完了予定"
+  
+  completion_notification:
+    format: "**LEADERへの完了報告:** Issue #{番号} - 実装完了・PR作成済み"
+    required_info: "PR番号・テスト結果・レビュー依頼"
 
 agent_communication_management:
   direct_communication_protocol:
