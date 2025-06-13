@@ -1,107 +1,110 @@
 #!/bin/bash
 
-echo "🎬 直接通信デモンストレーション開始"
-echo "このデモでは、LEADERが各エージェントに直接指示を出し、"
-echo "エージェント間で自動的に連携する様子を確認できます。"
+# スクリプトのディレクトリを取得
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "🎬 直接通信デモ - 簡易TODOアプリ開発"
 echo ""
 
-# デモ実行確認
-read -p "デモを開始しますか？ (y/N): " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "デモを中止しました"
+# tmuxセッション確認
+if ! tmux has-session -t leader 2>/dev/null || ! tmux has-session -t multiagent 2>/dev/null; then
+    echo "❌ tmuxセッションが見つかりません"
+    echo "   先に ./setup-agent-communication.sh と ./start-agents.sh を実行してください"
     exit 1
 fi
 
-echo "📡 デモシナリオ: ユーザー登録機能の開発"
+echo "✅ tmuxセッション確認完了"
 echo ""
 
-# 1. LEADERからの初期指示
-echo "🎯 Step 1: LEADERからの初期指示送信"
+echo "📋 デモシナリオ: 簡易TODOアプリの協調開発"
+echo "   - LEADER: プロジェクト管理・タスク分配"
+echo "   - engineer-1: フロントエンド実装（React TODO UI）"
+echo "   - engineer-2: バックエンドAPI実装（TODO CRUD API）"  
+echo "   - engineer-3: 待機中（必要時に動的アサイン）"
+echo "   - qa-agent: テスト設計・実行"
+echo ""
+
+# Phase 1: LEADERからの初期タスク分配
+echo "🚀 Phase 1: LEADERからの初期タスク分配"
+"${SCRIPT_DIR}/agent-send.sh" leader "engineer-1への指示: あなたはengineer-1です。TODOアプリのフロントエンドを実装してください。TODO追加フォーム、TODO一覧表示、完了チェック、削除ボタンを含むReactコンポーネントを作成してください。完了したら「engineer-1実装完了」と報告してください。"
+
 sleep 2
 
-echo "→ engineer-1への指示送信..."
-./agent-send.sh leader "engineer-1への指示: あなたはengineer-1です。ユーザー登録画面のReactコンポーネントを実装してください。フォームにはemail、password、name入力欄を含め、バリデーション機能も実装してください。完了したら「engineer-1実装完了」と報告してください。"
+"${SCRIPT_DIR}/agent-send.sh" leader "engineer-2への指示: あなたはengineer-2です。TODOアプリのバックエンドAPIを実装してください。GET /api/todos（一覧取得）、POST /api/todos（追加）、PUT /api/todos/:id（更新）、DELETE /api/todos/:id（削除）のCRUD APIを作成してください。完了したら「engineer-2実装完了」と報告してください。"
 
-sleep 3
-
-echo "→ engineer-2への指示送信..."
-./agent-send.sh leader "engineer-2への指示: あなたはengineer-2です。ユーザー登録API(/api/users/register)を実装してください。POST形式で{ email, password, name }を受け取り、データベースに保存してJWTトークンを返すAPIを作成してください。完了したら「engineer-2実装完了」と報告してください。"
-
-sleep 3
-
-echo "→ qa-agentへの指示送信..."
-./agent-send.sh leader "qa-agentへの指示: あなたはqa-agentです。ユーザー登録機能のテストケースを設計・実行してください。正常系・異常系・境界値テストを含めた包括的なテストを行ってください。完了したら「qa-agent完了」と報告してください。"
-
-sleep 5
-
-# 2. エージェント間連携のシミュレーション
-echo ""
-echo "🔄 Step 2: エージェント間の直接連携シミュレーション"
 sleep 2
 
-echo "→ engineer-1からengineer-2への連絡..."
-./agent-send.sh engineer-1 "engineer-2への連絡: フロントエンドからAPIエンドポイント /api/users/register にPOSTリクエストを送信します。リクエスト形式は { email: string, password: string, name: string } で間違いないでしょうか？また、エラー時のレスポンス形式も教えてください。"
+"${SCRIPT_DIR}/agent-send.sh" leader "qa-agentへの指示: あなたはqa-agentです。TODOアプリの機能テストを設計・実行してください。TODO追加、表示、完了切り替え、削除の各機能をテストしてください。完了したら「qa-agent完了」と報告してください。"
 
+echo "⏳ 5秒待機（エージェントの初期処理時間）"
 sleep 5
 
-echo "→ engineer-2からengineer-1への返答..."
-./agent-send.sh engineer-2 "engineer-1への連絡: リクエスト形式は正しいです。エラー時は { error: string, details?: any } 形式で返します。ステータスコードは400（バリデーションエラー）、409（重複エラー）、500（サーバーエラー）を使用します。"
-
-sleep 5
-
-echo "→ engineer-2からqa-agentへの実装完了通知..."
-./agent-send.sh engineer-2 "qa-agentへの連絡: ユーザー登録API(/api/users/register)の実装が完了しました。テストをお願いします。エンドポイントはPOST /api/users/register で、成功時は201ステータスとJWTトークンを返します。"
-
-sleep 5
-
-# 3. QAからの質問・確認
+# Phase 2: エージェント間の直接通信
 echo ""
-echo "🧪 Step 3: QAエージェントからの確認・テスト"
+echo "🔄 Phase 2: エージェント間の直接通信・協調"
+"${SCRIPT_DIR}/agent-send.sh" engineer-1 "engineer-2への連絡: フロントエンドからTODO APIを呼び出します。TODOデータの形式は { id: number, title: string, completed: boolean, createdAt: string } で良いでしょうか？また、API のレスポンス形式を教えてください。"
+
+sleep 3
+
+"${SCRIPT_DIR}/agent-send.sh" engineer-2 "engineer-1への連絡: TODOデータ形式は正しいです。APIレスポンスは成功時に { success: true, data: Todo[] } 、エラー時に { success: false, error: string } 形式で返します。ステータスコードは200（成功）、400（バリデーションエラー）、500（サーバーエラー）です。"
+
+sleep 3
+
+"${SCRIPT_DIR}/agent-send.sh" engineer-2 "qa-agentへの連絡: TODO CRUD APIの実装が完了しました。テストをお願いします。エンドポイント: GET /api/todos, POST /api/todos, PUT /api/todos/:id, DELETE /api/todos/:id が利用可能です。"
+
+echo "⏳ 8秒待機（実装・テスト時間）"
+sleep 8
+
+# Phase 3: QAエージェントからの質問・確認
+echo ""
+echo "🧪 Phase 3: QAエージェントからの詳細確認"
+"${SCRIPT_DIR}/agent-send.sh" qa-agent "engineer-1への質問: TODO追加時のバリデーション（空文字チェックなど）はどのように実装されていますか？また、完了済みTODOの表示スタイルはどうなっていますか？"
+
+sleep 3
+
+"${SCRIPT_DIR}/agent-send.sh" qa-agent "engineer-2への質問: TODO削除時の確認処理はありますか？また、存在しないTODO IDに対する操作時のエラーハンドリングはどのように実装されていますか？"
+
+echo "⏳ 10秒待機（テスト実行・検証時間）"
+sleep 10
+
+# Phase 4: 完了報告
+echo ""
+echo "✅ Phase 4: 各エージェントからLEADERへの完了報告"
+"${SCRIPT_DIR}/agent-send.sh" engineer-1 "LEADERへの報告: engineer-1の実装が完了しました。TODO追加フォーム、一覧表示、完了チェックボックス、削除ボタン、バリデーション機能、レスポンシブデザインを実装済みです。qa-agentと連携してテストも完了しています。"
+
 sleep 2
 
-echo "→ qa-agentからengineer-1への質問..."
-./agent-send.sh qa-agent "engineer-1への質問: ユーザー登録フォームでのバリデーションエラーはどのように表示されますか？また、パスワード強度の要件を教えてください。"
+"${SCRIPT_DIR}/agent-send.sh" engineer-2 "LEADERへの報告: engineer-2の実装が完了しました。TODO CRUD API、データベース連携、バリデーション、エラーハンドリング、CORS設定を実装済みです。qa-agentのテストも全て通過しています。"
 
-sleep 5
-
-echo "→ qa-agentからengineer-2への質問..."
-./agent-send.sh qa-agent "engineer-2への質問: APIで重複するemailアドレスが登録された場合の詳細なエラーメッセージを教えてください。レスポンスの具体例もお願いします。"
-
-sleep 5
-
-# 4. 最終報告
-echo ""
-echo "📊 Step 4: 完了報告"
 sleep 2
 
-echo "→ engineer-1からLEADERへの報告..."
-./agent-send.sh engineer-1 "LEADERへの報告: engineer-1の実装が完了しました。ユーザー登録フォーム、リアルタイムバリデーション、エラーハンドリング、レスポンシブデザインを実装済みです。qa-agentと連携してテストも完了しています。"
-
-sleep 3
-
-echo "→ engineer-2からLEADERへの報告..."
-./agent-send.sh engineer-2 "LEADERへの報告: engineer-2の実装が完了しました。ユーザー登録API、データベース連携、JWTトークン生成、エラーハンドリングを実装済みです。qa-agentのテストも全て通過しています。"
-
-sleep 3
-
-echo "→ qa-agentからLEADERへの最終報告..."
-./agent-send.sh qa-agent "LEADERへの報告: qa-agentのテストが完了しました。全32件のテストケースが成功し、コードカバレッジ95%、パフォーマンステストも基準をクリアしています。本番リリース準備完了です。"
-
-sleep 3
+"${SCRIPT_DIR}/agent-send.sh" qa-agent "LEADERへの報告: qa-agentのテストが完了しました。全24件のテストケース（フロントエンド12件、API12件）が成功し、TODO追加・表示・完了・削除の全機能が正常に動作しています。本番リリース準備完了です。"
 
 echo ""
-echo "🎉 デモ完了！"
+echo "🎉 TODOアプリデモ完了！"
 echo ""
-echo "📈 直接通信システムの効果:"
-echo "✅ リアルタイムでのエージェント間連携"
-echo "✅ 自然な質疑応答・情報共有"
-echo "✅ 迅速な問題解決・調整"
-echo "✅ チーム全体の進捗可視化"
+echo "📺 各セッションの確認:"
+echo "   tmux attach-session -t leader      # LEADER画面"
+echo "   tmux attach-session -t multiagent  # 全エージェント画面"
 echo ""
-echo "📝 ログを確認:"
-echo "  tail -f logs/communication.log"
+echo "📊 通信ログ確認:"
+echo "   tail -f logs/communication.log"
 echo ""
-echo "🔍 各エージェントの動作確認:"
-echo "  tmux attach-session -t leader      # LEADER"
-echo "  tmux attach-session -t multiagent  # 全エージェント" 
+echo "💡 このデモでは以下の直接通信パターンを実演しました:"
+echo "   1. LEADERから各エージェントへのタスク分配"
+echo "   2. エージェント間の直接的な技術相談・API仕様確認"
+echo "   3. QAエージェントからの機能確認・品質チェック"
+echo "   4. 各エージェントからLEADERへの完了報告"
+echo ""
+echo "🔧 engineer-3について:"
+echo "   - 現在は待機状態です"
+echo "   - 必要に応じてLEADERが動的にタスクをアサインできます"
+echo "   - 例: ./agent-send.sh leader \"engineer-3への指示: [タスク内容]\""
+echo ""
+echo "📝 実装されたTODOアプリ機能:"
+echo "   ✅ TODO追加・一覧表示"
+echo "   ✅ 完了状態の切り替え"
+echo "   ✅ TODO削除"
+echo "   ✅ バリデーション・エラーハンドリング"
+echo ""
+echo "🚀 実際の開発では、このような基本的なCRUDアプリから始めて段階的に機能を拡張していきます！" 

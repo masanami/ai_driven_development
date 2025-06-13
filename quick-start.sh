@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# スクリプトのディレクトリを取得
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "🚀 直接通信型エージェントシステム - クイックスタート"
 echo ""
 
@@ -44,7 +47,7 @@ case $REPLY in
         
         # 1. 環境構築
         echo "📊 Step 1: 環境構築"
-        ./setup-agent-communication.sh
+        "${SCRIPT_DIR}/setup-agent-communication.sh"
         
         if [ $? -ne 0 ]; then
             echo "❌ 環境構築に失敗しました"
@@ -57,7 +60,7 @@ case $REPLY in
         
         # 2. エージェント起動
         echo "📊 Step 2: エージェント起動"
-        ./start-agents.sh
+        "${SCRIPT_DIR}/start-agents.sh"
         
         if [ $? -ne 0 ]; then
             echo "❌ エージェント起動に失敗しました"
@@ -75,14 +78,14 @@ case $REPLY in
         read -p "Step 1: 環境構築を実行しますか？ (y/N): " -n 1 -r
         echo ""
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            ./setup-agent-communication.sh
+            "${SCRIPT_DIR}/setup-agent-communication.sh"
         fi
         
         echo ""
         read -p "Step 2: エージェント起動を実行しますか？ (y/N): " -n 1 -r
         echo ""
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            ./start-agents.sh
+            "${SCRIPT_DIR}/start-agents.sh"
         fi
         
         echo ""
@@ -91,7 +94,7 @@ case $REPLY in
         
     3)
         echo "🎬 デモのみ実行"
-        ./demo-direct-communication.sh
+        "${SCRIPT_DIR}/demo-direct-communication.sh"
         exit 0
         ;;
         
@@ -129,7 +132,7 @@ case $REPLY in
         
     2)
         echo "🎬 デモ実行中..."
-        ./demo-direct-communication.sh
+        "${SCRIPT_DIR}/demo-direct-communication.sh"
         ;;
         
     3)
@@ -157,8 +160,8 @@ esac
 
 echo ""
 echo "📚 参考資料:"
-echo "   システム仕様: 08_practical_agent_communication_system.md"
-echo "   手動操作: ./agent-send.sh [エージェント名] [メッセージ]"
+echo "   システム仕様: ${SCRIPT_DIR}/08_practical_agent_communication_system.md"
+echo "   手動操作: ${SCRIPT_DIR}/agent-send.sh [エージェント名] [メッセージ]"
 echo "   ログ確認: tail -f logs/communication.log"
 echo ""
 echo "🎉 直接通信型エージェントシステムをお楽しみください！" 

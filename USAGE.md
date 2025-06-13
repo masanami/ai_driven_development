@@ -17,14 +17,14 @@ git remote add ai-framework-remote <this-repo-url>
 git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ
-mkdir -p .ai/{workflows,contexts,logs}
+mkdir -p .ai/{instructions,logs}
 mkdir -p .claude
 cp ai-framework/.claude/settings.json .claude/settings.json
 echo ".ai/logs/" >> .gitignore
 echo ".claude/settings.json" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
-./ai-framework/setup-agent-communication.sh
+./ai-framework/quick-start.sh
 
 ```
 
@@ -39,14 +39,14 @@ git remote add ai-framework-remote <this-repo-url>
 git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ  
-mkdir -p .ai/{workflows,contexts,logs}
+mkdir -p .ai/{instructions,logs}
 mkdir -p .claude
 cp ai-framework/.claude/settings.json .claude/
 echo ".ai/logs/" >> .gitignore
 echo ".claude/settings.json" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
-./ai-framework/setup-agent-communication.sh
+./ai-framework/quick-start.sh
 ```
 
 ---
@@ -78,7 +78,7 @@ your-project/
 │   │   ├── leader.md              # LEADER指示書
 │   │   ├── engineer.md            # エンジニア指示書
 │   │   └── qa-agent.md            # QA指示書
-│   └── logs/              # 開発記録
+│   └── logs/              # 開発記録・通信ログ
 │       └── communication.log      # 通信ログ
 └── src/                   # プロダクトコード
 ```
@@ -97,13 +97,11 @@ your-project/
 
 #### **手動ステップ実行（カスタマイズ向け）**
 ```bash
-# 1. tmux環境構築
+# 1. tmux環境構築 + エージェント起動
 ./ai-framework/setup-agent-communication.sh
-
-# 2. Claude Codeエージェント起動
 ./ai-framework/start-agents.sh
 
-# 3. 通信テスト（オプション）
+# 2. 通信テスト（オプション）
 ./ai-framework/agent-send.sh
 ```
 
