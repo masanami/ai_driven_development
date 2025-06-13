@@ -13,31 +13,34 @@ mkdir -p shared
 # テンプレートファイルから指示書作成
 echo "📝 テンプレートファイルから指示書を作成中..."
 
+# スクリプトのディレクトリを取得
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # テンプレートファイルの存在確認
-if [[ ! -f "leader_agent_setup_template.md" ]]; then
+if [[ ! -f "${SCRIPT_DIR}/leader_agent_setup_template.md" ]]; then
     echo "❌ エラー: leader_agent_setup_template.md が見つかりません"
     exit 1
 fi
 
-if [[ ! -f "engineer_agent_setup_template.md" ]]; then
+if [[ ! -f "${SCRIPT_DIR}/engineer_agent_setup_template.md" ]]; then
     echo "❌ エラー: engineer_agent_setup_template.md が見つかりません"
     exit 1
 fi
 
-if [[ ! -f "qa_agent_setup_template.md" ]]; then
+if [[ ! -f "${SCRIPT_DIR}/qa_agent_setup_template.md" ]]; then
     echo "❌ エラー: qa_agent_setup_template.md が見つかりません"
     exit 1
 fi
 
 # テンプレートファイルをコピーして指示書作成
 echo "📋 LEADERエージェント指示書作成..."
-cp leader_agent_setup_template.md .ai/instructions/leader.md
+cp "${SCRIPT_DIR}/leader_agent_setup_template.md" .ai/instructions/leader.md
 
 echo "💻 Engineerエージェント指示書作成..."
-cp engineer_agent_setup_template.md .ai/instructions/engineer.md
+cp "${SCRIPT_DIR}/engineer_agent_setup_template.md" .ai/instructions/engineer.md
 
 echo "🧪 QAエージェント指示書作成..."
-cp qa_agent_setup_template.md .ai/instructions/qa-agent.md
+cp "${SCRIPT_DIR}/qa_agent_setup_template.md" .ai/instructions/qa-agent.md
 
 # agentsセッション作成（5ペイン）
 echo "📊 agentsセッション作成中..."

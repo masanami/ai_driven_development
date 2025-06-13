@@ -253,7 +253,7 @@ github_issues_assignment:
     - 各エンジニアエージェントが担当Issue用のgit worktree環境を作成
     - Issue番号ベースのブランチ作成・チェックアウト
     - 作業ディレクトリでの開発環境セットアップ
-  
+
   environment_isolation_setup:
     - 環境変数・設定ファイルの個別管理
     - データベース接続・ポート番号の分離設定
@@ -275,8 +275,8 @@ github_workflow_integration:
   - コミットメッセージにIssue番号を含める（"Fix #1: 認証API実装"）
   - PR作成時にIssue番号を自動リンク
   - Issue完了時の自動クローズ設定
-
-completion_action:
+  
+  completion_action:
   - 各エンジニアエージェントのIssue確認・環境構築完了確認
   - TDD並列実装開始準備完了報告
 ```
