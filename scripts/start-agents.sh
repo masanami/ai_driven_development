@@ -15,7 +15,7 @@ tmux send-keys -t agents:0.0 C-m
 sleep 2
 echo "  🔧 LEADER auto-accept有効化中..."
 tmux send-keys -t agents:0.0 C-space
-tmux send-keys -t agents:0.0 'toggle auto-accept'
+tmux send-keys -t agents:0.0 'auto-accept edits on'
 tmux send-keys -t agents:0.0 C-m
 
 # engineer-1 (pane 1)
@@ -28,7 +28,7 @@ tmux send-keys -t agents:0.1 C-m
 sleep 2
 echo "  🔧 engineer-1 auto-accept有効化中..."
 tmux send-keys -t agents:0.1 C-space
-tmux send-keys -t agents:0.1 'toggle auto-accept'
+tmux send-keys -t agents:0.1 'auto-accept edits on'
 tmux send-keys -t agents:0.1 C-m
 
 # engineer-2 (pane 2)
@@ -41,7 +41,7 @@ tmux send-keys -t agents:0.2 C-m
 sleep 2
 echo "  🔧 engineer-2 auto-accept有効化中..."
 tmux send-keys -t agents:0.2 C-space
-tmux send-keys -t agents:0.2 'toggle auto-accept'
+tmux send-keys -t agents:0.2 'auto-accept edits on'
 tmux send-keys -t agents:0.2 C-m
 
 # engineer-3 (pane 3)
@@ -54,7 +54,7 @@ tmux send-keys -t agents:0.3 C-m
 sleep 2
 echo "  🔧 engineer-3 auto-accept有効化中..."
 tmux send-keys -t agents:0.3 C-space
-tmux send-keys -t agents:0.3 'toggle auto-accept'
+tmux send-keys -t agents:0.3 'auto-accept edits on'
 tmux send-keys -t agents:0.3 C-m
 
 # qa-agent (pane 4)
@@ -67,7 +67,7 @@ tmux send-keys -t agents:0.4 C-m
 sleep 2
 echo "  🔧 qa-agent auto-accept有効化中..."
 tmux send-keys -t agents:0.4 C-space
-tmux send-keys -t agents:0.4 'toggle auto-accept'
+tmux send-keys -t agents:0.4 'auto-accept edits on'
 tmux send-keys -t agents:0.4 C-m
 
 # LEADERペインをアクティブに設定
