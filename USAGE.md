@@ -18,7 +18,10 @@ git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ
 mkdir -p .ai/{workflows,contexts,logs}
+mkdir -p .claude
+cp ai-framework/.claude/settings.json .claude/settings.json
 echo ".ai/logs/" >> .gitignore
+echo ".claude/settings.json" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
 ./ai-framework/setup-agent-communication.sh
@@ -37,7 +40,10 @@ git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ  
 mkdir -p .ai/{workflows,contexts,logs}
+mkdir -p .claude
+cp ai-framework/.claude/settings.json .claude/
 echo ".ai/logs/" >> .gitignore
+echo ".claude/settings.json" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
 ./ai-framework/setup-agent-communication.sh
@@ -47,16 +53,15 @@ echo ".ai/logs/" >> .gitignore
 
 ## ⚙️ 最小設定
 
-### **Claude Code設定 (.claude/settings.json)**
-```json
-{
-  "ai.referenceDirectories": [
-    "ai-framework/",
-    ".ai/",
-    "src/"
-  ]
-}
-```
+### **Claude Code設定**
+
+**設定ファイル**: [`.claude/settings.json`](.claude/settings.json)
+
+**主な設定内容**:
+- ✅ **開発必須コマンド許可**: `git`, `gh`, `npm`, `yarn`, `pnpm`, `pipenv`, `docker`など
+- 🛡️ **危険操作禁止**: `git push --force`, `rm /`, `sudo`, システム操作など
+- 🔒 **セキュリティ重視**: 最低限の権限で安全な開発環境を提供
+- 📝 **ファイル操作許可**: プロジェクト内のファイル読み書き・編集
 
 ### **基本ディレクトリ構造**
 ```
@@ -66,6 +71,8 @@ your-project/
 │   ├── start-agents.sh              # エージェント起動
 │   ├── agent-send.sh               # 通信テスト
 │   └── quick-start.sh              # ワンクリック実行
+├── .claude/               # Claude Code設定
+│   └── settings.json               # 実際の設定（gitignore推奨）
 ├── .ai/
 │   ├── instructions/      # エージェント指示書
 │   │   ├── leader.md              # LEADER指示書

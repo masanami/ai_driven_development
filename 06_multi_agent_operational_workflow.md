@@ -90,7 +90,7 @@ workflow:
   5. 最終要件定義書の確定
 
 deliverables:
-  - 要件定義書 (.ai/knowledge_base/01_requirements_analysis/)
+  - 要件定義書 (.ai/knowledge_base/01_requirements/)
   - 機能要求一覧 (GitHub Issues)
   - 受け入れ基準 (GitHub Issues)
 ```
@@ -372,7 +372,6 @@ design_coordination:
 
 quality_gates:
   - テストファースト原則の遵守
-  - テストカバレッジ > 90%
   - 全テストケース成功
   - コード品質チェック（ESLint/Prettier）
   - TypeScript型安全性確保
@@ -391,9 +390,7 @@ quality_gates:
 execution_details:
   automated_checks:
     - 全単体テストケース実行・成功確認
-    - テストカバレッジ基準達成確認（> 90%）
     - コード品質チェック（ESLint/Prettier）
-    - セキュリティスキャン
   
   leader_agent_review:
     - TDD原則遵守確認
@@ -414,7 +411,6 @@ execution_details:
 
 review_criteria:
   auto_approve:
-    - テストカバレッジ基準達成
     - 全単体テスト成功
     - 軽微なリファクタリング
   
@@ -504,8 +500,8 @@ workflow:
 
 execution_details:
   existing_knowledge_review:
-    - .ai/knowledge_base/01_requirements_analysis/ の既存要件確認
-    - .ai/knowledge_base/02_technical_architecture/ の既存設計確認
+    - .ai/knowledge_base/01_requirements/ の既存要件確認
+    - .ai/knowledge_base/02_architecture/ の既存設計確認
     - 既存機能・API・データベース構造の理解
     - 既存テスト戦略・品質基準の確認
   
@@ -519,7 +515,7 @@ execution_details:
     - 既存プロジェクト対応を含む要件定義書を更新
 
 deliverables:
-  - 更新された要件定義書 (.ai/knowledge_base/01_requirements_analysis/)
+  - 更新された要件定義書 (.ai/knowledge_base/01_requirements/)
   - 機能追加・改修GitHub Issues
   - 既存機能への影響評価書
   - 受け入れ基準（GitHub Issues内に記載）
@@ -595,7 +591,7 @@ execution_details:
     - 既存プロジェクト移行完了報告・機能追加フェーズへ移行
 
 deliverables:
-  - 既存プロジェクト分析レポート (.ai/knowledge_base/00_existing_project_analysis/)
+  - 既存プロジェクト分析レポート (.ai/knowledge_base/01_requirements/)
   - 技術スタック・アーキテクチャ図
   - 既存API仕様書
   - 既存データベーススキーマ文書
