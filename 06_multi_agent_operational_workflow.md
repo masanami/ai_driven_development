@@ -22,6 +22,7 @@ engineer_agents:
   fixed_configuration:
     - "engineer-1"     # 汎用エンジニアエージェント1
     - "engineer-2"     # 汎用エンジニアエージェント2
+    - "engineer-3"     # 汎用エンジニアエージェント3
   dynamic_assignment:
     - LEADERからのタスク分配に応じて担当機能を決定
     - 各エージェントが必要に応じてgit worktree環境を作成
@@ -51,20 +52,27 @@ main-repo/
 └── worktrees/ (並列作業環境 - 動的作成)
     ├── ../feature-auth/                  # engineer-1が作成・担当
     ├── ../feature-data-management/       # engineer-2が作成・担当
-    ├── ../feature-api-integration/       # engineer-1が追加作成・担当
-    └── ../feature-ui-components/         # engineer-2が追加作成・担当
+    ├── ../feature-api-integration/       # engineer-3が作成・担当
+    ├── ../feature-ui-components/         # engineer-1が追加作成・担当
+    └── ../e2e-tests/                     # qa-agentが作成・担当
 
 # 動的タスク分配の例（エージェント起動済み前提）
 dynamic_task_assignment:
   task_distribution_phase:
     - LEADER → engineer-1: "機能A（例：認証機能）を担当してください"
     - LEADER → engineer-2: "機能B（例：データ管理機能）を担当してください"
+    - LEADER → engineer-3: "機能C（例：API統合機能）を担当してください"
+    - LEADER → qa-agent: "E2Eテスト実装を担当してください"
     - engineer-1: git worktree add ../feature-auth feature/auth
     - engineer-2: git worktree add ../feature-data-management feature/data-management
+    - engineer-3: git worktree add ../feature-api-integration feature/api-integration
+    - qa-agent: git worktree add ../e2e-tests feature/e2e-tests
   
   parallel_execution_phase:
     - engineer-1: feature/auth ブランチで作業
     - engineer-2: feature/data-management ブランチで作業
+    - engineer-3: feature/api-integration ブランチで作業
+    - qa-agent: feature/e2e-tests ブランチで作業
     - 必要に応じて追加タスクを動的分配
 ```
 
@@ -239,7 +247,7 @@ deliverables:
 前提条件:
   - 全エージェントが既に起動・待機状態
   - LEADERエージェント: GitHub Issues作成完了・タスク分配準備完了
-  - engineer-1, engineer-2: 汎用エンジニア・タスク分配待ち
+  - engineer-1, engineer-2, engineer-3: 汎用エンジニア・タスク分配待ち
   - qa-agent: E2Eテスト設計・実装準備完了
 
 github_issues_assignment:
@@ -263,11 +271,13 @@ execution_examples:
   leader_issue_assignment:
     - "engineer-1への指示: Issue #1（ユーザー認証API実装）を担当してください"
     - "engineer-2への指示: Issue #2（データ管理CRUD機能実装）を担当してください"
+    - "engineer-3への指示: Issue #3（API統合機能実装）を担当してください"
     - "qa-agentへの指示: Issue #4（E2Eテスト実装）を担当してください"
   
   engineer_environment_setup:
     - engineer-1: "git worktree add ../issue-1-auth feature/issue-1-auth"
     - engineer-2: "git worktree add ../issue-2-data-management feature/issue-2-data-management"
+    - engineer-3: "git worktree add ../issue-3-api-integration feature/issue-3-api-integration"
     - 各エージェント: GitHub Issue内容確認・作業ディレクトリでの環境セットアップ実行
 
 github_workflow_integration:
@@ -354,9 +364,19 @@ parallel_tdd_execution:
       * 実装中のデータモデル詳細設計調整
     - 成果物: PR作成（Issue #2リンク・テスト含む）
   
+  engineer-3_assigned_tasks:
+    - 担当Issue: Issue #3（API統合機能実装）
+    - 作業環境: ../issue-3-api-integration/ worktree
+    - 実装内容:
+      * GitHub Issue要件に基づくAPI統合テスト実装
+      * 外部API連携・エラーハンドリングテスト
+      * API仕様準拠・レスポンス処理テスト実装
+      * 実装中のAPI統合詳細設計調整
+    - 成果物: PR作成（Issue #3リンク・テスト含む）
+  
   additional_issue_assignment:
-    - 必要に応じてengineer-1, engineer-2に追加Issueを分配
-    - 例: engineer-1にIssue #3（API統合機能）を追加分配
+    - 必要に応じてengineer-1, engineer-2, engineer-3に追加Issueを分配
+    - 例: engineer-1にIssue #5（UI改善機能）を追加分配
     - 各エージェントが複数Issue・worktree環境で並行作業可能
 
 design_coordination:

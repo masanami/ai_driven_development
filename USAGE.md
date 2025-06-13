@@ -17,13 +17,9 @@ git remote add ai-framework-remote <this-repo-url>
 git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ
-mkdir -p .ai/{instructions,logs}
-mkdir -p .claude
-mkdir -p worktrees
+mkdir -p .ai/{instructions,logs} .claude worktrees
 cp ai-framework/.claude/settings.json .claude/settings.json
-echo ".ai/logs/" >> .gitignore
-echo ".claude/settings.json" >> .gitignore
-echo "worktrees/" >> .gitignore
+echo -e ".ai/logs/\nworktrees/" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
 ./ai-framework/scripts/quick-start.sh
@@ -41,13 +37,9 @@ git remote add ai-framework-remote <this-repo-url>
 git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ  
-mkdir -p .ai/{instructions,logs}
-mkdir -p .claude
-mkdir -p worktrees
+mkdir -p .ai/{instructions,logs} .claude worktrees
 cp ai-framework/.claude/settings.json .claude/
-echo ".ai/logs/" >> .gitignore
-echo ".claude/settings.json" >> .gitignore
-echo "worktrees/" >> .gitignore
+echo -e ".ai/logs/\nworktrees/" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
 ./ai-framework/scripts/quick-start.sh

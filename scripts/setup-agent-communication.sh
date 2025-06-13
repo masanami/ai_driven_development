@@ -59,6 +59,11 @@ tmux split-window -v -t agents:0.2 -p 50  # engineer-2 (16.7% of 70% = 23.8%)
 # 最後にqa-agentを下部に追加（20%）
 tmux split-window -v -t agents:0.0 -p 60  # LEADERを上30%、qa-agentを下20%に
 
+# ペインタイトル表示設定
+echo "🏷️ ペインタイトル表示設定中..."
+tmux set-option -t agents -g pane-border-status top
+tmux set-option -t agents -g pane-border-format "#{?pane_active,#[fg=green],#[fg=white]}#{pane_index}: #{pane_title}#[default]"
+
 # ペイン名設定
 echo "🏷️ ペイン名設定中..."
 tmux select-pane -t agents:0.0 -T "LEADER"
