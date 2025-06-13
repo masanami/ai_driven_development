@@ -24,7 +24,7 @@ echo ".ai/logs/" >> .gitignore
 echo ".claude/settings.json" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
-./ai-framework/quick-start.sh
+./ai-framework/scripts/quick-start.sh
 
 ```
 
@@ -46,7 +46,7 @@ echo ".ai/logs/" >> .gitignore
 echo ".claude/settings.json" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
-./ai-framework/quick-start.sh
+./ai-framework/scripts/quick-start.sh
 ```
 
 ---
@@ -67,10 +67,15 @@ echo ".claude/settings.json" >> .gitignore
 ```
 your-project/
 ├── ai-framework/          # フレームワーク（自動更新）
-│   ├── setup-agent-communication.sh  # tmux環境構築
-│   ├── start-agents.sh              # エージェント起動
-│   ├── agent-send.sh               # 通信テスト
-│   └── quick-start.sh              # ワンクリック実行
+│   ├── scripts/           # スクリプト集
+│   │   ├── setup-agent-communication.sh  # tmux環境構築
+│   │   ├── start-agents.sh              # エージェント起動
+│   │   ├── agent-send.sh               # 通信テスト
+│   │   └── quick-start.sh              # ワンクリック実行
+│   └── templates/         # テンプレート集
+│       ├── leader_agent_setup_template.md
+│       ├── engineer_agent_setup_template.md
+│       └── qa_agent_setup_template.md
 ├── .claude/               # Claude Code設定
 │   └── settings.json               # 実際の設定（gitignore推奨）
 ├── .ai/
@@ -92,17 +97,17 @@ your-project/
 #### **簡易実行**
 ```bash
 # 全自動でtmux環境構築＋エージェント起動
-./ai-framework/quick-start.sh
+./ai-framework/scripts/quick-start.sh
 ```
 
 #### **手動ステップ実行（カスタマイズ向け）**
 ```bash
 # 1. tmux環境構築 + エージェント起動
-./ai-framework/setup-agent-communication.sh
-./ai-framework/start-agents.sh
+./ai-framework/scripts/setup-agent-communication.sh
+./ai-framework/scripts/start-agents.sh
 
 # 2. 通信テスト（オプション）
-./ai-framework/agent-send.sh
+./ai-framework/scripts/agent-send.sh
 ```
 
 ### **エージェント構成**
@@ -135,7 +140,7 @@ tmux kill-session -t agents
 #### **🆕 新規プロジェクト開発**
 ```bash
 # 1. tmux直接通信システム起動
-./ai-framework/quick-start.sh
+./ai-framework/scripts/quick-start.sh
 
 # 2. LEADERに開発指示を送信
 echo "開発するプロジェクト：

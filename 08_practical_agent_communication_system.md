@@ -62,7 +62,7 @@ POST形式で { email, password } を送信予定です。
 ## 🔧 実装
 
 ### **セットアップスクリプト**
-実際のセットアップは `setup-agent-communication.sh` で実行されます。
+実際のセットアップは `ai-framework/scripts/setup-agent-communication.sh` で実行されます。
 
 **主な機能:**
 - agentsセッション（5ペイン）の作成
@@ -71,7 +71,7 @@ POST形式で { email, password } を送信予定です。
 - 通信システムの初期化
 
 ### **エージェント起動スクリプト**
-実際のエージェント起動は `start-agents.sh` で実行されます。
+実際のエージェント起動は `ai-framework/scripts/start-agents.sh` で実行されます。
 
 **主な機能:**
 - 全5エージェント（LEADER + engineer-1,2,3 + qa-agent）の一括起動
@@ -80,7 +80,7 @@ POST形式で { email, password } を送信予定です。
 - セッション確認方法の案内
 
 ### **直接メッセージ送信システム**
-実際のメッセージ送信は `agent-send.sh` で実行されます。
+実際のメッセージ送信は `ai-framework/scripts/agent-send.sh` で実行されます。
 
 **主な機能:**
 - 5エージェント間での直接メッセージ送信
@@ -95,8 +95,8 @@ POST形式で { email, password } を送信予定です。
 ### **プロジェクト開始例**
 ```bash
 # 1. 環境構築・エージェント起動
-./setup-agent-communication.sh
-./start-agents.sh
+./ai-framework/scripts/setup-agent-communication.sh
+./ai-framework/scripts/start-agents.sh
 
 # 2. LEADERでプロジェクト開始
 # agentsセッションのLEADERペインで入力:
@@ -118,7 +118,7 @@ POST形式で { email, password } を送信予定です。
 ### **緊急時の直接連絡**
 ```bash
 # 手動で緊急メッセージ送信
-./agent-send.sh engineer-1 "engineer-3への連絡: 緊急です。統合APIでエラーが発生しています。詳細を確認してください。"
+./ai-framework/scripts/agent-send.sh engineer-1 "engineer-3への連絡: 緊急です。統合APIでエラーが発生しています。詳細を確認してください。"
 
 # engineer-3が受信後、自動的にLEADERに報告
 # engineer-3 → LEADER: "緊急問題を確認中です"

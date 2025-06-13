@@ -231,7 +231,7 @@ rm -f .ai/agent_communication/processed/*
 **詳細な開発手順・プロンプト例・トラブルシューティングは [USAGE.md](./USAGE.md) を参照してください**
 
 ### **基本的な流れ**
-1. 🚀 **開始**: `@ai-framework/leader_agent_setup_template.md` でリーダーエージェント起動
+1. 🚀 **開始**: `@ai-framework/templates/leader_agent_setup_template.md` でリーダーエージェント起動
 2. 🎯 **要件定義**: 対話的ヒアリングで要件整理
 3. 🏗️ **設計**: 技術選定・アーキテクチャ設計
 4. ⚡ **実装**: 並列TDD実装

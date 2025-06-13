@@ -35,7 +35,7 @@ qa_agent:
 ### **開発環境構成**
 ```bash
 # エージェント環境（事前構築済み）
-# ./quick-start.sh または ./setup-agent-communication.sh + ./start-agents.sh で構築
+# ./ai-framework/scripts/quick-start.sh または ./ai-framework/scripts/setup-agent-communication.sh + ./ai-framework/scripts/start-agents.sh で構築
 
 tmux session: agents
 ├── pane 0: LEADER (👑 プロジェクト管理・タスク分配)
@@ -140,7 +140,7 @@ deliverables:
 
 前提条件:
   - エージェント環境は既に起動・待機状態
-  - ./quick-start.sh または ./setup-agent-communication.sh + ./start-agents.sh で構築済み
+  - ./ai-framework/scripts/quick-start.sh または ./ai-framework/scripts/setup-agent-communication.sh + ./ai-framework/scripts/start-agents.sh で構築済み
 
 workflow:
   1. 機能要求を親タスクに分割
@@ -190,7 +190,7 @@ deliverables:
 
 前提条件:
   - QAエージェントは既に起動・待機状態
-  - qa_agent_setup_template.md の指示書読み込み済み
+  - ai-framework/templates/qa_agent_setup_template.md の指示書読み込み済み
 
 e2e_test_design:
   test_scenario_design:
