@@ -26,11 +26,13 @@ tmuxベースのリアルタイム直接通信システム。
 3. LEADER → engineer-3: "機能C（API統合機能）を担当してください"
 4. LEADER → qa-agent: "テスト設計・品質保証をお願いします"
 
-🔄 進行中の直接やりとり:
-engineer-1 → engineer-2: "認証APIの仕様変更があります。詳細をお送りします"
-engineer-2 → engineer-3: "データ管理APIが完成しました。統合をお願いします"
-engineer-3 → qa-agent: "API統合完了。テストをお願いします"
-qa-agent → LEADER: "テスト完了。品質基準を満たしています"
+🔄 逐次PR作成・レビューフロー:
+engineer-1 → LEADER: "Issue #1実装完了。PR #1作成済み。レビューお願いします"
+LEADER → engineer-1: "PR #1レビュー完了。依存関係問題なし。マージします"
+engineer-2 → LEADER: "Issue #2実装完了。PR #2作成済み。レビューお願いします"
+LEADER → engineer-2: "PR #2レビュー中。認証機能との統合確認後マージします"
+engineer-3 → LEADER: "Issue #3実装完了。PR #3作成済み。レビューお願いします"
+LEADER → engineer-3: "PR #3は#1,#2のマージ後にレビューします。依存関係を確認中"
 ```
 
 ---
@@ -116,16 +118,23 @@ qa-agent → LEADER: "テスト完了。品質基準を満たしています"
 "あなたはleaderです。Webアプリの開発プロジェクトを開始してください。指示書に従って各エージェントに動的にタスクを分配してください。"
 
 # 3. LEADERが自動的に各エージェントに直接指示
-# → engineer-1への指示: 機能A（認証機能）実装
-# → engineer-2への指示: 機能B（データ管理機能）実装
-# → engineer-3への指示: 機能C（API統合機能）実装
-# → qa-agentへの指示: テスト設計・実行
+./ai-framework/scripts/agent-send.sh engineer-1 "engineer-1への指示: Issue #1（認証機能）を担当してください。実装完了次第、即座にPRを作成して報告してください。"
+./ai-framework/scripts/agent-send.sh engineer-2 "engineer-2への指示: Issue #2（データ管理機能）を担当してください。実装完了次第、即座にPRを作成して報告してください。"
+./ai-framework/scripts/agent-send.sh engineer-3 "engineer-3への指示: Issue #3（API統合機能）を担当してください。実装完了次第、即座にPRを作成して報告してください。"
+./ai-framework/scripts/agent-send.sh qa-agent "qa-agentへの指示: E2Eテスト設計・実装をお願いします。"
 
-# 4. エージェント間で直接やりとり
-# engineer-1 → engineer-2: 認証API仕様確認
-# engineer-2 → engineer-3: データ管理API完了通知
-# engineer-3 → qa-agent: 統合実装完了通知
-# qa-agent → LEADER: テスト結果報告
+# 4. 並列実装・逐次PR作成フロー
+# engineer-1が最初に完了した場合:
+./ai-framework/scripts/agent-send.sh leader "LEADERへの報告: Issue #1（認証機能）実装完了。PR #1を作成しました。レビューをお願いします。"
+
+# LEADERが依存関係を確認してレビュー・マージ
+./ai-framework/scripts/agent-send.sh engineer-1 "engineer-1への連絡: PR #1をレビューしました。依存関係に問題なし。mainブランチにマージします。"
+
+# engineer-2が次に完了した場合:
+./ai-framework/scripts/agent-send.sh leader "LEADERへの報告: Issue #2（データ管理機能）実装完了。PR #2を作成しました。レビューをお願いします。"
+
+# LEADERが依存関係を確認（認証機能との連携チェック）
+./ai-framework/scripts/agent-send.sh engineer-2 "engineer-2への連絡: PR #2をレビューしました。認証機能との統合テストを実行してください。問題なければマージします。"
 ```
 
 ### **緊急時の直接連絡**
@@ -143,30 +152,6 @@ qa-agent → LEADER: "テスト完了。品質基準を満たしています"
 
 ---
 
-## 💡 直接通信の利点
-
-✅ **リアルタイム性**
-- メッセージ送信と同時に相手エージェントが受信・処理
-- ファイル確認待ちなしの即座対応
-
-✅ **対話的**
-- エージェント間での自然な会話・質疑応答
-- 人間同士のチームワークに近い協調動作
-
-✅ **視覚的管理**
-- tmuxペインで各エージェントの活動状況を一目で確認
-- リアルタイムでの進捗把握
-
-✅ **柔軟性**
-- 予期しない状況での臨機応変な連携
-- 複雑な交渉・調整作業への対応
-
-✅ **シンプルさ**
-- ファイル管理・フォーマット制約なし
-- 自然言語でのストレートな意思疎通
-
----
-
 ## 🚨 制限・注意事項
 
 ⚠️ **同期要件**
@@ -177,34 +162,4 @@ qa-agent → LEADER: "テスト完了。品質基準を満たしています"
 - macOS/Linuxでのtmux実行環境が必要
 
 ⚠️ **Claude Code前提**
-- 各ペインでのClaude Code起動・指示書読み込みが前提
-
----
-
-## 🔄 今後の拡張案
-
-### **通信履歴の永続化**
-```bash
-# agent-send.shによる自動ログ記録
-# 全ての通信が .ai/logs/communication.log に自動記録される
-
-# 手動でセッション履歴をバックアップ
-tmux capture-pane -t agents:0.0 -p >> .ai/logs/leader_session.log
-tmux capture-pane -t agents:0.1 -p >> .ai/logs/engineer1_session.log
-tmux capture-pane -t agents:0.2 -p >> .ai/logs/engineer2_session.log
-tmux capture-pane -t agents:0.3 -p >> .ai/logs/engineer3_session.log
-tmux capture-pane -t agents:0.4 -p >> .ai/logs/qa_session.log
-
-# 通信ログの確認
-tail -f .ai/logs/communication.log
-```
-
-### **自動応答システム**
-```bash
-# エージェントの応答パターン学習・自動化
-# 繰り返し作業の自動実行
-```
-
----
-
-*この直接通信システムにより、ファイルベースでは実現困難だったリアルタイム協調作業が可能になります。エージェント間の自然な対話による効率的な開発体制を実現できます。* 
+- 各ペインでのClaude Code起動・指示書読み込みが前提 
