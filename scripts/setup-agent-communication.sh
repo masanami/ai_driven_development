@@ -78,6 +78,10 @@ tmux send-keys -t agents:0.3 C-m
 tmux send-keys -t agents:0.4 'echo "🧪 qa-agent ready"'
 tmux send-keys -t agents:0.4 C-m
 
+# LEADERペインをアクティブに設定
+echo "🎯 LEADERペインをアクティブに設定中..."
+tmux select-pane -t agents:0.0
+
 # 通信システム初期化
 echo "📡 直接通信システム初期化中..."
 echo "$(date): Direct communication system initialized" > .ai/logs/communication.log
