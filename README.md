@@ -17,7 +17,7 @@
 - **⚡ 即座に実験開始可能**: 5分で環境構築完了
 - **🔄 実用性優先**: オーバーエンジニアリング回避、ROI重視
 - **🔧 TDD統合**: テスト駆動開発による品質保証
-- **📁 ファイルベース通信**: 簡潔で分かりやすい協調システム
+- **⚡ tmux直接通信**: リアルタイム協調システム
 - **🎋 git worktree活用**: 効率的な並列開発環境
 
 ---
@@ -76,9 +76,7 @@ git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ
 mkdir -p .ai/{workflows,contexts,logs}
-mkdir -p .ai/agent_communication/{inbox,outbox,processed,templates}
 echo ".ai/logs/" >> .gitignore
-echo ".ai/agent_communication/processed/" >> .gitignore
 
 # 4. 開発開始
 # USAGE.md の指示に従ってClaude Codeで開発開始
@@ -95,9 +93,7 @@ git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ  
 mkdir -p .ai/{workflows,contexts,logs}
-mkdir -p .ai/agent_communication/{inbox,outbox,processed,templates}
 echo ".ai/logs/" >> .gitignore
-echo ".ai/agent_communication/processed/" >> .gitignore
 
 # 4. 開発開始
 # USAGE.md の指示に従ってClaude Codeで開発開始

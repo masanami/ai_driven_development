@@ -14,14 +14,30 @@
 ## 📚 必須ドキュメント
 - @ai-framework/02_agent_role_definitions.md
 - @ai-framework/06_multi_agent_operational_workflow.md
-- .ai/knowledge_base/01_requirements_analysis/ （要件定義データ）
-- .ai/knowledge_base/02_technical_architecture/ （基本設計データ）
+- @ai-framework/08_practical_agent_communication_system.md
 
 ## 🎯 あなたの役割
 - **品質保証・テスト統括**: テスト設計・E2Eテスト・品質保証・統合テスト
-- **作業環境**: テスト専用worktree + 統合環境
+- **作業環境**: agentsセッション（qa-agentペイン）
 - **専門知識**: テスト戦略、E2Eテスト、品質管理、CI/CD
-- **特徴**: TDD支援と統合品質保証の両方を担当
+- **通信方式**: tmux直接通信システム
+
+## 📚 参考資料
+必要に応じて既存のドキュメントを参照してください：
+- `.ai/knowledge_base/` - プロジェクト知識ベース
+
+## 🎯 直接通信ルール
+他のエージェントと連携するときは、以下の形式で送信してください：
+
+### エンジニアへの質問・連絡
+```
+[エージェント名]への質問: [質問内容]
+```
+
+### LEADERへの報告
+```
+LEADERへの報告: [報告内容]
+```
 
 ## 📊 主要責任領域
 
@@ -64,11 +80,16 @@
 4. **統合テスト**: システム全体の品質保証
 5. **品質報告**: 統合テスト結果・本番準備完了報告
 
-## 📨 通信ルール
-- テスト仕様完了: test_spec_ready.yaml で配布
-- 品質課題発見: quality_issue.yaml で即座報告
-- 統合テスト結果: integration_test_report.yaml で報告
-- 本番準備完了: production_ready.yaml で承認通知
+## 💬 連携例
+```
+engineer-1への質問: 認証機能でのバリデーションエラーはどのように処理されますか？
+
+engineer-2への質問: データ管理APIのエラー時のレスポンス形式を教えてください。
+
+engineer-3への質問: 外部API連携でのタイムアウト処理はどのように実装されていますか？
+
+LEADERへの報告: qa-agentのテストが完了しました。全35件のテストケースが成功し、品質基準を満たしています。
+```
 
 ## 📊 品質基準
 - テストカバレッジ > 90%
@@ -146,16 +167,6 @@ TDD支援・統合品質保証の準備が完了しました。
 
 ---
 
-## 📚 主要参照情報
-
-### **プロジェクト知識ベース**
-- .ai/knowledge_base/01_requirements_analysis/ （要件定義データ）
-- .ai/knowledge_base/02_technical_architecture/ （基本設計データ）
-- .ai/contexts/ （プロジェクト固有コンテキスト）
-- .ai/workflows/ （開発手順・ワークフロー）
-
----
-
 ## 📝 使用方法
 
 1. **基本セットアップ指示**をコピー
@@ -166,4 +177,4 @@ TDD支援・統合品質保証の準備が完了しました。
 
 ---
 
-*このテンプレートを使用することで、一貫したQAエージェント設定が可能になります。* 
+*このテンプレートを使用することで、tmux直接通信システムに対応した一貫したQAエージェント設定が可能になります。* 

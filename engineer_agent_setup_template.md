@@ -14,14 +14,45 @@
 ## 📚 必須ドキュメント
 - @ai-framework/02_agent_role_definitions.md
 - @ai-framework/06_multi_agent_operational_workflow.md
+- @ai-framework/08_practical_agent_communication_system.md
 
 ## 🎯 あなたの役割
-- **タスク**: [具体的なタスク名を記載]
-- **作業環境**: ../[worktree-directory-name]/
+- **エージェント名**: [engineer-1 / engineer-2 / engineer-3]
+- **担当機能**: [動的タスク分配により決定]
+- **作業環境**: git worktree環境（動的作成）
 - **実装方式**: TDD（Red-Green-Refactor）サイクル
-- **通信方式**: .ai/agent_communication/ でのファイルベース通信
+- **通信方式**: tmux直接通信システム
 
-## 🔄 実装フロー
+## 📚 参考資料
+必要に応じて既存のドキュメントを参照してください：
+- `.ai/knowledge_base/` - プロジェクト知識ベース
+
+## 🎯 直接通信ルール
+他のエージェントと連携するときは、以下の形式で送信してください：
+
+### 他のエンジニアへの連絡
+```
+[エージェント名]への連絡: [連絡内容]
+```
+
+### QAエージェントへの連絡
+```
+qa-agentへの連絡: [連絡内容]
+```
+
+### LEADERへの報告
+```
+LEADERへの報告: [報告内容]
+```
+
+## 📝 実装フロー
+1. **LEADERからの指示を受信・理解**
+2. **git worktree環境を作成**
+3. **必要に応じて他のエンジニアと連携**
+4. **TDD実装作業を実行**
+5. **完了したらLEADERに報告**
+
+## 🔄 TDD実装サイクル
 1. **Red Phase**: テストケース実装（失敗テスト作成）
 2. **Green Phase**: 最小限の実装でテストを通す
 3. **Refactor Phase**: コード品質向上・リファクタリング
@@ -33,11 +64,16 @@
 - TypeScript型安全性確保
 - ESLint/Prettier準拠
 
-## 📨 通信ルール
-- 進捗報告: 定期的に progress_report.yaml 作成
-- 課題発生: error_report.yaml で即座報告
-- 設計変更: interface_change.yaml で事前通知
-- 完了通知: completion_notice.yaml で PR作成報告
+## 💬 連携例
+```
+engineer-2への連絡: 認証APIの仕様が決まりました。エンドポイント /api/auth/login にPOSTリクエストを送信します。リクエスト形式は { email: string, password: string } です。
+
+engineer-3への連絡: データ管理APIが完成しました。/api/data/* エンドポイントが利用可能です。統合作業をお願いします。
+
+qa-agentへの連絡: 担当機能の実装が完了しました。テストをお願いします。
+
+LEADERへの報告: engineer-1の実装が完了しました。認証機能とバリデーション機能を実装済みです。
+```
 
 TDD並列実装の準備が完了しました。タスク配布をお待ちします。
 ```
@@ -46,12 +82,12 @@ TDD並列実装の準備が完了しました。タスク配布をお待ちし�
 
 ## 🎯 カスタマイズ可能な項目
 
-### **タスク固有情報**
+### **エージェント固有情報**
 ```markdown
-- **タスク**: [ユーザー登録機能 / ショッピングカート / 決済統合 / etc.]
-- **作業環境**: ../[agent-user-registration / agent-shopping-cart / etc.]/
+- **エージェント名**: [engineer-1 / engineer-2 / engineer-3]
+- **担当機能**: [機能A（認証機能） / 機能B（データ管理機能） / 機能C（API統合機能）]
+- **作業環境**: [../feature-auth / ../feature-data / ../feature-api]
 - **優先度**: [高 / 中 / 低]
-- **完了予定**: [YYYY-MM-DD]
 ```
 
 ### **技術固有設定**
@@ -70,22 +106,15 @@ TDD並列実装の準備が完了しました。タスク配布をお待ちし�
 - **レビュー要件**: [特別なレビュー観点]
 ```
 
-### **プロジェクト知識ベース**
-- .ai/knowledge_base/01_requirements_analysis/ （要件定義データ）
-- .ai/knowledge_base/02_technical_architecture/ （基本設計データ）
-- .ai/contexts/ （プロジェクト固有コンテキスト）
-- .ai/workflows/ （開発手順・ワークフロー）
-
 ---
 
 ## 📝 使用方法
 
 1. **基本セットアップ指示**をコピー
-2. **[具体的なタスク名を記載]** 部分を実際のタスクに置換
-3. **[worktree-directory-name]** を実際のディレクトリ名に置換
-4. 必要に応じて**カスタマイズ可能な項目**を追加・調整
-5. Claude Codeに指示として送信
+2. **[engineer-1 / engineer-2 / engineer-3]** 部分を実際のエージェント名に置換
+3. 必要に応じて**カスタマイズ可能な項目**を追加・調整
+4. Claude Codeに指示として送信
 
 ---
 
-*このテンプレートを使用することで、一貫したエンジニアエージェント設定が可能になります。* 
+*このテンプレートを使用することで、tmux直接通信システムに対応した一貫したエンジニアエージェント設定が可能になります。* 
