@@ -133,6 +133,6 @@ workflow_continuation:
 ---
 
 ## 🔗 関連ドキュメント
-- **新規プロジェクト**: workflow_master_guide.md
+- **新規プロジェクト**: 06_multi_agent_operational_workflow.md
 - **フェーズ別ワークフロー**: workflow_phase_1_requirements_design.md 以降
 - **通信システム**: 08_practical_agent_communication_system.md 

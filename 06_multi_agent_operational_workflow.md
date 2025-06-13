@@ -9,7 +9,7 @@
 ## 🗂️ フェーズ別ファイル構成
 
 ```
-workflow_master_guide.md                    ← 👆 このファイル（全体管理）
+06_multi_agent_operational_workflow.md      ← 👆 このファイル（全体管理）
 ├── workflow_phase_1_requirements_design.md ← Phase 1: 要件定義・基本設計
 ├── workflow_phase_2_task_breakdown.md      ← Phase 2: タスク分割・Issues作成
 ├── workflow_phase_3_parallel_implementation.md ← Phase 3: 並列実装・通信

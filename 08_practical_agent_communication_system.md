@@ -37,21 +37,19 @@ qa-agent → LEADER: "テスト完了。品質基準を満たしています"
 
 ## 🚀 直接通信の仕組み
 
-### **tmux send-keysによる直接メッセージ送信**
+### **agent-send.shによる直接メッセージ送信**
 ```bash
 # LEADERからengineer-1への直接指示
-tmux send-keys -t agents:0.1 '
-engineer-1への指示: 機能A（認証機能）を担当してください。
-git worktree環境を作成して実装をお願いします。
-完了したら「engineer-1実装完了」と報告してください。
-' C-m
+./ai-framework/scripts/agent-send.sh engineer-1 "engineer-1への指示: 機能A（認証機能）を担当してください。git worktree環境を作成して実装をお願いします。完了したら「engineer-1実装完了」と報告してください。"
 
 # engineer-1からengineer-2への直接連絡
-tmux send-keys -t agents:0.2 '
-engineer-2への連絡: 認証APIの仕様が決まりました。
-エンドポイント /api/auth/login を使用してください。
-POST形式で { email, password } を送信予定です。
-' C-m
+./ai-framework/scripts/agent-send.sh engineer-2 "engineer-2への連絡: 認証APIの仕様が決まりました。エンドポイント /api/auth/login を使用してください。POST形式で { email, password } を送信予定です。"
+
+# engineer-2からengineer-3への連携
+./ai-framework/scripts/agent-send.sh engineer-3 "engineer-3への連絡: データ管理APIが完成しました。統合をお願いします。"
+
+# qa-agentからLEADERへの報告
+./ai-framework/scripts/agent-send.sh leader "LEADERへの報告: テスト完了。品質基準を満たしています。"
 ```
 
 ### **Claude Code指示書による自動応答**
@@ -85,8 +83,23 @@ POST形式で { email, password } を送信予定です。
 **主な機能:**
 - 5エージェント間での直接メッセージ送信
 - tmux send-keysによるリアルタイム通信
-- 通信ログの自動記録
+- 通信ログの自動記録（.ai/logs/communication.log）
 - エージェント名の自動検証
+- 使いやすいコマンドライン形式
+
+**使用方法:**
+```bash
+# 基本的な使用方法
+./ai-framework/scripts/agent-send.sh [エージェント名] [メッセージ]
+
+# 利用可能なエージェント
+# leader, engineer-1, engineer-2, engineer-3, qa-agent
+
+# 実用例
+./ai-framework/scripts/agent-send.sh engineer-1 "engineer-2への連絡: API仕様について相談があります"
+./ai-framework/scripts/agent-send.sh engineer-3 "qa-agentへの連絡: 統合テストをお願いします"
+./ai-framework/scripts/agent-send.sh qa-agent "LEADERへの報告: テスト完了しました"
+```
 
 ---
 
@@ -121,7 +134,11 @@ POST形式で { email, password } を送信予定です。
 ./ai-framework/scripts/agent-send.sh engineer-1 "engineer-3への連絡: 緊急です。統合APIでエラーが発生しています。詳細を確認してください。"
 
 # engineer-3が受信後、自動的にLEADERに報告
-# engineer-3 → LEADER: "緊急問題を確認中です"
+./ai-framework/scripts/agent-send.sh leader "LEADERへの報告: 緊急問題を確認中です。engineer-1からの統合APIエラー報告を調査しています。"
+
+# 問題解決後の報告
+./ai-framework/scripts/agent-send.sh leader "LEADERへの報告: 統合APIエラーを修正しました。テスト実行をお願いします。"
+./ai-framework/scripts/agent-send.sh qa-agent "qa-agentへの連絡: 統合APIエラー修正完了。回帰テストをお願いします。"
 ```
 
 ---
@@ -168,12 +185,18 @@ POST形式で { email, password } を送信予定です。
 
 ### **通信履歴の永続化**
 ```bash
-# 全セッションの通信をログに記録
-tmux capture-pane -t agents:0.0 -p >> logs/leader_history.log
-tmux capture-pane -t agents:0.1 -p >> logs/engineer1_history.log
-tmux capture-pane -t agents:0.2 -p >> logs/engineer2_history.log
-tmux capture-pane -t agents:0.3 -p >> logs/engineer3_history.log
-tmux capture-pane -t agents:0.4 -p >> logs/qa_history.log
+# agent-send.shによる自動ログ記録
+# 全ての通信が .ai/logs/communication.log に自動記録される
+
+# 手動でセッション履歴をバックアップ
+tmux capture-pane -t agents:0.0 -p >> .ai/logs/leader_session.log
+tmux capture-pane -t agents:0.1 -p >> .ai/logs/engineer1_session.log
+tmux capture-pane -t agents:0.2 -p >> .ai/logs/engineer2_session.log
+tmux capture-pane -t agents:0.3 -p >> .ai/logs/engineer3_session.log
+tmux capture-pane -t agents:0.4 -p >> .ai/logs/qa_session.log
+
+# 通信ログの確認
+tail -f .ai/logs/communication.log
 ```
 
 ### **自動応答システム**
