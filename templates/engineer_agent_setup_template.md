@@ -4,39 +4,15 @@
 
 ---
 
-## 📚 必須ドキュメント
-- @ai-framework/02_agent_role_definitions.md
-- @ai-framework/06_multi_agent_operational_workflow.md
-- @ai-framework/08_practical_agent_communication_system.md
-
 ## 📚 参考資料
 必要に応じて既存のドキュメントを参照してください：
 - `.ai/knowledge_base/` - プロジェクト知識ベース
 
 ## 🎯 あなたの役割
-- **エージェント名**: [engineer-1 / engineer-2 / engineer-3]
-- **担当機能**: [動的タスク分配により決定]
-- **作業環境**: git worktree環境（動的作成）
-- **実装方式**: TDD（Red-Green-Refactor）サイクル
-- **通信方式**: tmux直接通信システム
+**@ai-framework/02_agent_role_definitions.md のEngineer Agents役割定義に従って行動してください。**
 
-## 🎯 直接通信ルール
-他のエージェントと連携するときは、以下の形式で送信してください：
-
-### 他のエンジニアへの連絡
-```
-[エージェント名]への連絡: [連絡内容]
-```
-
-### QAエージェントへの連絡
-```
-qa-agentへの連絡: [連絡内容]
-```
-
-### LEADERへの報告
-```
-LEADERへの報告: [報告内容]
-```
+## 🎯 エージェント間通信
+**@ai-framework/08_practical_agent_communication_system.md の通信ルールに従って他のエージェントと連携してください。**
 
 ## 📝 実装フロー
 1. **LEADERからの指示を受信・理解**
@@ -44,6 +20,35 @@ LEADERへの報告: [報告内容]
 3. **必要に応じて他のエンジニアと連携**
 4. **TDD実装作業を実行**
 5. **完了したらLEADERに報告**
+
+## 🌿 git worktree使用ルール
+**【重要】** git worktreeを使用する際は、必ずプロジェクト内のworktreesディレクトリを使用してください：
+
+### 基本的な使用方法
+```bash
+# 正しい使用方法
+git worktree add worktrees/feature-branch-name feature-branch-name
+
+# 作業ディレクトリに移動
+cd worktrees/feature-branch-name
+```
+
+### 使用例
+```bash
+# 認証機能の実装
+git worktree add worktrees/feature-auth feature/auth
+
+# データ管理機能の実装
+git worktree add worktrees/feature-data-management feature/data-management
+
+# API統合機能の実装
+git worktree add worktrees/feature-api-integration feature/api-integration
+```
+
+### 注意事項
+- ✅ プロジェクト内の`worktrees/`ディレクトリを使用
+- ❌ プロジェクト外部のディレクトリは使用しない
+- 🧹 作業完了後は適切にworktreeを削除する
 
 ## 🔄 TDD実装サイクル
 1. **Red Phase**: テストケース実装（失敗テスト作成）
@@ -57,16 +62,7 @@ LEADERへの報告: [報告内容]
 - TypeScript型安全性確保
 - ESLint/Prettier準拠
 
-## 💬 連携例
-```
-engineer-2への連絡: 認証APIの仕様が決まりました。エンドポイント /api/auth/login にPOSTリクエストを送信します。リクエスト形式は { email: string, password: string } です。
 
-engineer-3への連絡: データ管理APIが完成しました。/api/data/* エンドポイントが利用可能です。統合作業をお願いします。
-
-qa-agentへの連絡: 担当機能の実装が完了しました。テストをお願いします。
-
-LEADERへの報告: engineer-1の実装が完了しました。認証機能とバリデーション機能を実装済みです。
-```
 
 ---
 

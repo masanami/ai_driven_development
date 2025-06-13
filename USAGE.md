@@ -19,9 +19,11 @@ git subtree add --prefix ai-framework ai-framework-remote main --squash
 # 3. 最小構成セットアップ
 mkdir -p .ai/{instructions,logs}
 mkdir -p .claude
+mkdir -p worktrees
 cp ai-framework/.claude/settings.json .claude/settings.json
 echo ".ai/logs/" >> .gitignore
 echo ".claude/settings.json" >> .gitignore
+echo "worktrees/" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
 ./ai-framework/scripts/quick-start.sh
@@ -41,9 +43,11 @@ git subtree add --prefix ai-framework ai-framework-remote main --squash
 # 3. 最小構成セットアップ  
 mkdir -p .ai/{instructions,logs}
 mkdir -p .claude
+mkdir -p worktrees
 cp ai-framework/.claude/settings.json .claude/
 echo ".ai/logs/" >> .gitignore
 echo ".claude/settings.json" >> .gitignore
+echo "worktrees/" >> .gitignore
 
 # 4. tmux直接通信システムセットアップ
 ./ai-framework/scripts/quick-start.sh
@@ -146,11 +150,10 @@ tmux kill-session -t agents
 ./ai-framework/scripts/quick-start.sh
 
 # 2. LEADERに開発指示を送信
-echo "開発するプロジェクト：
-ECサイトのショッピングカート機能を作りたいです。
-ユーザーが商品を選んでカートに追加し、決済できるシステムです。
-
-要件定義から実装まで、エージェント間で協調して進めてください。" | tmux send-keys -t agents:0.0 Enter
+tmux send-keys -t agents:0.0 "開発するプロジェクト：
+家系図を作成できるWEBアプリケーションを作りたいです。
+要件定義から実装まで、エージェント間で協調して進めてください。"
+tmux send-keys -t agents:0.0 C-m
 ```
 
 #### **🔧 ai-framework導入済みプロジェクトの機能追加・改修**
@@ -159,12 +162,13 @@ ECサイトのショッピングカート機能を作りたいです。
 ./ai-framework/quick-start.sh
 
 # 2. LEADERに機能追加指示を送信
-echo "既存プロジェクトの機能追加・改修：
+tmux send-keys -t agents:0.0 "既存プロジェクトの機能追加・改修：
 既存のECサイトに、商品レビュー機能を追加したいです。
 ユーザーが購入した商品にレビューを投稿し、他のユーザーが閲覧できる機能です。
 
 既存の .ai/knowledge_base/ の情報を参照して、
-エージェント間で協調しながら要件定義から実装まで進めてください。" | tmux send-keys -t agents:0.0 Enter
+エージェント間で協調しながら要件定義から実装まで進めてください。"
+tmux send-keys -t agents:0.0 C-m
 ```
 
 #### **📦 ai-framework未導入プロジェクトの移行 + 機能追加**
@@ -173,12 +177,13 @@ echo "既存プロジェクトの機能追加・改修：
 ./ai-framework/quick-start.sh
 
 # 2. LEADERにプロジェクト移行＋機能追加指示を送信
-echo "ai-framework未導入プロジェクトの移行 + 機能追加：
+tmux send-keys -t agents:0.0 "ai-framework未導入プロジェクトの移行 + 機能追加：
 Next.js + TypeScript + PostgreSQLで構築済みのECサイトに、
 商品レビュー機能を追加したいです。
 
 まず既存プロジェクトの情報を .ai/knowledge_base/ に移行してから、
-エージェント間で協調して機能追加を進めてください。" | tmux send-keys -t agents:0.0 Enter
+エージェント間で協調して機能追加を進めてください。"
+tmux send-keys -t agents:0.0 C-m
 ```
 
 **これだけで開発開始！** ✨

@@ -4,68 +4,44 @@
 
 ---
 
-## 📚 必須ドキュメント
-- @ai-framework/02_agent_role_definitions.md
-- @ai-framework/06_multi_agent_operational_workflow.md
-- @ai-framework/08_practical_agent_communication_system.md
-
 ## 📚 参考資料
 必要に応じて既存のドキュメントを参照してください：
 - `.ai/knowledge_base/` - プロジェクト知識ベース
 
 ## 🎯 あなたの役割
-- **品質保証・テスト統括**: テスト設計・E2Eテスト・品質保証・統合テスト
-- **作業環境**: agentsセッション（qa-agentペイン）
-- **専門知識**: テスト戦略、E2Eテスト、品質管理、CI/CD
-- **通信方式**: tmux直接通信システム
+**@ai-framework/02_agent_role_definitions.md のQA Agent役割定義に従って行動してください。**
 
-## 🎯 直接通信ルール
-他のエージェントと連携するときは、以下の形式で送信してください：
+## 🎯 エージェント間通信
+**@ai-framework/08_practical_agent_communication_system.md の通信ルールに従って他のエージェントと連携してください。**
 
-### エンジニアへの質問・連絡
+## 🌿 git worktree使用ルール
+**【重要】** テスト設計・E2E実装でgit worktreeを使用する際は、必ずプロジェクト内のworktreesディレクトリを使用してください：
+
+### 基本的な使用方法
+```bash
+# 正しい使用方法
+git worktree add worktrees/feature-branch-name feature-branch-name
+
+# 作業ディレクトリに移動
+cd worktrees/feature-branch-name
 ```
-[エージェント名]への質問: [質問内容]
+
+### 使用例
+```bash
+# E2Eテスト実装
+git worktree add worktrees/feature-e2e-tests feature/e2e-tests
+
+# 統合テスト実装
+git worktree add worktrees/feature-integration-tests feature/integration-tests
+
+# テスト環境構築
+git worktree add worktrees/feature-test-setup feature/test-setup
 ```
 
-### LEADERへの報告
-```
-LEADERへの報告: [報告内容]
-```
-
-## 📊 主要責任領域
-
-### 🧪 TDD支援
-- **テスト戦略策定**: テスト駆動開発戦略の立案
-- **テストケース設計**: 機能別テストケース設計
-- **TDD支援**: エンジニアエージェントのテスト実装支援
-
-### 🔍 統合品質保証
-- **統合テスト実行**: システム統合テスト・E2Eテスト実行
-- **品質ゲート管理**: テストカバレッジ・品質基準達成確認
-
-## 🔄 実施フロー
-1. **テスト戦略策定**: TDD実装ガイドライン作成
-2. **テストケース設計**: 機能別詳細テストケース設計
-3. **TDD支援**: エンジニアエージェントのテスト実装支援
-4. **統合テスト**: システム全体の品質保証
-5. **品質報告**: 統合テスト結果・本番準備完了報告
-
-## 📊 品質基準
-- テストカバレッジ > 90%
-- 全テストケース成功
-- パフォーマンス基準達成
-- セキュリティ検査クリア
-
-## 💬 連携例
-```
-engineer-1への質問: 認証機能でのバリデーションエラーはどのように処理されますか？
-
-engineer-2への質問: データ管理APIのエラー時のレスポンス形式を教えてください。
-
-engineer-3への質問: 外部API連携でのタイムアウト処理はどのように実装されていますか？
-
-LEADERへの報告: qa-agentのテストが完了しました。全35件のテストケースが成功し、品質基準を満たしています。
-```
+### 注意事項
+- ✅ プロジェクト内の`worktrees/`ディレクトリを使用
+- ❌ プロジェクト外部のディレクトリは使用しない
+- 🧹 作業完了後は適切にworktreeを削除する
 
 ---
 

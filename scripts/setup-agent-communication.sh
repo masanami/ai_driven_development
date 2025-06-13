@@ -10,6 +10,7 @@ mkdir -p .ai/{logs,instructions}
 mkdir -p tmp
 mkdir -p shared
 
+
 # テンプレートファイルから指示書作成
 echo "📝 テンプレートファイルから指示書を作成中..."
 
@@ -46,17 +47,17 @@ cp "${SCRIPT_DIR}/../templates/qa_agent_setup_template.md" .ai/instructions/qa-a
 echo "📊 agentsセッション作成中..."
 tmux new-session -d -s agents
 
-# ペイン分割（LEADER 25%, engineer-1 25%, engineer-2 25%, engineer-3 25%, qa-agent 25%）
-# 最初に縦に分割してLEADER(25%)とその他(75%)に分ける
-tmux split-window -h -t agents -p 75
+# ペイン分割（LEADER 30%, engineer-1 16.7%, engineer-2 16.7%, engineer-3 16.7%, qa-agent 20%）
+# 最初に縦に分割してLEADER(30%)とその他(70%)に分ける
+tmux split-window -h -t agents -p 70
 
 # 右側を3つに分割（engineer-1, engineer-2, engineer-3）
-tmux split-window -v -t agents:0.1 -p 67  # engineer-1 (25% of 75% = 33.3%)
-tmux split-window -v -t agents:0.2 -p 50  # engineer-2 (25% of 75% = 33.3%)
-# engineer-3は自動的に残りの33.3%
+tmux split-window -v -t agents:0.1 -p 67  # engineer-1 (16.7% of 70% = 23.8%)
+tmux split-window -v -t agents:0.2 -p 50  # engineer-2 (16.7% of 70% = 23.8%)
+# engineer-3は自動的に残りの23.8%
 
-# 最後にqa-agentを下部に追加（25%）
-tmux split-window -v -t agents:0.0 -p 75  # LEADERを上25%、qa-agentを下25%に
+# 最後にqa-agentを下部に追加（20%）
+tmux split-window -v -t agents:0.0 -p 60  # LEADERを上30%、qa-agentを下20%に
 
 # ペイン名設定
 echo "🏷️ ペイン名設定中..."
