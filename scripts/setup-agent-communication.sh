@@ -17,47 +17,66 @@ echo "📝 テンプレートファイルから指示書を作成中..."
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # テンプレートファイルの存在確認
-if [[ ! -f "${SCRIPT_DIR}/leader_agent_setup_template.md" ]]; then
-    echo "❌ エラー: leader_agent_setup_template.md が見つかりません"
+if [[ ! -f "${SCRIPT_DIR}/../templates/leader_agent_setup_template.md" ]]; then
+    echo "❌ エラー: templates/leader_agent_setup_template.md が見つかりません"
     exit 1
 fi
 
-if [[ ! -f "${SCRIPT_DIR}/engineer_agent_setup_template.md" ]]; then
-    echo "❌ エラー: engineer_agent_setup_template.md が見つかりません"
+if [[ ! -f "${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md" ]]; then
+    echo "❌ エラー: templates/engineer_agent_setup_template.md が見つかりません"
     exit 1
 fi
 
-if [[ ! -f "${SCRIPT_DIR}/qa_agent_setup_template.md" ]]; then
-    echo "❌ エラー: qa_agent_setup_template.md が見つかりません"
+if [[ ! -f "${SCRIPT_DIR}/../templates/qa_agent_setup_template.md" ]]; then
+    echo "❌ エラー: templates/qa_agent_setup_template.md が見つかりません"
     exit 1
 fi
 
 # テンプレートファイルをコピーして指示書作成
 echo "📋 LEADERエージェント指示書作成..."
-cp "${SCRIPT_DIR}/leader_agent_setup_template.md" .ai/instructions/leader.md
+cp "${SCRIPT_DIR}/../templates/leader_agent_setup_template.md" .ai/instructions/leader.md
 
 echo "💻 Engineerエージェント指示書作成..."
-cp "${SCRIPT_DIR}/engineer_agent_setup_template.md" .ai/instructions/engineer.md
+cp "${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md" .ai/instructions/engineer.md
 
 echo "🧪 QAエージェント指示書作成..."
-cp "${SCRIPT_DIR}/qa_agent_setup_template.md" .ai/instructions/qa-agent.md
+cp "${SCRIPT_DIR}/../templates/qa_agent_setup_template.md" .ai/instructions/qa-agent.md
 
 # agentsセッション作成（5ペイン）
 echo "📊 agentsセッション作成中..."
 tmux new-session -d -s agents
 
-# ペイン分割（LEADER 40%, engineer-1 20%, engineer-2 20%, engineer-3 10%, qa-agent 10%）
-tmux split-window -h -t agents
-tmux split-window -v -t agents:0.1
-tmux split-window -v -t agents:0.2
-tmux split-window -v -t agents:0.3
+# ペイン分割（LEADER 25%, engineer-1 25%, engineer-2 25%, engineer-3 25%, qa-agent 25%）
+# 最初に縦に分割してLEADER(25%)とその他(75%)に分ける
+tmux split-window -h -t agents -p 75
+
+# 右側を3つに分割（engineer-1, engineer-2, engineer-3）
+tmux split-window -v -t agents:0.1 -p 67  # engineer-1 (25% of 75% = 33.3%)
+tmux split-window -v -t agents:0.2 -p 50  # engineer-2 (25% of 75% = 33.3%)
+# engineer-3は自動的に残りの33.3%
+
+# 最後にqa-agentを下部に追加（25%）
+tmux split-window -v -t agents:0.0 -p 75  # LEADERを上25%、qa-agentを下25%に
 
 # ペイン名設定
-tmux send-keys -t agents:0.0 'echo "👑 LEADER ready"' C-m
-tmux send-keys -t agents:0.1 'echo "💻 engineer-1 ready"' C-m
-tmux send-keys -t agents:0.2 'echo "🖥️ engineer-2 ready"' C-m
-tmux send-keys -t agents:0.3 'echo "⚙️ engineer-3 ready"' C-m
-tmux send-keys -t agents:0.4 'echo "🧪 qa-agent ready"' C-m
+echo "🏷️ ペイン名設定中..."
+tmux select-pane -t agents:0.0 -T "LEADER"
+tmux select-pane -t agents:0.1 -T "engineer-1"
+tmux select-pane -t agents:0.2 -T "engineer-2"
+tmux select-pane -t agents:0.3 -T "engineer-3"
+tmux select-pane -t agents:0.4 -T "qa-agent"
+
+# ペイン初期化メッセージ
+tmux send-keys -t agents:0.0 'echo "👑 LEADER ready"'
+tmux send-keys -t agents:0.0 C-m
+tmux send-keys -t agents:0.1 'echo "💻 engineer-1 ready"'
+tmux send-keys -t agents:0.1 C-m
+tmux send-keys -t agents:0.2 'echo "🖥️ engineer-2 ready"'
+tmux send-keys -t agents:0.2 C-m
+tmux send-keys -t agents:0.3 'echo "⚙️ engineer-3 ready"'
+tmux send-keys -t agents:0.3 C-m
+tmux send-keys -t agents:0.4 'echo "🧪 qa-agent ready"'
+tmux send-keys -t agents:0.4 C-m
 
 # 通信システム初期化
 echo "📡 直接通信システム初期化中..."

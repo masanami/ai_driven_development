@@ -34,10 +34,9 @@ echo ""
 echo "🎯 実行オプションを選択してください:"
 echo "1) 完全自動セットアップ（推奨）"
 echo "2) ステップバイステップ実行"
-echo "3) デモのみ実行（既にセットアップ済みの場合）"
 echo ""
 
-read -p "選択 (1-3): " -n 1 -r
+read -p "選択 (1-2): " -n 1 -r
 echo ""
 
 case $REPLY in
@@ -92,12 +91,6 @@ case $REPLY in
         echo "✅ 選択したステップが完了しました"
         ;;
         
-    3)
-        echo "🎬 デモのみ実行"
-        "${SCRIPT_DIR}/demo-direct-communication.sh"
-        exit 0
-        ;;
-        
     *)
         echo "❌ 無効な選択です"
         exit 1
@@ -106,50 +99,39 @@ esac
 
 echo ""
 echo "🎯 次に何をしますか？"
-echo "1) プロジェクト開始（LEADERに指示）"
-echo "2) デモ実行"
-echo "3) セッション確認"
-echo "4) 終了"
+echo "1) プロジェクト開始（agentsセッションに接続）"
+echo "2) セッション確認"
+echo "3) 終了"
 echo ""
 
-read -p "選択 (1-4): " -n 1 -r
+read -p "選択 (1-3): " -n 1 -r
 echo ""
 
 case $REPLY in
     1)
-        echo "📺 LEADERセッションに接続します..."
+        echo "📺 agentsセッションに接続します..."
         echo ""
-        echo "💡 LEADERセッションで以下を入力してください:"
+        echo "💡 LEADERペインで以下を入力してください:"
         echo "   'あなたはleaderです。指示書に従ってプロジェクトを開始してください'"
         echo ""
-        echo "🔧 別ターミナルでmultiagentセッション確認:"
-        echo "   tmux attach-session -t multiagent"
-        echo ""
         
-        # LEADERセッションにアタッチ
-        tmux attach-session -t leader
+        # agentsセッションにアタッチ
+        tmux attach-session -t agents
         ;;
         
     2)
-        echo "🎬 デモ実行中..."
-        "${SCRIPT_DIR}/demo-direct-communication.sh"
-        ;;
-        
-    3)
         echo "📋 アクティブセッション:"
         tmux list-sessions
         echo ""
         echo "🔧 セッション接続コマンド:"
-        echo "   tmux attach-session -t leader      # LEADER"
-        echo "   tmux attach-session -t multiagent  # 全エージェント"
+        echo "   tmux attach-session -t agents      # 全エージェント"
         ;;
         
-    4)
+    3)
         echo "👋 直接通信システムを終了します"
         echo ""
         echo "🧹 リソースクリーンアップ:"
-        echo "   tmux kill-session -t leader"
-        echo "   tmux kill-session -t multiagent"
+        echo "   tmux kill-session -t agents"
         echo ""
         ;;
         
