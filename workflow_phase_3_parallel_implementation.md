@@ -287,6 +287,8 @@ case_3_integration_feature:
   - mainブランチに全機能統合済み
 
 🔄 次ステップ:
+  - LEADERエージェント: "全Issue実装完了・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
+  - LEADERエージェント: "🚨 MANDATORY: Phase 4の最終レビュー・統合を開始するため、@workflow_phase_4_review_integration.md を読み込ませてください。"
   - Phase 4: 最終レビュー・品質確認・プロジェクト完了
 ```
 

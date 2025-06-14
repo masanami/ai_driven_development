@@ -140,6 +140,9 @@ completion_action:
   - "🎉 開発フェーズ完了・ユーザーへの引き渡し完了"
   - "統合テスト・E2Eテストはユーザー実行をお願いします"
   - "エージェント開発フェーズは正常完了しました"
+  
+next_development_guidance:
+  - "追加機能開発時は、@workflow_existing_project_integration.md を読み込んで既存プロジェクト統合ワークフローを開始してください"
 ```
 
 ---

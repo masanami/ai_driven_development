@@ -26,7 +26,8 @@
 条件: Phase 1完了・ユーザー承認済み基本設計書作成
 移行指示: 
   1. リーダーエージェント: "Phase 1完了。Phase 2へ移行準備完了"
-  2. ユーザー: "@workflow_phase_2_task_breakdown.md を読み込んでPhase 2を開始してください"
+  2. リーダーエージェント: "🚨 MANDATORY: Phase 2のタスク分割を開始するため、@workflow_phase_2_task_breakdown.md を読み込ませてください。"
+  3. ユーザー: "@workflow_phase_2_task_breakdown.md を読み込んでPhase 2を開始してください"
 読み込みファイル: workflow_phase_2_task_breakdown.md
 ```
 
@@ -35,7 +36,8 @@
 条件: Phase 2完了・GitHub Issues作成完了
 移行指示:
   1. リーダーエージェント: "GitHub Issues作成完了。エンジニアエージェントへのタスク分配準備完了"
-  2. ユーザー: "@workflow_phase_3_parallel_implementation.md と @08_practical_agent_communication_system.md を読み込んでPhase 3を開始してください"
+  2. リーダーエージェント: "🚨 MANDATORY: Phase 3の並列実装を開始するため、@workflow_phase_3_parallel_implementation.md と @08_practical_agent_communication_system.md を読み込ませてください。"
+  3. ユーザー: "@workflow_phase_3_parallel_implementation.md と @08_practical_agent_communication_system.md を読み込んでPhase 3を開始してください"
 読み込みファイル: 
   - workflow_phase_3_parallel_implementation.md
   - 08_practical_agent_communication_system.md
@@ -46,7 +48,8 @@
 条件: Phase 3完了・全Issue実装完了・逐次PR作成・マージ完了
 移行指示:
   1. LEADERエージェント: "全Issue実装完了・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
-  2. ユーザー: "@workflow_phase_4_review_integration.md を読み込んでPhase 4を開始してください"
+  2. LEADERエージェント: "🚨 MANDATORY: Phase 4の最終レビュー・統合を開始するため、@workflow_phase_4_review_integration.md を読み込ませてください。"
+  3. ユーザー: "@workflow_phase_4_review_integration.md を読み込んでPhase 4を開始してください"
 読み込みファイル: workflow_phase_4_review_integration.md
 注記: Phase 3で逐次PR作成・レビュー・マージが完了しているため、Phase 4は最終品質確認・プロジェクト完了処理
 ```
@@ -87,13 +90,16 @@
 ### **各フェーズ移行時**
 ```yaml
 Phase_1_完了後:
+  leader_instruction: "🚨 MANDATORY: Phase 2のタスク分割を開始するため、@workflow_phase_2_task_breakdown.md を読み込ませてください。"
   user_action: "@workflow_phase_2_task_breakdown.md を読み込んでPhase 2を開始してください"
 
 Phase_2_完了後:
+  leader_instruction: "🚨 MANDATORY: Phase 3の並列実装を開始するため、@workflow_phase_3_parallel_implementation.md と @08_practical_agent_communication_system.md を読み込ませてください。"
   user_action: "@workflow_phase_3_parallel_implementation.md と @08_practical_agent_communication_system.md を読み込んでPhase 3を開始してください"
   note: "エージェント間通信が本格化するフェーズ"
 
 Phase_3_完了後:
+  leader_instruction: "🚨 MANDATORY: Phase 4の最終レビュー・統合を開始するため、@workflow_phase_4_review_integration.md を読み込ませてください。"
   user_action: "@workflow_phase_4_review_integration.md を読み込んでPhase 4を開始してください"
 
 Phase_4_完了後:
