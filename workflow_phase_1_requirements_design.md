@@ -114,5 +114,5 @@ test_strategy_design:
 ---
 
 ## 🔗 関連ドキュメント
-- **次フェーズ**: workflow_phase_2_task_breakdown.md
-- **エージェント通信**: 08_practical_agent_communication_system.md (Phase 3以降で必要) 
+- **次フェーズ**: @ai-framework/workflow_phase_2_task_breakdown.md
+- **エージェント通信**: @ai-framework/08_practical_agent_communication_system.md (Phase 3以降で必要) 

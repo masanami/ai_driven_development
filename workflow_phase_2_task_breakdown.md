@@ -91,6 +91,6 @@ GitHub Issue テンプレート:
 ---
 
 ## 🔗 関連ドキュメント
-- **前フェーズ**: workflow_phase_1_requirements_design.md
-- **次フェーズ**: workflow_phase_3_parallel_implementation.md
-- **エージェント通信**: 08_practical_agent_communication_system.md (Phase 3で必要) 
+- **前フェーズ**: @ai-framework/workflow_phase_1_requirements_design.md
+- **次フェーズ**: @ai-framework/workflow_phase_3_parallel_implementation.md
+- **エージェント通信**: @ai-framework/08_practical_agent_communication_system.md (Phase 3で必要) 

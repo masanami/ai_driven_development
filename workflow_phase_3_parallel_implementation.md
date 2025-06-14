@@ -17,7 +17,7 @@
 
 ## 🚨 エージェント間通信プロトコル【最重要】
 
-**📖 詳細な通信システム**: `08_practical_agent_communication_system.md` を参照【必読】
+**📖 詳細な通信システム**: `@ai-framework/08_practical_agent_communication_system.md` を参照【必読】
 
 ### **基本通信フォーマット**
 - **LEADERからエンジニア**: `**engineer-{番号}への指示:** {内容}`
@@ -57,8 +57,8 @@ step_2_individual_assignment:
     **engineer-1への指示:**
     
     🚨 重要: まず以下のファイルを読み込んでください:
-    1. @workflow_phase_3_parallel_implementation.md
-    2. @08_practical_agent_communication_system.md
+    1. @ai-framework/workflow_phase_3_parallel_implementation.md
+    2. @ai-framework/08_practical_agent_communication_system.md
     
     担当Issue: Issue #{Issue番号}（{機能名}）
     
@@ -325,6 +325,6 @@ redirect_instruction:
 ---
 
 ## 🔗 関連ドキュメント
-- **前フェーズ**: workflow_phase_2_task_breakdown.md
-- **次フェーズ**: workflow_phase_4_review_integration.md
-- **通信システム**: 08_practical_agent_communication_system.md 
+- **前フェーズ**: @ai-framework/workflow_phase_2_task_breakdown.md
+- **次フェーズ**: @ai-framework/workflow_phase_4_review_integration.md
+- **通信システム**: @ai-framework/08_practical_agent_communication_system.md 

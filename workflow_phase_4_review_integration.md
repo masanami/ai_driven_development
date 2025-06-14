@@ -142,7 +142,7 @@ completion_action:
   - "エージェント開発フェーズは正常完了しました"
   
 next_development_guidance:
-  - "追加機能開発時は、@workflow_existing_project_integration.md を読み込んで既存プロジェクト統合ワークフローを開始してください"
+  - "追加機能開発時は、@ai-framework/workflow_existing_project_integration.md を読み込んで既存プロジェクト統合ワークフローを開始してください"
 ```
 
 ---
@@ -172,9 +172,9 @@ next_development_guidance:
 ---
 
 ## 🔗 関連ドキュメント
-- **前フェーズ**: workflow_phase_3_parallel_implementation.md
-- **全体概要**: 06_multi_agent_operational_workflow.md
-- **通信システム**: 08_practical_agent_communication_system.md
+- **前フェーズ**: @ai-framework/workflow_phase_3_parallel_implementation.md
+- **全体概要**: @ai-framework/06_multi_agent_operational_workflow.md
+- **通信システム**: @ai-framework/08_practical_agent_communication_system.md
 
 ---
 
