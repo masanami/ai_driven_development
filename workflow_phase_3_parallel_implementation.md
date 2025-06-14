@@ -17,36 +17,12 @@
 
 ## 🚨 エージェント間通信プロトコル【最重要】
 
-### **通信システム構成**
-```yaml
-エージェント配置:
-  - tmux agents セッション稼働中
-  - pane 0: LEADER (調整・進捗管理)
-  - pane 1: engineer-1 (実装担当)
-  - pane 2: engineer-2 (実装担当)
-  - pane 3: engineer-3 (実装担当)
-  - pane 4: qa-agent (品質保証)
+**📖 詳細な通信システム**: `08_practical_agent_communication_system.md` を参照【必読】
 
-通信方式: 直接メッセージ送信（08_practical_agent_communication_system.md参照）
-```
-
-### **🔄 必須通信フォーマット**
-```yaml
-leader_to_engineer:
-  format: "**engineer-{番号}への指示:** {具体的な指示内容}"
-  example: "**engineer-1への指示:** Issue #1（認証API実装）を担当してください"
-  confirmation_required: true
-
-engineer_to_leader:
-  format: "**LEADERへの報告:** {進捗・完了・課題報告}"
-  example: "**LEADERへの報告:** Issue #1 実装完了・PR作成済み"
-  response_expected: true
-
-engineer_to_engineer:
-  format: "**engineer-{番号}への連絡:** {技術的な質問・情報共有}"
-  example: "**engineer-2への連絡:** 認証API仕様が決まりました"
-  coordination_purpose: true
-```
+### **基本通信フォーマット**
+- **LEADERからエンジニア**: `**engineer-{番号}への指示:** {内容}`
+- **エンジニアからLEADER**: `**LEADERへの報告:** {内容}`  
+- **エンジニア間連絡**: `**engineer-{番号}への連絡:** {内容}`
 
 ---
 
@@ -79,15 +55,20 @@ step_1_team_notification:
 step_2_individual_assignment:
   engineer_1: |
     **engineer-1への指示:**
+    
+    🚨 重要: まず以下のファイルを読み込んでください:
+    1. @workflow_phase_3_parallel_implementation.md
+    2. @08_practical_agent_communication_system.md
+    
     担当Issue: Issue #{Issue番号}（{機能名}）
     
-    以下の手順で作業を開始してください:
+    ファイル読み込み後、以下の手順で作業を開始してください:
     1. GitHub Issue #{Issue番号} を確認
     2. git worktree add ../issue-{番号}-{機能} feature/issue-{番号}-{機能}
     3. 作業ディレクトリに移動
-    4. TDD で実装開始
+    4. TDD で実装開始（ワークフローのTDD詳細手順に従って）
     
-    作業開始後、進捗を報告してください。
+    ファイル読み込み・作業開始後、進捗を報告してください。
   
   engineer_2: |
     **engineer-2への指示:**
@@ -309,7 +290,7 @@ case_3_integration_feature:
 
 🔄 次ステップ:
   - LEADERエージェント: "全Issue実装完了・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
-  - LEADERエージェント: "🚨 MANDATORY: Phase 4の最終レビュー・統合を開始するため、@workflow_phase_4_review_integration.md を読み込ませてください。"
+  - LEADERエージェント: "🚨 MANDATORY: Phase 3完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。"
   - Phase 4: 最終レビュー・品質確認・プロジェクト完了
 ```
 
@@ -346,4 +327,4 @@ redirect_instruction:
 ## 🔗 関連ドキュメント
 - **前フェーズ**: workflow_phase_2_task_breakdown.md
 - **次フェーズ**: workflow_phase_4_review_integration.md
-- **通信システム**: 08_practical_agent_communication_system.md【必読】 
+- **通信システム**: 08_practical_agent_communication_system.md 

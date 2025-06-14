@@ -70,6 +70,8 @@ GitHub Issue テンプレート:
   - "GitHub Issues作成完了。エンジニアエージェントへのタスク分配準備完了"
   - **🛑 STOP POINT: 実装フェーズには進まない**
   - ユーザーから「エンジニアエージェントにタスクを分配してください」指示を待つ
+  - **🚨 MANDATORY: 次のように明確に指示する**
+  - 「Phase 2完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。」
 ```
 
 ---
@@ -81,17 +83,10 @@ GitHub Issue テンプレート:
 - **タスク分割・Issue作成・調整のみ**
 - **GitHub Issues作成は必須実行項目**
 
-### **🛑 STOP POINT: 実装フェーズには進まない**
-```yaml
-strict_rule: "リーダーエージェントは実装を行わない"
-next_phase_trigger: "GitHub Issues作成完了後、ユーザーの明示的なタスク分配指示を待つ"
-user_instruction_required: "「エンジニアエージェントにタスクを分配してください」のユーザー指示"
-```
-
 ### **フェーズ移行ルール**
 - **Phase 2完了後、必ずユーザー確認を取る**
-- **自動的にPhase 3に進まない**
-- **ユーザーから「Phase 3に進んでください」+ workflow_phase_3_parallel_implementation.md読み込み指示を待つ**
+- **自動的に次フェーズに進まない**
+- **ユーザーから「Phase 2に進んでください」指示を待つ**
 
 ---
 

@@ -94,7 +94,7 @@ test_strategy_design:
 🔄 次ステップ:
   - 「Phase 1完了。Phase 2へ移行準備完了」をユーザーに報告
   - **🚨 MANDATORY: 次のように明確に指示する**
-  - 「Phase 2のタスク分割を開始するため、@workflow_phase_2_task_breakdown.md を読み込んでください」
+  - 「Phase 1完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。」
 ```
 
 ---
