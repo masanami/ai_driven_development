@@ -64,8 +64,8 @@ step_2_individual_assignment:
     
     ファイル読み込み後、以下の手順で作業を開始してください:
     1. GitHub Issue #{Issue番号} を確認
-    2. git worktree add ../issue-{番号}-{機能} feature/issue-{番号}-{機能}
-    3. 作業ディレクトリに移動
+    2. git worktree add worktrees/issue-{番号}-{機能} feature/issue-{番号}-{機能}
+    3. 作業ディレクトリに移動（cd worktrees/issue-{番号}-{機能}）
     4. TDD で実装開始（ワークフローのTDD詳細手順に従って）
     
     ファイル読み込み・作業開始後、進捗を報告してください。
@@ -134,7 +134,7 @@ detailed_design_refinement:
 parallel_tdd_execution_examples:
   engineer-1_assigned_tasks:
     - 担当Issue: Issue #1（ユーザー認証API実装）
-    - 作業環境: ../issue-1-auth/ worktree
+    - 作業環境: worktrees/issue-1-auth/ worktree
     - 実装内容:
       * GitHub Issue要件に基づく認証APIテスト実装
       * バリデーション・セキュリティロジック実装
@@ -144,7 +144,7 @@ parallel_tdd_execution_examples:
   
   engineer-2_assigned_tasks:
     - 担当Issue: Issue #2（データ管理CRUD機能実装）
-    - 作業環境: ../issue-2-data-management/ worktree
+    - 作業環境: worktrees/issue-2-data-management/ worktree
     - 実装内容:
       * GitHub Issue要件に基づくデータCRUD操作テスト実装
       * データベース連携・バリデーションテスト
@@ -154,7 +154,7 @@ parallel_tdd_execution_examples:
   
   engineer-3_assigned_tasks:
     - 担当Issue: Issue #3（API統合機能実装）
-    - 作業環境: ../issue-3-api-integration/ worktree
+    - 作業環境: worktrees/issue-3-api-integration/ worktree
     - 実装内容:
       * GitHub Issue要件に基づくAPI統合テスト実装
       * 外部API連携・エラーハンドリングテスト
@@ -164,7 +164,7 @@ parallel_tdd_execution_examples:
   
   additional_issue_assignment:
     - 必要に応じてengineer-1, engineer-2, engineer-3に追加Issueを分配
-    - 例: engineer-1にIssue #5（UI改善機能）を追加分配
+    - 例: engineer-1にIssue #5（UI改善機能）を追加分配（worktrees/issue-5-ui-improvement/）
     - 各エージェントが複数Issue・worktree環境で並行作業可能
 
 design_coordination:
