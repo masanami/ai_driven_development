@@ -207,17 +207,34 @@ completion_notification:
   format: "**LEADERへの完了報告:** Issue #{番号} - 実装完了・PR作成済み"
   required_info: "PR番号・テスト結果・レビュー依頼"
 
+🚨 CRITICAL TDD COMMIT STRATEGY:
+red_phase_commit:
+  - git add .
+  - git commit -m "test: Issue #{Issue番号} - {機能名} テストケース実装（Red Phase）"
+
+green_phase_commit:
+  - git add .
+  - git commit -m "feat: Issue #{Issue番号} - {機能名} 最小実装完了（Green Phase）"
+
+refactor_phase_commit:
+  - git add .
+  - git commit -m "refactor: Issue #{Issue番号} - {機能名} コード品質向上・リファクタリング完了"
+
+final_commit_before_pr:
+  - git add .
+  - git commit -m "feat: Issue #{Issue番号} 実装完了 - {機能名} TDD完了・PR作成準備完了"
+
 ✅ 完了判定:
   - 各Issue実装完了次第、即座にPR作成・報告
   - 単体テスト成功
-  - PR作成済み
+  - PR作成済み（適切なコミット履歴含む）
   - LEADERに完了報告済み
 
 🔄 次ステップ:
-  - Step 3-3: 逐次PR作成・レビューフロー開始
+  - Step 3-3: 逐次PRレビュー・マージフロー開始
 ```
 
-### **Step 3-3: 逐次PR作成・レビューフロー** 🤖⚡🔄
+### **Step 3-3: 逐次PRレビュー・マージフロー** 🤖⚡🔄
 ```yaml
 トリガー: 各エンジニアエージェントのIssue実装完了・PR作成
 実行者: LEADERエージェント（レビュー・マージ判定）+ エンジニアエージェント（PR作成）
@@ -245,6 +262,7 @@ case_1_independent_feature:
   # 独立機能（認証機能）- 即座マージ可能
   engineer_report: "**LEADERへの報告:** Issue #1（認証機能）実装完了。PR #1作成済み。他機能との依存関係なし。"
   leader_response: "**engineer-1への連絡:** PR #1レビュー完了。依存関係問題なし。mainブランチにマージしました。"
+  # PRマージはGitHubが自動的にマージコミットを作成するため、手動コミット不要
 
 case_2_dependent_feature:
   # 依存機能（データ管理機能）- 認証機能との統合確認必要
@@ -285,6 +303,9 @@ case_3_integration_feature:
   - 依存関係に応じた適切な順序でマージ完了
   - 統合テスト成功
   - mainブランチに全機能統合済み
+  - 🚨 MANDATORY: Phase 3完了時点でコミット実行
+    - git add .
+    - git commit -m "feat: Phase 3 並列実装完了 - 全Issue実装・PR統合・mainブランチ統合完了"
 
 🔄 次ステップ:
   - LEADERエージェント: "全Issue実装完了・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
