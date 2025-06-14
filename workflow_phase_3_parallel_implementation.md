@@ -233,27 +233,31 @@ final_commit_before_pr:
   2. 最初に完了したエンジニアがPR作成・報告
   3. LEADERが依存関係チェック・レビュー実行
   4. 問題なければ即座にマージ
-  5. 次に完了したエンジニアがPR作成・報告
-  6. LEADERが既存マージ内容との整合性確認
-  7. 統合テスト実行後マージ
-  8. 全Issue完了まで繰り返し
+  5. マージ完了後、対応するIssueを閉じる
+  6. 次に完了したエンジニアがPR作成・報告
+  7. LEADERが既存マージ内容との整合性確認
+  8. 統合テスト実行後マージ・Issue閉じる
+  9. 全Issue完了まで繰り返し
 
 🔄 依存関係管理の具体例:
 case_1_independent_feature:
   # 独立機能（認証機能）- 即座マージ可能
   engineer_report: "**LEADERへの報告:** Issue #1（認証機能）実装完了。PR #1作成済み。他機能との依存関係なし。"
-  leader_response: "**engineer-1への連絡:** PR #1レビュー完了。依存関係問題なし。mainブランチにマージしました。"
+  leader_response: "**engineer-1への連絡:** PR #1レビュー完了。依存関係問題なし。mainブランチにマージしました。Issue #1を閉じます。"
   # PRマージはGitHubが自動的にマージコミットを作成するため、手動コミット不要
+  # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。実装済み。"
 
 case_2_dependent_feature:
   # 依存機能（データ管理機能）- 認証機能との統合確認必要
   engineer_report: "**LEADERへの報告:** Issue #2（データ管理機能）実装完了。PR #2作成済み。認証機能との統合確認お願いします。"
-  leader_response: "**engineer-2への連絡:** PR #2レビュー中。認証機能（PR #1マージ済み）との統合テストを実行してください。"
+  leader_response: "**engineer-2への連絡:** PR #2レビュー完了。統合テスト成功。mainブランチにマージしました。Issue #2を閉じます。"
+  # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。統合テスト成功。"
 
 case_3_integration_feature:
   # 高依存機能（API統合機能）- 複数機能との統合確認必要
   engineer_report: "**LEADERへの報告:** Issue #3（API統合機能）実装完了。PR #3作成済み。認証・データ管理機能との統合確認お願いします。"
-  leader_response: "**engineer-3への連絡:** PR #3は認証・データ管理機能のマージ完了後にレビューします。現在統合テスト準備中です。"
+  leader_response: "**engineer-3への連絡:** PR #3レビュー完了。全依存機能との統合テスト成功。mainブランチにマージしました。Issue #3を閉じます。"
+  # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。全依存機能との統合テスト成功。"
 
 🎯 LEADERの依存関係判定ロジック:
 判定基準:
@@ -279,14 +283,19 @@ case_3_integration_feature:
   2. 依存機能のPR（依存先マージ後処理）
   3. 統合機能のPR（全依存先マージ後処理）
 
+🚨 CRITICAL ISSUE MANAGEMENT:
+issue_closing_protocol:
+  - PRマージ完了後、必ず対応するIssueを閉じる
+  - Issue閉じる際は適切なコメントを追加
+  - コマンド例: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。実装済み。"
+  - 全Issueが適切に閉じられていることを確認
+
 ✅ 完了判定:
   - 全Issue実装完了・PR作成済み
   - 依存関係に応じた適切な順序でマージ完了
+  - 全Issue閉じる処理完了
   - 統合テスト成功
   - mainブランチに全機能統合済み
-  - 🚨 MANDATORY: Phase 3完了時点でコミット実行
-    - git add .
-    - git commit -m "feat: Phase 3 並列実装完了 - 全Issue実装・PR統合・mainブランチ統合完了"
 
 🔄 次ステップ:
   - LEADERエージェント: "全Issue実装完了・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
