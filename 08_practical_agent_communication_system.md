@@ -53,7 +53,7 @@
 ./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #{番号} - Red Phase完了。テストケース実装済み。"
 
 # 実装完了・PR作成報告
-./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #{番号}実装完了。PR #{番号}を作成しました。レビューをお願いします。"
+./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #{番号}実装完了。PR #{番号}を作成しました。AI自動レビューツール・ユーザーレビュー依頼中。"
 
 # 課題・ブロッカー報告
 ./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #{番号}で技術的課題が発生しました。{詳細}について相談があります。"
@@ -64,8 +64,8 @@
 # タスク分配指示
 ./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への指示:** Issue #{番号}（{機能名}）を担当してください。実装完了後、PR作成して報告してください。"
 
-# レビュー結果・マージ指示
-./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** PR #{番号}をレビューしました。依存関係に問題なし。mainブランチにマージします。"
+# マージ報告
+./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** PR #{番号}のレビューが承認されました。依存関係に問題なし。mainブランチにマージします。"
 
 # 統合テスト指示
 ./ai-framework/scripts/agent-send.sh engineer-2 "**engineer-2への連絡:** PR #{番号}レビュー中。認証機能との統合テストを実行してください。"
@@ -105,10 +105,10 @@
 ./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1のタスクを受諾しました。実装を開始します。"
 
 # 3. エンジニア → LEADER: 実装完了報告
-./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1実装完了。PR #1を作成しました。レビューをお願いします。"
+./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1実装完了。PR #1を作成しました。AI自動レビューツール・ユーザーレビュー依頼中。"
 
-# 4. LEADER → エンジニア: レビュー結果
-./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** PR #1をレビューしました。mainブランチにマージします。"
+# 4. LEADER → エンジニア: マージ報告
+./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** PR #1のレビューが承認されました。mainブランチにマージします。"
 ```
 
 ### **エンジニア間技術連携フロー**
@@ -138,7 +138,7 @@
 - **タスク分配・受諾・進捗報告**
 - **技術仕様・API・設計に関する連携**
 - **実装課題・ブロッカーの相談**
-- **PR作成・レビュー・マージ報告**
+- **PR作成・マージ報告**
 - **テスト結果・品質確認報告**
 - **緊急技術課題の連絡**
 
@@ -161,7 +161,7 @@ allowed_communications:
   - タスク関連の指示・報告・確認
   - 技術仕様・API・設計の共有・質問
   - 実装課題・エラー・ブロッカーの報告
-  - コードレビュー・品質確認の結果
+  - PR作成・マージ・品質確認の結果
   - 緊急事態・重要な技術的変更の連絡
 ```
 
