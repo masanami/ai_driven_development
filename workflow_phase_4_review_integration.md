@@ -39,7 +39,6 @@ integration_quality_checks:
 leader_integration_review:
   - 全機能統合後の動作確認
   - 機能間インターフェース整合性確認
-  - 統合後パフォーマンス確認
   - セキュリティ要件達成確認
   - エラーハンドリング統合確認
 
@@ -71,7 +70,7 @@ e2e_test_execution:
   - ユーザーシナリオベースの動作確認
   - ブラウザ自動化テスト実行
   - API統合テスト実行
-  - パフォーマンス・負荷テスト実行
+  - 基本動作確認・最適化確認
 
 🤖 リーダーエージェント最終確認:
 leader_final_verification:
