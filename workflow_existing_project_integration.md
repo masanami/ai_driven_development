@@ -15,7 +15,7 @@
 トリガー: ai-framework導入済みプロジェクトの機能追加・改修要求
 
 workflow:
-  1. 既存 .ai/knowledge_base/ の情報確認・理解
+  1. 既存プロジェクト情報の確認・理解
   2. 既存プロジェクト構造・技術スタック・アーキテクチャの把握
   3. ユーザーからの機能追加・改修要求の整理
   4. 既存機能への影響範囲分析
@@ -24,8 +24,8 @@ workflow:
 
 execution_details:
   existing_knowledge_review:
-    - .ai/knowledge_base/01_requirements/ の既存要件確認
-    - .ai/knowledge_base/02_architecture/ の既存設計確認
+    - 既存ドキュメント・知識ベースの要件情報確認
+    - 既存ドキュメント・知識ベースの設計情報確認
     - 既存機能・API・データベース構造の理解
     - 既存テスト戦略・品質基準の確認
   
@@ -39,7 +39,7 @@ execution_details:
     - 既存プロジェクト対応を含む要件定義書を更新
 
 deliverables:
-  - 更新された要件定義書 (.ai/knowledge_base/01_requirements/)
+  - 更新された要件定義書
   - 機能追加・改修GitHub Issues
   - 既存機能への影響評価書
   - 受け入れ基準（GitHub Issues内に記載）
@@ -103,7 +103,7 @@ workflow_continuation:
 workflow:
   1. 既存コードベースの構造・技術スタック分析
   2. 既存機能・API・データベース構造の把握
-  3. 既存プロジェクト情報の .ai/knowledge_base/ への移行
+  3. 既存プロジェクト情報の整理・構造化
   4. 既存アーキテクチャ・設計パターンの文書化
   5. 既存テスト戦略・品質基準の文書化
 
@@ -125,7 +125,7 @@ execution_details:
     - 既存プロジェクト移行完了報告・機能追加フェーズへ移行
 
 deliverables:
-  - 既存プロジェクト分析レポート (.ai/knowledge_base/01_requirements/)
+  - 既存プロジェクト分析レポート
   - 技術スタック・アーキテクチャ図
   - 既存API仕様書
   - 既存データベーススキーマ文書
@@ -136,7 +136,7 @@ deliverables:
 ```yaml
 workflow_continuation:
   - M-1以降は「ai-framework導入済みプロジェクトの機能追加・改修ワークフロー」のA-1以降と同様
-  - 移行済みの .ai/knowledge_base/ 情報を活用して機能追加・改修を実行
+  - 整理・構造化済みのプロジェクト情報を活用して機能追加・改修を実行
 ```
 
 ---

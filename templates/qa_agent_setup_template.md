@@ -6,7 +6,8 @@
 
 ## 📚 参考資料
 必要に応じて既存のドキュメントを参照してください：
-- `.ai/knowledge_base/` - プロジェクト知識ベース
+- 新規プロジェクト: `.ai/knowledge_base/` - プロジェクト知識ベース
+- 既存プロジェクト: `README.md` + ユーザーが指定したドキュメント・ファイルを参照してくだ、
 
 ## 🎯 あなたの役割
 **@ai-framework/02_agent_role_definitions.md のQA Agent役割定義に従って行動してください。**

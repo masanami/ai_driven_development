@@ -23,7 +23,7 @@
 
 前提条件:
   - エージェント環境起動済み（agents tmuxセッション稼働中）
-  - .ai/knowledge_base/設計書一式確認済み
+  - プロジェクト設計書一式確認済み（新規:.ai/knowledge_base/ | 既存:ユーザー指定ドキュメント）
 
 🚨 CRITICAL CHECKPOINT: 必ず2段階実行
 phase_1_task_breakdown:
@@ -62,7 +62,7 @@ GitHub Issue テンプレート:
   labels: ["feature", "priority-{high/medium/low}", "area-{frontend/backend/api}"]
 
 ✅ 完了判定:
-  - タスク分割ファイル作成済み
+  - タスク分割・文書化済み
   - GitHub Issues作成済み（各タスク）
   - Issue番号一覧表作成済み
 

@@ -197,21 +197,6 @@ your-project/
 └── src/                        # プロダクトコード
 ```
 
-### **Claude Code設定 (.claude/settings.json)**
-```json
-{
-  "ai.referenceDirectories": [
-    "ai-framework/",
-    ".ai/"
-  ],
-  "ai.directoryPriorities": {
-    ".ai/knowledge_base/": "highest",
-    "ai-framework/": "medium",
-    ".ai/": "low"
-  }
-}
-```
-
 ### **フレームワーク更新**
 ```bash
 # フレームワーク更新
