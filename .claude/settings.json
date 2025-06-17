@@ -28,7 +28,6 @@
       "Bash(mkdir:*)",
       "Bash(cp:*)",
       "Bash(mv:*)",
-      "Bash(rm:*)",
       "Bash(./ai-framework/scripts/*)",
       "Read(**)",
       "Edit(**)",
