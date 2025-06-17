@@ -6,13 +6,10 @@ echo "🚀 直接通信型エージェント環境を構築中..."
 tmux kill-session -t agents 2>/dev/null || true
 
 # ディレクトリ作成
-mkdir -p .ai/{logs,instructions}
-mkdir -p tmp
-mkdir -p shared
+mkdir -p .ai/logs
 
-
-# テンプレートファイルから指示書作成
-echo "📝 テンプレートファイルから指示書を作成中..."
+# テンプレートファイル存在確認
+echo "📝 テンプレートファイルの存在確認中..."
 
 # スクリプトのディレクトリを取得
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -33,15 +30,7 @@ if [[ ! -f "${SCRIPT_DIR}/../templates/qa_agent_setup_template.md" ]]; then
     exit 1
 fi
 
-# テンプレートファイルをコピーして指示書作成
-echo "📋 LEADERエージェント指示書作成..."
-cp "${SCRIPT_DIR}/../templates/leader_agent_setup_template.md" .ai/instructions/leader.md
-
-echo "💻 Engineerエージェント指示書作成..."
-cp "${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md" .ai/instructions/engineer.md
-
-echo "🧪 QAエージェント指示書作成..."
-cp "${SCRIPT_DIR}/../templates/qa_agent_setup_template.md" .ai/instructions/qa-agent.md
+echo "✅ テンプレートファイル確認完了"
 
 # agentsセッション作成（5ペイン）
 echo "📊 agentsセッション作成中..."

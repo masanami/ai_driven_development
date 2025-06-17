@@ -137,6 +137,7 @@ case $REPLY in
         
     *)
         echo "❌ 無効な選択です"
+        exit 1
         ;;
 esac
 

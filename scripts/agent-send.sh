@@ -3,7 +3,8 @@
 # 直接通信メッセージ送信スクリプト
 
 AGENT_NAME=$1
-MESSAGE=$2
+shift  # 第1引数を除去
+MESSAGE="$*"  # 残りの引数をすべてメッセージとして結合
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 # プロジェクトルートを特定（.gitディレクトリを基準）

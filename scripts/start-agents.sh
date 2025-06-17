@@ -1,6 +1,20 @@
 #!/bin/bash
+set -euo pipefail
 
 echo "🤖 直接通信型エージェント起動中..."
+
+# agentsセッションの存在確認
+if ! tmux has-session -t agents 2>/dev/null; then
+    echo "❌ エラー: 'agents' tmuxセッションが見つかりません"
+    echo "📋 解決方法:"
+    echo "  1. セットアップスクリプトを実行してください:"
+    echo "     ./scripts/setup-agent-communication.sh"
+    echo "  2. または手動でセッションを作成してください:"
+    echo "     tmux new-session -d -s agents"
+    exit 1
+fi
+
+echo "✅ agentsセッション確認完了"
 
 # 全エージェント一括起動・指示書読み込み
 echo "🤖 全エージェント一括起動中..."

@@ -25,23 +25,23 @@
   - エージェント環境起動済み（agents tmuxセッション稼働中）
   - プロジェクト設計書一式確認済み（新規:.ai/knowledge_base/ | 既存:ユーザー指定ドキュメント）
 
-🚨 CRITICAL CHECKPOINT: 必ず2段階実行
+CRITICAL_CHECKPOINT: 必ず2段階実行
 phase_1_task_breakdown:
-  1. 機能要求を親タスクに分割
-  2. 親タスクを適度な粒度の子タスクに分解
-  3. タスク間の依存関係を分析
-  4. 並列実行可能なタスクを特定
-  5. タスク優先度付け
-  6. タスク分割ファイル作成（.ai/tasks/）
-  7. "タスク分割が完了しました。続いてGitHub Issuesを作成します"
+  - 機能要求を親タスクに分割
+  - 親タスクを適度な粒度の子タスクに分解
+  - タスク間の依存関係を分析
+  - 並列実行可能なタスクを特定
+  - タスク優先度付け
+  - タスク分割ファイル作成（.ai/tasks/）
+  - "タスク分割が完了しました。続いてGitHub Issuesを作成します"
 
-🛑 MANDATORY STEP: GitHub Issues作成は必須実行
+MANDATORY_STEP: GitHub Issues作成は必須実行
 phase_2_github_issues_creation:
-  1. 各タスクごとにGitHub Issue作成を実行
-  2. Issue作成結果の確認・報告
-  3. 作成失敗時は再実行
-  4. 全Issue作成完了まで継続
-  5. "GitHub Issues作成が完了しました。エンジニアエージェントへのタスク分配準備完了です"
+  - 各タスクごとにGitHub Issue作成を実行
+  - Issue作成結果の確認・報告
+  - 作成失敗時は再実行
+  - 全Issue作成完了まで継続
+  - "GitHub Issues作成が完了しました。エンジニアエージェントへのタスク分配準備完了です"
 
 GitHub Issue テンプレート:
   title: "[TASK] {機能名} - {タスク概要}"
@@ -61,16 +61,16 @@ GitHub Issue テンプレート:
     {技術的な留意点}
   labels: ["feature", "priority-{high/medium/low}", "area-{frontend/backend/api}"]
 
-✅ 完了判定:
+completion_criteria:
   - タスク分割・文書化済み
   - GitHub Issues作成済み（各タスク）
   - Issue番号一覧表作成済み
 
-🔄 次ステップ:
+next_steps:
   - "GitHub Issues作成完了。エンジニアエージェントへのタスク分配準備完了"
-  - **🛑 STOP POINT: 実装フェーズには進まない**
+  - "STOP_POINT: 実装フェーズには進まない"
   - ユーザーから「エンジニアエージェントにタスクを分配してください」指示を待つ
-  - **🚨 MANDATORY: 次のように明確に指示する**
+  - "MANDATORY: 次のように明確に指示する"
   - 「Phase 2完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。」
 ```
 

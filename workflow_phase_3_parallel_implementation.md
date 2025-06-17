@@ -33,62 +33,62 @@
 トリガー: Phase 2完了 + ユーザーの明示的なタスク分配開始指示
 実行者: LEADERエージェント → エンジニアエージェント
 
-🆕 LEADER MANDATORY PROTOCOL:
-critical_recognition:
-  - "私はリーダーエージェントです。実装は行いません"
-  - "エンジニアエージェント（engineer-1, engineer-2, engineer-3）に作業を分配します"
-  - "各エンジニアエージェントは別のClaude Codeインスタンスです"
+LEADER_MANDATORY_PROTOCOL:
+  critical_recognition:
+    - "私はリーダーエージェントです。実装は行いません"
+    - "エンジニアエージェント（engineer-1, engineer-2, engineer-3）に作業を分配します"
+    - "各エンジニアエージェントは別のClaude Codeインスタンスです"
 
-🚨 CRITICAL COMMUNICATION STEPS:
-step_1_team_notification:
-  message: |
-    🚨 マルチエージェント体制でのタスク分配を開始します
-    
-    **エンジニアエージェント各位へ:**
-    - engineer-1: 汎用エンジニア・タスク分配待ち
-    - engineer-2: 汎用エンジニア・タスク分配待ち  
-    - engineer-3: 汎用エンジニア・タスク分配待ち
-    - qa-agent: E2Eテスト設計・実装待ち
-    
-    GitHub Issues が作成済みです。各エージェントにタスクを分配します。
+CRITICAL_COMMUNICATION_STEPS:
+  step_1_team_notification:
+    message: |
+      マルチエージェント体制でのタスク分配を開始します
+      
+      **エンジニアエージェント各位へ:**
+      - engineer-1: 汎用エンジニア・タスク分配待ち
+      - engineer-2: 汎用エンジニア・タスク分配待ち  
+      - engineer-3: 汎用エンジニア・タスク分配待ち
+      - qa-agent: E2Eテスト設計・実装待ち
+      
+      GitHub Issues が作成済みです。各エージェントにタスクを分配します。
 
-step_2_individual_assignment:
-  engineer_1: |
-    **engineer-1への指示:**
+  step_2_individual_assignment:
+    engineer_1: |
+      **engineer-1への指示:**
+      
+      重要: まず以下のファイルを読み込んでください:
+      - @ai-framework/workflow_phase_3_parallel_implementation.md
+      - @ai-framework/08_practical_agent_communication_system.md
+      
+      担当Issue: Issue #{Issue番号}（{機能名}）
+      
+      ファイル読み込み後、以下の手順で作業を開始してください:
+      - GitHub Issue #{Issue番号} を確認
+      - git worktree add worktrees/issue-{番号}-{機能} feature/issue-{番号}-{機能}
+      - 作業ディレクトリに移動（cd worktrees/issue-{番号}-{機能}）
+      - TDD で実装開始（ワークフローのTDD詳細手順に従って）
+      
+      ファイル読み込み・作業開始後、進捗を報告してください。
     
-    🚨 重要: まず以下のファイルを読み込んでください:
-    1. @ai-framework/workflow_phase_3_parallel_implementation.md
-    2. @ai-framework/08_practical_agent_communication_system.md
+    engineer_2: |
+      **engineer-2への指示:**
+      [同様のフォーマットで個別指示]
     
-    担当Issue: Issue #{Issue番号}（{機能名}）
-    
-    ファイル読み込み後、以下の手順で作業を開始してください:
-    1. GitHub Issue #{Issue番号} を確認
-    2. git worktree add worktrees/issue-{番号}-{機能} feature/issue-{番号}-{機能}
-    3. 作業ディレクトリに移動（cd worktrees/issue-{番号}-{機能}）
-    4. TDD で実装開始（ワークフローのTDD詳細手順に従って）
-    
-    ファイル読み込み・作業開始後、進捗を報告してください。
-  
-  engineer_2: |
-    **engineer-2への指示:**
-    [同様のフォーマットで個別指示]
-  
-  engineer_3: |
-    **engineer-3への指示:**
-    [同様のフォーマットで個別指示]
+    engineer_3: |
+      **engineer-3への指示:**
+      [同様のフォーマットで個別指示]
 
-step_3_confirmation:
-  - 各エンジニアエージェントからの「作業開始しました」確認を待つ
-  - 確認完了後、並列実装フェーズに移行
-  - "全エンジニアエージェントへのタスク分配が完了しました。並列実装を開始してください。"
+  step_3_confirmation:
+    - 各エンジニアエージェントからの「作業開始しました」確認を待つ
+    - 確認完了後、並列実装フェーズに移行
+    - "全エンジニアエージェントへのタスク分配が完了しました。並列実装を開始してください。"
 
-✅ 完了判定:
+completion_criteria:
   - 全エンジニアエージェントがタスク受諾・確認済み
   - 各エージェントがworktree環境構築完了
   - 作業開始確認済み
 
-🔄 次ステップ:
+next_steps:
   - Step 3-2: TDD並列実装実行開始
 ```
 
@@ -97,7 +97,7 @@ step_3_confirmation:
 トリガー: Step 3-1完了・全エージェント作業開始確認
 実行者: エンジニアエージェント（並列）
 
-🆕 エンジニアエージェント個別認識:
+ENGINEER_AGENT_IDENTITY:
 engineer_identity:
   engineer_1: "私はengineer-1です。Issue #{担当Issue番号}を担当します"
   engineer_2: "私はengineer-2です。Issue #{担当Issue番号}を担当します"
@@ -108,27 +108,27 @@ role_clarity:
   - "LEADERからの指示に従ってTDD実装を行います"
   - "進捗・課題・完了はLEADERに報告します"
 
-🚨 CRITICAL TDD WORKFLOW:
-red_phase:
-  - テストケース実装（失敗テスト作成）
-  - APIコントラクトテスト実装
-  - 期待する動作の明文化
+CRITICAL_TDD_WORKFLOW:
+  red_phase:
+    - テストケース実装（失敗テスト作成）
+    - APIコントラクトテスト実装
+    - 期待する動作の明文化
 
-green_phase:
-  - 最小限の実装でテストを通す
-  - 機能要件を満たすコード実装
-  - テスト成功の確認
+  green_phase:
+    - 最小限の実装でテストを通す
+    - 機能要件を満たすコード実装
+    - テスト成功の確認
 
-refactor_phase:
-  - コード品質向上
-  - 設計改善・リファクタリング
+  refactor_phase:
+    - コード品質向上
+    - 設計改善・リファクタリング
 
-detailed_design_refinement:
-  - 実装中の詳細設計課題発見・調整
-  - 基本設計では見えなかった技術的制約への対応
-  - コンポーネント間インターフェースの詳細化
-  - セキュリティ観点での設計調整
-  - 実装知見に基づく設計改善提案
+  detailed_design_refinement:
+    - 実装中の詳細設計課題発見・調整
+    - 基本設計では見えなかった技術的制約への対応
+    - コンポーネント間インターフェースの詳細化
+    - セキュリティ観点での設計調整
+    - 実装知見に基づく設計改善提案
 
 parallel_tdd_execution_examples:
   engineer-1_assigned_tasks:
@@ -177,40 +177,40 @@ design_coordination:
     - ユーザー判断が必要な場合の適切なエスカレーション
     - 設計変更の文書化・共有
 
-🔄 進捗報告プロトコル:
-regular_updates:
-  format: "**LEADERへの進捗報告:** Issue #{番号} - {進捗状況}"
-  frequency: "重要なマイルストーン達成時"
-  content: "Red/Green/Refactorフェーズの進捗・課題・完了予定"
+PROGRESS_REPORTING_PROTOCOL:
+  regular_updates:
+    format: "**LEADERへの進捗報告:** Issue #{番号} - {進捗状況}"
+    frequency: "重要なマイルストーン達成時"
+    content: "Red/Green/Refactorフェーズの進捗・課題・完了予定"
 
-completion_notification:
-  format: "**LEADERへの完了報告:** Issue #{番号} - 実装完了・PR作成済み"
-  required_info: "PR番号・テスト結果・レビュー依頼"
+  completion_notification:
+    format: "**LEADERへの完了報告:** Issue #{番号} - 実装完了・PR作成済み"
+    required_info: "PR番号・テスト結果・レビュー依頼"
 
-🚨 CRITICAL TDD COMMIT STRATEGY:
-red_phase_commit:
-  - git add .
-  - git commit -m "test: Issue #{Issue番号} - {機能名} テストケース実装（Red Phase）"
+CRITICAL_TDD_COMMIT_STRATEGY:
+  red_phase_commit:
+    - git add .
+    - git commit -m "test: Issue #{Issue番号} - {機能名} テストケース実装（Red Phase）"
 
-green_phase_commit:
-  - git add .
-  - git commit -m "feat: Issue #{Issue番号} - {機能名} 最小実装完了（Green Phase）"
+  green_phase_commit:
+    - git add .
+    - git commit -m "feat: Issue #{Issue番号} - {機能名} 最小実装完了（Green Phase）"
 
-refactor_phase_commit:
-  - git add .
-  - git commit -m "refactor: Issue #{Issue番号} - {機能名} コード品質向上・リファクタリング完了"
+  refactor_phase_commit:
+    - git add .
+    - git commit -m "refactor: Issue #{Issue番号} - {機能名} コード品質向上・リファクタリング完了"
 
-final_commit_before_pr:
-  - git add .
-  - git commit -m "feat: Issue #{Issue番号} 実装完了 - {機能名} TDD完了・PR作成準備完了"
+  final_commit_before_pr:
+    - git add .
+    - git commit -m "feat: Issue #{Issue番号} 実装完了 - {機能名} TDD完了・PR作成準備完了"
 
-✅ 完了判定:
+completion_criteria:
   - 各Issue実装完了次第、即座にPR作成・報告
   - 単体テスト成功
   - PR作成済み（適切なコミット履歴含む）
   - LEADERに完了報告済み
 
-🔄 次ステップ:
+next_steps:
   - Step 3-3: 逐次PRレビュー・マージフロー開始
 ```
 
@@ -219,7 +219,7 @@ final_commit_before_pr:
 トリガー: 各エンジニアエージェントのIssue実装完了・PR作成
 実行者: エンジニアエージェント（PR作成）→ AI自動レビューツール・ユーザー（レビュー）→ LEADERエージェント（マージ実行）
 
-🚨 CRITICAL PRINCIPLE: 並列実装・レビュー完了後逐次統合
+CRITICAL_PRINCIPLE: 並列実装・レビュー完了後逐次統合
 基本原則:
   - 各エンジニアエージェントは担当Issue完了次第、即座にPR作成
   - 全Issue完了を待たずに個別にPR作成・AI自動レビューツール・ユーザーレビュー依頼
@@ -230,42 +230,42 @@ final_commit_before_pr:
   - マージ完了後、対応するIssueを閉じる
 
 実装・レビュー・マージフロー:
-  1. 各エンジニアが並列で実装開始
-  2. 最初に完了したエンジニアがPR作成・AI自動レビューツール・ユーザーレビュー依頼
-  3. AI自動レビューツールによる自動レビュー実行（コード品質・セキュリティ）
-  4. ユーザーによる機能仕様・ビジネスロジックレビュー実行
-  5. レビュー承認後、ユーザーがLEADERにマージ依頼
-  6. LEADERが依存関係チェック・統合テスト実行
-  7. 問題なければ即座にmainブランチマージ・Issue閉じる
-  8. 次に完了したエンジニアがPR作成・レビュー依頼
-  9. レビュー承認後、LEADERが既存マージ内容との整合性確認
-  10. 統合テスト実行後マージ・Issue閉じる
-  11. 全Issue完了まで繰り返し
+  - 各エンジニアが並列で実装開始
+  - 最初に完了したエンジニアがPR作成・AI自動レビューツール・ユーザーレビュー依頼
+  - AI自動レビューツールによる自動レビュー実行（コード品質・セキュリティ）
+  - ユーザーによる機能仕様・ビジネスロジックレビュー実行
+  - レビュー承認後、ユーザーがLEADERにマージ依頼
+  - LEADERが依存関係チェック・統合テスト実行
+  - 問題なければ即座にmainブランチマージ・Issue閉じる
+  - 次に完了したエンジニアがPR作成・レビュー依頼
+  - レビュー承認後、LEADERが既存マージ内容との整合性確認
+  - 統合テスト実行後マージ・Issue閉じる
+  - 全Issue完了まで繰り返し
 
-🔄 依存関係管理の具体例:
-case_1_independent_feature:
-  # 独立機能（認証機能）- レビュー承認後即座マージ可能
-  engineer_report: "**LEADERへの報告:** Issue #1（認証機能）実装完了。PR #1作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
-  review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。他機能との依存関係なし。"
-  user_merge_request: "**LEADERへのマージ依頼:** PR #1のレビューが承認されました。マージをお願いします。"
-  leader_response: "**マージ実行:** PR #1依存関係問題なし。mainブランチにマージしました。Issue #1を閉じます。"
-  # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。AI自動レビューツール・ユーザーレビュー承認済み。"
+DEPENDENCY_MANAGEMENT_EXAMPLES:
+  case_1_independent_feature:
+    # 独立機能（認証機能）- レビュー承認後即座マージ可能
+    engineer_report: "**LEADERへの報告:** Issue #1（認証機能）実装完了。PR #1作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
+    review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。他機能との依存関係なし。"
+    user_merge_request: "**LEADERへのマージ依頼:** PR #1のレビューが承認されました。マージをお願いします。"
+    leader_response: "**マージ実行:** PR #1依存関係問題なし。mainブランチにマージしました。Issue #1を閉じます。"
+    # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。AI自動レビューツール・ユーザーレビュー承認済み。"
 
-case_2_dependent_feature:
-  # 依存機能（データ管理機能）- 認証機能との統合確認必要
-  engineer_report: "**LEADERへの報告:** Issue #2（データ管理機能）実装完了。PR #2作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
-  review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。認証機能との統合確認必要。"
-  user_merge_request: "**LEADERへのマージ依頼:** PR #2のレビューが承認されました。認証機能との統合確認後マージをお願いします。"
-  leader_response: "**統合テスト・マージ実行:** PR #2統合テスト成功。mainブランチにマージしました。Issue #2を閉じます。"
-  # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。統合テスト成功・レビュー承認済み。"
+  case_2_dependent_feature:
+    # 依存機能（データ管理機能）- 認証機能との統合確認必要
+    engineer_report: "**LEADERへの報告:** Issue #2（データ管理機能）実装完了。PR #2作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
+    review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。認証機能との統合確認必要。"
+    user_merge_request: "**LEADERへのマージ依頼:** PR #2のレビューが承認されました。認証機能との統合確認後マージをお願いします。"
+    leader_response: "**統合テスト・マージ実行:** PR #2統合テスト成功。mainブランチにマージしました。Issue #2を閉じます。"
+    # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。統合テスト成功・レビュー承認済み。"
 
-case_3_integration_feature:
-  # 高依存機能（API統合機能）- 複数機能との統合確認必要
-  engineer_report: "**LEADERへの報告:** Issue #3（API統合機能）実装完了。PR #3作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
-  review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。認証・データ管理機能との統合確認必要。"
-  user_merge_request: "**LEADERへのマージ依頼:** PR #3のレビューが承認されました。全依存機能との統合確認後マージをお願いします。"
-  leader_response: "**包括的統合テスト・マージ実行:** PR #3全依存機能との統合テスト成功。mainブランチにマージしました。Issue #3を閉じます。"
-  # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。全依存機能との統合テスト成功・レビュー承認済み。"
+  case_3_integration_feature:
+    # 高依存機能（API統合機能）- 複数機能との統合確認必要
+    engineer_report: "**LEADERへの報告:** Issue #3（API統合機能）実装完了。PR #3作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
+    review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。認証・データ管理機能との統合確認必要。"
+    user_merge_request: "**LEADERへのマージ依頼:** PR #3のレビューが承認されました。全依存機能との統合確認後マージをお願いします。"
+    leader_response: "**包括的統合テスト・マージ実行:** PR #3全依存機能との統合テスト成功。mainブランチにマージしました。Issue #3を閉じます。"
+    # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。全依存機能との統合テスト成功・レビュー承認済み。"
 
 マージ判定基準:
   independent_features:
@@ -286,18 +286,18 @@ case_3_integration_feature:
     - 例: API統合機能、フロントエンド統合機能
 
 マージ優先順位:
-  1. 独立機能のPR（レビュー承認後即座処理）
-  2. 依存機能のPR（依存先マージ後・統合テスト後処理）
-  3. 統合機能のPR（全依存先マージ後・包括的統合テスト後処理）
+  - 独立機能のPR（レビュー承認後即座処理）
+  - 依存機能のPR（依存先マージ後・統合テスト後処理）
+  - 統合機能のPR（全依存先マージ後・包括的統合テスト後処理）
 
-🚨 CRITICAL ISSUE MANAGEMENT:
-issue_closing_protocol:
-  - PRマージ完了後、必ず対応するIssueを閉じる
-  - Issue閉じる際は適切なコメントを追加（レビュー承認情報含む）
-  - コマンド例: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。AI自動レビューツール・ユーザーレビュー承認済み。"
-  - 全Issueが適切に閉じられていることを確認
+CRITICAL_ISSUE_MANAGEMENT:
+  issue_closing_protocol:
+    - PRマージ完了後、必ず対応するIssueを閉じる
+    - Issue閉じる際は適切なコメントを追加（レビュー承認情報含む）
+    - コマンド例: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。AI自動レビューツール・ユーザーレビュー承認済み。"
+    - 全Issueが適切に閉じられていることを確認
 
-✅ 完了判定:
+completion_criteria:
   - 全Issue実装完了・PR作成済み
   - 全PRがAI自動レビューツール・ユーザーレビュー承認済み
   - 依存関係に応じた適切な順序でマージ完了
@@ -305,9 +305,9 @@ issue_closing_protocol:
   - 統合テスト成功
   - mainブランチに全機能統合済み
 
-🔄 次ステップ:
+next_steps:
   - LEADERエージェント: "全Issue実装完了・AI自動レビューツール・ユーザーレビュー承認済み・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
-  - LEADERエージェント: "🚨 MANDATORY: Phase 3完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。"
+  - LEADERエージェント: "MANDATORY: Phase 3完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。"
   - Phase 4: 最終レビュー・品質確認・プロジェクト完了
 ```
 
