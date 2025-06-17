@@ -24,7 +24,7 @@ echo "👑 LEADER起動中..."
 tmux send-keys -t agents:0.0 'claude'
 tmux send-keys -t agents:0.0 C-m
 sleep 3
-tmux send-keys -t agents:0.0 'cat .ai/instructions/leader.md'
+tmux send-keys -t agents:0.0 'cat ./ai-framework/templates/leader_agent_setup_template.md'
 tmux send-keys -t agents:0.0 C-m
 sleep 2
 echo "  🔧 LEADER auto-accept有効化中..."
@@ -37,7 +37,7 @@ echo "💻 engineer-1起動中..."
 tmux send-keys -t agents:0.1 'claude'
 tmux send-keys -t agents:0.1 C-m
 sleep 3
-tmux send-keys -t agents:0.1 'cat .ai/instructions/engineer.md'
+tmux send-keys -t agents:0.1 'cat ./ai-framework/templates/engineer_agent_setup_template.md'
 tmux send-keys -t agents:0.1 C-m
 sleep 2
 echo "  🔧 engineer-1 auto-accept有効化中..."
@@ -50,7 +50,7 @@ echo "🖥️ engineer-2起動中..."
 tmux send-keys -t agents:0.2 'claude'
 tmux send-keys -t agents:0.2 C-m
 sleep 3
-tmux send-keys -t agents:0.2 'cat .ai/instructions/engineer.md'
+tmux send-keys -t agents:0.2 'cat ./ai-framework/templates/engineer_agent_setup_template.md'
 tmux send-keys -t agents:0.2 C-m
 sleep 2
 echo "  🔧 engineer-2 auto-accept有効化中..."
@@ -63,7 +63,7 @@ echo "⚙️ engineer-3起動中..."
 tmux send-keys -t agents:0.3 'claude'
 tmux send-keys -t agents:0.3 C-m
 sleep 3
-tmux send-keys -t agents:0.3 'cat .ai/instructions/engineer.md'
+tmux send-keys -t agents:0.3 'cat ./ai-framework/templates/engineer_agent_setup_template.md'
 tmux send-keys -t agents:0.3 C-m
 sleep 2
 echo "  🔧 engineer-3 auto-accept有効化中..."
@@ -76,7 +76,7 @@ echo "🧪 qa-agent起動中..."
 tmux send-keys -t agents:0.4 'claude'
 tmux send-keys -t agents:0.4 C-m
 sleep 3
-tmux send-keys -t agents:0.4 'cat .ai/instructions/qa-agent.md'
+tmux send-keys -t agents:0.4 'cat ./ai-framework/templates/qa_agent_setup_template.md'
 tmux send-keys -t agents:0.4 C-m
 sleep 2
 echo "  🔧 qa-agent auto-accept有効化中..."

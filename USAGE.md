@@ -339,6 +339,78 @@ graph LR
 
 ---
 
+## 🎨 エージェント指示書のカスタマイズ
+
+### **テンプレートファイルの直接編集**
+
+git subtree後、テンプレートファイルは`./ai-framework/templates/`に配置されます。
+これらのファイルは直接編集してプロジェクト固有の指示にカスタマイズできます：
+
+```bash
+# リーダーエージェントの指示書編集
+code ./ai-framework/templates/leader_agent_setup_template.md
+
+# エンジニアエージェントの指示書編集  
+code ./ai-framework/templates/engineer_agent_setup_template.md
+
+# QAエージェントの指示書編集
+code ./ai-framework/templates/qa_agent_setup_template.md
+```
+
+### **カスタマイズ例**
+
+#### **プロジェクト固有の技術スタック指定**
+```markdown
+# engineer_agent_setup_template.md に追加
+
+## 🎯 プロジェクト固有設定
+- **技術スタック**: Next.js 14 + TypeScript + Prisma + PostgreSQL
+- **UIライブラリ**: Tailwind CSS + shadcn/ui
+- **認証**: NextAuth.js
+- **デプロイ**: Vercel
+```
+
+#### **業界・ドメイン固有の知識追加**
+```markdown
+# leader_agent_setup_template.md に追加
+
+## 🏢 業界知識・ドメインルール
+- **業界**: ECサイト / 金融 / 医療 など
+- **規制要件**: GDPR / PCI DSS / HIPAA など
+- **ビジネスルール**: 特定の業務フロー / 承認プロセス など
+```
+
+#### **コーディング規約・品質基準の追加**
+```markdown
+# engineer_agent_setup_template.md に追加
+
+## 📏 コーディング規約
+- **ESLint設定**: @typescript-eslint/recommended
+- **Prettier設定**: セミコロンあり、シングルクォート
+- **命名規則**: camelCase（変数・関数）、PascalCase（コンポーネント）
+- **コメント**: JSDoc形式で関数・クラスに必須
+```
+
+### **編集後の反映**
+
+テンプレートファイルを編集後、エージェントを再起動して変更を反映：
+
+```bash
+# 既存セッション終了
+tmux kill-session -t agents 2>/dev/null || true
+
+# エージェント再起動（編集済みテンプレートが読み込まれる）
+./ai-framework/scripts/quick-start.sh
+```
+
+### **⚠️ 注意事項**
+
+- **subtree更新時の上書き**: フレームワーク更新時にカスタマイズが上書きされる可能性があります
+- **バックアップ推奨**: 重要なカスタマイズは別途バックアップを取ることを推奨
+- **チーム共有**: カスタマイズした指示書はチーム全体で共有・レビューしてください
+
+---
+
 ## 🔄 更新・メンテナンス
 
 ```bash
