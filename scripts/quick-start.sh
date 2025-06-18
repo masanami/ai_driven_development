@@ -144,7 +144,7 @@ esac
 
 echo ""
 echo "📚 参考資料:"
-echo "   システム仕様: ${SCRIPT_DIR}/08_practical_agent_communication_system.md"
+echo "   システム仕様: ${SCRIPT_DIR}/../08_practical_agent_communication_system.md"
 echo "   手動操作: ${SCRIPT_DIR}/agent-send.sh [エージェント名] [メッセージ]"
 echo "   ログ確認: tail -f logs/communication.log"
 echo ""
