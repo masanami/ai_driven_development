@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # 直接通信メッセージ送信スクリプト
 

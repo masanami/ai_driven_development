@@ -3,8 +3,8 @@
 **小規模スタートから段階的にスケールアップ**するマルチエージェント開発システムの設計書・仕様書集
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Personal Learning](https://img.shields.io/badge/type-personal%20learning-brightgreen.svg)]()
-[![Status](https://img.shields.io/badge/status-active%20development-blue.svg)]()
+![Personal Learning](https://img.shields.io/badge/type-personal%20learning-brightgreen.svg)
+![Status](https://img.shields.io/badge/status-active%20development-blue.svg)
 
 ## 🎯 概要
 

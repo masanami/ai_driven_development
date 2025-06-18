@@ -6,28 +6,6 @@
 
 ## 🚀 クイックスタート
 
-### **パターン1: ゼロから新規プロジェクト開始**
-
-```bash
-# 1. プロジェクト作成
-mkdir my-new-project && cd my-new-project
-
-# 2. AIフレームワーク追加
-git remote add ai-framework-remote <this-repo-url>
-git subtree add --prefix ai-framework ai-framework-remote main --squash
-
-# 3. 最小構成セットアップ
-mkdir -p .ai/{instructions,logs} .claude worktrees
-cp ai-framework/.claude/settings.json .claude/settings.json
-echo -e ".ai/logs/\nworktrees/" >> .gitignore
-
-# 4. tmux直接通信システムセットアップ
-./ai-framework/scripts/quick-start.sh
-
-```
-
-### **パターン2: 既存プロジェクトに追加**
-
 ```bash
 # 1. 既存プロジェクトのルートで実行
 cd existing-project
@@ -37,7 +15,7 @@ git remote add ai-framework-remote <this-repo-url>
 git subtree add --prefix ai-framework ai-framework-remote main --squash
 
 # 3. 最小構成セットアップ  
-mkdir -p .ai/{instructions,logs} .claude worktrees
+mkdir -p .ai/logs .claude worktrees
 cp ai-framework/.claude/settings.json .claude/
 echo -e ".ai/logs/\nworktrees/" >> .gitignore
 
@@ -75,10 +53,6 @@ your-project/
 ├── .claude/               # Claude Code設定
 │   └── settings.json               # 実際の設定（gitignore推奨）
 ├── .ai/
-│   ├── instructions/      # エージェント指示書
-│   │   ├── leader.md              # LEADER指示書
-│   │   ├── engineer.md            # エンジニア指示書
-│   │   └── qa-agent.md            # QA指示書
 │   └── logs/              # 開発記録・通信ログ
 │       └── communication.log      # 通信ログ
 └── src/                   # プロダクトコード
@@ -134,9 +108,7 @@ tmux kill-session -t agents
 
 ## 📋 基本的な開発フロー
 
-### **🚀 超簡単スタート**
-
-#### **🆕 新規プロジェクト開発**
+### **🆕 新規プロジェクト開発**
 ```bash
 # 1. tmux直接通信システム起動
 ./ai-framework/scripts/quick-start.sh
@@ -149,7 +121,7 @@ tmux kill-session -t agents
 要件定義から実装まで、エージェント間で協調して進めてください。
 ```
 
-#### **🔧 ai-framework導入済みプロジェクトの機能追加・改修**
+### **🔧 ai-framework導入済みプロジェクトの機能追加・改修**
 ```bash
 # 1. tmux直接通信システム起動
 ./ai-framework/quick-start.sh
@@ -170,7 +142,7 @@ tmux kill-session -t agents
 エージェント間で協調しながら要件定義から実装まで進めてください。
 ```
 
-#### **📦 ai-framework未導入プロジェクトの移行 + 機能追加**
+### **📦 ai-framework未導入プロジェクトの移行 + 機能追加**
 ```bash
 # 1. tmux直接通信システム起動
 ./ai-framework/quick-start.sh
@@ -194,7 +166,7 @@ Next.js + TypeScript + PostgreSQLで構築済みのECサイトに、
 
 ---
 
-## 🔄 開発の流れ
+## 🔄 開発の流れ説明
 
 ### **🆕 新規プロジェクト開発フロー**
 

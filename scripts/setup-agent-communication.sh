@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 echo "🚀 直接通信型エージェント環境を構築中..."
 
@@ -41,12 +42,12 @@ tmux new-session -d -s agents
 tmux split-window -h -t agents -p 70
 
 # 右側を3つに分割（engineer-1, engineer-2, engineer-3）
-tmux split-window -v -t agents:0.1 -p 67  # engineer-1 (16.7% of 70% = 23.8%)
-tmux split-window -v -t agents:0.2 -p 50  # engineer-2 (16.7% of 70% = 23.8%)
-# engineer-3は自動的に残りの23.8%
+tmux split-window -v -t agents:0.1 -p 33  # engineer-1 (16.7% of 70% = 23.1%)
+tmux split-window -v -t agents:0.2 -p 50  # engineer-2 (16.7% of 70% = 23.5%)
+# engineer-3は自動的に残りの23.4%
 
-# 最後にqa-agentを下部に追加（20%）
-tmux split-window -v -t agents:0.0 -p 60  # LEADERを上30%、qa-agentを下20%に
+# 最後にqa-agentを下部に追加
+tmux split-window -v -t agents:0.0 -p 60  # LEADERを上18%、qa-agentを下12%に
 
 # ペインタイトル表示設定
 echo "🏷️ ペインタイトル表示設定中..."
