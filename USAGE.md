@@ -331,25 +331,31 @@ code ./ai-framework/templates/qa_agent_setup_template.md
 
 ### **カスタマイズ例**
 
-#### **プロジェクト固有の技術スタック指定**
+#### **既存開発ガイドライン・ドキュメントの読み込み**Add commentMore actions
 ```markdown
-# engineer_agent_setup_template.md に追加
+# テンプレートファイルに追加
 
-## 🎯 プロジェクト固有設定
-- **技術スタック**: Next.js 14 + TypeScript + Prisma + PostgreSQL
-- **UIライブラリ**: Tailwind CSS + shadcn/ui
-- **認証**: NextAuth.js
-- **デプロイ**: Vercel
-```
+## 📚 プロジェクト開発ガイドライン
+**作業開始前に以下のドキュメントを必ず読み込んでください：**
 
-#### **業界・ドメイン固有の知識追加**
-```markdown
-# leader_agent_setup_template.md に追加
+### **必須参照ドキュメント**
+- **@CONTRIBUTING.md** - 開発者向けコントリビューションガイド
+- **@docs/DEVELOPMENT.md** - 開発環境構築・開発フロー
+- **@docs/CODING_GUIDELINES.md** - コーディング規約・ベストプラクティス
+- **@docs/API_GUIDELINES.md** - API設計・命名規則
+- **@docs/TESTING.md** - テスト戦略・テスト実装ガイド
 
-## 🏢 業界知識・ドメインルール
-- **業界**: ECサイト / 金融 / 医療 など
-- **規制要件**: GDPR / PCI DSS / HIPAA など
-- **ビジネスルール**: 特定の業務フロー / 承認プロセス など
+### **プロジェクト固有ドキュメント**
+- **@docs/ARCHITECTURE.md** - システム設計・アーキテクチャ概要
+- **@docs/DATABASE.md** - データベース設計・マイグレーション
+- **@README.md** - プロジェクト概要・セットアップ手順
+
+### **チーム開発ルール**
+- **@.github/pull_request_template.md** - PRテンプレート・レビュー基準
+- **@.github/ISSUE_TEMPLATE/** - Issue作成ガイドライン
+- **@docs/WORKFLOW.md** - ブランチ戦略・デプロイフロー
+
+**⚠️ 重要**: これらのドキュメントの内容に従って作業し、既存のルール・規約を遵守してください。
 ```
 
 #### **コーディング規約・品質基準の追加**
@@ -415,7 +421,7 @@ tmux list-sessions
 # エージェント起動状況確認
 tmux list-panes -t agents
 # 通信テスト実行
-./ai-framework/agent-send.sh
+./ai-framework/scripts/agent-send.sh
 ```
 
 **Q: git worktreeでエラー**
