@@ -145,7 +145,7 @@ tmux kill-session -t agents
 ### **📦 ai-framework未導入プロジェクトの移行 + 機能追加**
 ```bash
 # 1. tmux直接通信システム起動
-./ai-framework/quick-start.sh
+./ai-framework/scripts/quick-start.sh
 
 # 2. LEADERペインでプロジェクト移行＋機能追加指示を入力
 # agentsセッションのLEADERペイン（左上）をクリックしてアクティブにし、以下を入力：

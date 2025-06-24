@@ -184,8 +184,9 @@ PROGRESS_REPORTING_PROTOCOL:
     content: "Red/Green/Refactorフェーズの進捗・課題・完了予定"
 
   completion_notification:
-    format: "**LEADERへの完了報告:** Issue #{番号} - 実装完了・PR作成済み"
-    required_info: "PR番号・テスト結果・レビュー依頼"
+    format: "**LEADERへの完了報告:** Issue #{番号} - 実装完了・PR作成済み・マージ待機中"
+    required_info: "PR番号・テスト結果・ユーザーレビュー依頼"
+    post_report_status: "PRマージ待機中 - 新規タスク受付不可"
 
 CRITICAL_TDD_COMMIT_STRATEGY:
   red_phase_commit:
@@ -247,15 +248,19 @@ DEPENDENCY_MANAGEMENT_EXAMPLES:
     # 独立機能（認証機能）- レビュー承認後即座マージ可能
     engineer_report: "**LEADERへの報告:** Issue #1（認証機能）実装完了。PR #1作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
     review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。他機能との依存関係なし。"
-    user_merge_request: "**LEADERへのマージ依頼:** PR #1のレビューが承認されました。マージをお願いします。"
-    leader_response: "**マージ実行:** PR #1依存関係問題なし。mainブランチにマージしました。Issue #1を閉じます。"
+    user_merge_request: "**engineer-1への通知:** PR #1のレビューが承認され、マージされました。リーダーへ報告してください。"
+    engineer_response: "**LEADERへの確認:** マージ完了確認済み・次タスク受付可能状態"
+    leader_response: "**Issueクローズ:** PR #1 がmainブランチにマージされました。Issue #1を閉じます。"
     # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。AI自動レビューツール・ユーザーレビュー承認済み。"
+    leader_response: "**engineer-1への通知:** Issue #1 - マージ完了・次タスクとして Issue #{番号}を実施してください。"
 
   case_2_dependent_feature:
     # 依存機能（データ管理機能）- 認証機能との統合確認必要
     engineer_report: "**LEADERへの報告:** Issue #2（データ管理機能）実装完了。PR #2作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
     review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。認証機能との統合確認必要。"
-    user_merge_request: "**LEADERへのマージ依頼:** PR #2のレビューが承認されました。認証機能との統合確認後マージをお願いします。"
+    user_merge_request: "**engineer-2への通知:** PR #2のレビューが承認されました。リーダーへ報告してください。"
+    engineer_response: "**LEADERへの確認:** レビュー承認されました・次タスク受付可能状態"
+    leader_response: "**engineer-2への通知:** Issue #2 - レビュー承認を確認。認証機能との統合確認後マージします。次タスクとして Issue #{番号}を実施してください。"
     leader_response: "**統合テスト・マージ実行:** PR #2統合テスト成功。mainブランチにマージしました。Issue #2を閉じます。"
     # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。統合テスト成功・レビュー承認済み。"
 
@@ -263,7 +268,9 @@ DEPENDENCY_MANAGEMENT_EXAMPLES:
     # 高依存機能（API統合機能）- 複数機能との統合確認必要
     engineer_report: "**LEADERへの報告:** Issue #3（API統合機能）実装完了。PR #3作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
     review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。認証・データ管理機能との統合確認必要。"
-    user_merge_request: "**LEADERへのマージ依頼:** PR #3のレビューが承認されました。全依存機能との統合確認後マージをお願いします。"
+    user_merge_request: "**engineer-3への通知:** PR #3のレビューが承認されました。リーダーへ報告してください。"
+    engineer_response: "**LEADERへの確認:** レビュー承認されました・次タスク受付可能状態"
+    leader_response: "**engineer-3への通知:** Issue #3 - レビュー承認を確認。全依存機能との統合確認後マージします。次タスクとして Issue #{番号}を実施してください。"
     leader_response: "**包括的統合テスト・マージ実行:** PR #3全依存機能との統合テスト成功。mainブランチにマージしました。Issue #3を閉じます。"
     # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。全依存機能との統合テスト成功・レビュー承認済み。"
 
@@ -315,7 +322,7 @@ next_steps:
 
 ## 🎯 重要な制約・注意事項
 
-### **🛑 CRITICAL RULE: リーダーエージェントは実装しない**
+### **CRITICAL RULE: リーダーエージェントは実装しない**
 ```yaml
 strict_prohibition:
   - "リーダーエージェントは絶対に実装コードを書かない"
