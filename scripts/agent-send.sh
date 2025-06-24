@@ -28,12 +28,10 @@ if [ -z "$AGENT_NAME" ] || [ -z "$MESSAGE" ]; then
     echo "  engineer-1  (pane 1)"
     echo "  engineer-2  (pane 2)"
     echo "  engineer-3  (pane 3)"
-    echo "  qa-agent    (pane 4)"
     echo ""
     echo "直接通信例:"
     echo "  ./ai-framework/scripts/agent-send.sh engineer-1 'engineer-2への連絡: API仕様について相談があります'"
     echo "  ./ai-framework/scripts/agent-send.sh engineer-3 'qa-agentへの連絡: 統合テストをお願いします'"
-    echo "  ./ai-framework/scripts/agent-send.sh qa-agent 'LEADERへの報告: テスト完了しました'"
     echo ""
     echo "worktreeからの実行例:"
     echo "  cd worktrees/issue-1-auth/"
@@ -118,14 +116,9 @@ case $AGENT_NAME in
         sleep 1
         tmux send-keys -t agents:0.3 C-m
         ;;
-    "qa-agent")
-        tmux send-keys -t agents:0.4 "$MESSAGE"
-        sleep 1
-        tmux send-keys -t agents:0.4 C-m
-        ;;
     *)
         echo "❌ 未知のエージェント: $AGENT_NAME"
-        echo "利用可能なエージェント: leader, engineer-1, engineer-2, engineer-3, qa-agent"
+        echo "利用可能なエージェント: leader, engineer-1, engineer-2, engineer-3"
         exit 1
         ;;
 esac

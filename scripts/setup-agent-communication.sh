@@ -26,28 +26,21 @@ if [[ ! -f "${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md" ]]; the
     exit 1
 fi
 
-if [[ ! -f "${SCRIPT_DIR}/../templates/qa_agent_setup_template.md" ]]; then
-    echo "❌ エラー: templates/qa_agent_setup_template.md が見つかりません"
-    exit 1
-fi
-
 echo "✅ テンプレートファイル確認完了"
 
-# agentsセッション作成（5ペイン）
+# agentsセッション作成（4ペイン）
 echo "📊 agentsセッション作成中..."
 tmux new-session -d -s agents
 
-# ペイン分割（LEADER 30%, engineer-1 16.7%, engineer-2 16.7%, engineer-3 16.7%, qa-agent 20%）
-# 最初に縦に分割してLEADER(30%)とその他(70%)に分ける
-tmux split-window -h -t agents -p 70
+# ペイン分割（各25%ずつ均等配分）
+# 最初に縦に分割して左右50%ずつ
+tmux split-window -h -t agents -p 50
 
-# 右側を3つに分割（engineer-1, engineer-2, engineer-3）
-tmux split-window -v -t agents:0.1 -p 33  # engineer-1 (16.7% of 70% = 23.1%)
-tmux split-window -v -t agents:0.2 -p 50  # engineer-2 (16.7% of 70% = 23.5%)
-# engineer-3は自動的に残りの23.4%
+# 左側を上下に分割（LEADER 25%, engineer-1 25%）
+tmux split-window -v -t agents:0.0 -p 50
 
-# 最後にqa-agentを下部に追加
-tmux split-window -v -t agents:0.0 -p 60  # LEADERを上18%、qa-agentを下12%に
+# 右側を上下に分割（engineer-2 25%, engineer-3 25%）
+tmux split-window -v -t agents:0.1 -p 50
 
 # ペインタイトル表示設定
 echo "🏷️ ペインタイトル表示設定中..."
@@ -60,7 +53,6 @@ tmux select-pane -t agents:0.0 -T "LEADER"
 tmux select-pane -t agents:0.1 -T "engineer-1"
 tmux select-pane -t agents:0.2 -T "engineer-2"
 tmux select-pane -t agents:0.3 -T "engineer-3"
-tmux select-pane -t agents:0.4 -T "qa-agent"
 
 # ペイン初期化メッセージ
 tmux send-keys -t agents:0.0 'echo "👑 LEADER ready"'
@@ -71,8 +63,6 @@ tmux send-keys -t agents:0.2 'echo "🖥️ engineer-2 ready"'
 tmux send-keys -t agents:0.2 C-m
 tmux send-keys -t agents:0.3 'echo "⚙️ engineer-3 ready"'
 tmux send-keys -t agents:0.3 C-m
-tmux send-keys -t agents:0.4 'echo "🧪 qa-agent ready"'
-tmux send-keys -t agents:0.4 C-m
 
 # LEADERペインをアクティブに設定
 echo "🎯 LEADERペインをアクティブに設定中..."

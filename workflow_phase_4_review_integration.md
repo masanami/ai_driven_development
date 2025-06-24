@@ -57,7 +57,7 @@ next_steps:
 
 E2E_TEST_EXECUTION:
   e2e_test_execution:
-    - QAエージェントが作成したE2Eテストスイート実行
+    - E2Eテストスイート実行
     - ユーザーシナリオベースの動作確認
     - ブラウザ自動化テスト実行
     - API統合テスト実行

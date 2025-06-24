@@ -74,19 +74,6 @@ tmux send-keys -t agents:0.3 C-space
 tmux send-keys -t agents:0.3 'auto-accept edits on'
 tmux send-keys -t agents:0.3 C-m
 
-# qa-agent (pane 4)
-echo "🧪 qa-agent起動中..."
-tmux send-keys -t agents:0.4 'claude'
-tmux send-keys -t agents:0.4 C-m
-sleep 3
-tmux send-keys -t agents:0.4 "cat '${SCRIPT_DIR}/../templates/qa_agent_setup_template.md'"
-tmux send-keys -t agents:0.4 C-m
-sleep 2
-echo "  🔧 qa-agent auto-accept有効化中..."
-tmux send-keys -t agents:0.4 C-space
-tmux send-keys -t agents:0.4 'auto-accept edits on'
-tmux send-keys -t agents:0.4 C-m
-
 # LEADERペインをアクティブに設定
 echo "🎯 LEADERペインをアクティブに設定中..."
 tmux select-pane -t agents:0.0

@@ -12,7 +12,6 @@
 - **LEADERからエンジニア**: `**engineer-{番号}への指示:** {内容}`
 - **エンジニアからLEADER**: `**LEADERへの報告:** {内容}`  
 - **エンジニア間連絡**: `**engineer-{番号}への連絡:** {内容}`
-- **QAエージェント通信**: `**qa-agentへの連絡:** {内容}` / `**qa-agentからの報告:** {内容}`
 
 ### **🚨 CRITICAL: agent-send.sh必須使用ルール**
 
@@ -38,7 +37,6 @@
 - `engineer-1` - エンジニアエージェント1
 - `engineer-2` - エンジニアエージェント2  
 - `engineer-3` - エンジニアエージェント3
-- `qa-agent` - QAエージェント
 
 ---
 
@@ -69,6 +67,9 @@
 
 # 統合テスト指示
 ./ai-framework/scripts/agent-send.sh engineer-2 "**engineer-2への連絡:** PR #{番号}レビュー中。認証機能との統合テストを実行してください。"
+
+# 品質確認指示
+./ai-framework/scripts/agent-send.sh engineer-3 "**engineer-3への連絡:** E2Eテストスイートを実行して統合品質を確認してください。"
 ```
 
 ### **エンジニアエージェント間の直接連携**
@@ -81,15 +82,9 @@
 
 # 緊急連絡
 ./ai-framework/scripts/agent-send.sh engineer-3 "**engineer-3への連絡:** 緊急です。統合APIでエラーが発生しています。詳細を確認してください。"
-```
 
-### **QAエージェントとの連携**
-```bash
-# テスト依頼
-./ai-framework/scripts/agent-send.sh qa-agent "**qa-agentへの連絡:** Issue #{番号}の実装が完了しました。統合テストをお願いします。"
-
-# テスト結果報告
-./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** 統合テスト完了。品質基準を満たしています。"
+# 品質情報共有
+./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** 単体テストで境界値エラーを発見しました。同様のケースをチェックしてください。"
 ```
 
 ---
@@ -120,6 +115,17 @@
 ./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** 認証API仕様を確認しました。データ管理機能で連携します。"
 ```
 
+### **品質保証統合フロー**
+```bash
+# 1. エンジニア → LEADER: 品質確認完了報告
+./ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1 - 単体テスト・統合テストすべて成功。品質基準を満たしています。"
+
+# 2. LEADER → 全エンジニア: E2Eテスト指示
+./ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** 全機能実装完了。E2Eテストスイートを実行してください。"
+./ai-framework/scripts/agent-send.sh engineer-2 "**engineer-2への連絡:** 全機能実装完了。E2Eテストスイートを実行してください。"
+./ai-framework/scripts/agent-send.sh engineer-3 "**engineer-3への連絡:** 全機能実装完了。E2Eテストスイートを実行してください。"
+```
+
 ---
 
 ## ⚠️ 重要な注意事項
@@ -131,7 +137,7 @@
 # これらは全て禁止 - 業務効率を阻害する
 ./ai-framework/scripts/agent-send.sh engineer-1 "調子はどうですか？"
 ./ai-framework/scripts/agent-send.sh leader "今日は天気がいいですね"
-./ai-framework/scripts/agent-send.sh qa-agent "お疲れ様です！頑張りましょう"
+./ai-framework/scripts/agent-send.sh engineer-2 "お疲れ様です！頑張りましょう"
 ```
 
 **✅ 許可される通信内容のみ**
@@ -163,6 +169,7 @@ allowed_communications:
   - 実装課題・エラー・ブロッカーの報告
   - PR作成・マージ・品質確認の結果
   - 緊急事態・重要な技術的変更の連絡
+  - 品質保証・テスト結果の報告
 ```
 
 ### **通信失敗を防ぐための必須確認事項**
