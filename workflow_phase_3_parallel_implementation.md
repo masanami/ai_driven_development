@@ -244,7 +244,7 @@ DEPENDENCY_MANAGEMENT_EXAMPLES:
     engineer_response: "**LEADERへの確認:** マージ完了確認済み・次タスク受付可能状態"
     leader_response: "**Issueクローズ:** PR #1 がmainブランチにマージされました。Issue #1を閉じます。"
     # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。AI自動レビューツール・ユーザーレビュー承認済み。"
-    leader_response: "**engineer-1への通知:** Issue #1 - マージ完了・次タスクとして Issue #{番号}を実施してください。"
+    leader_nortification: "**engineer-1への通知:** Issue #1 - マージ完了・次タスクとして Issue #{番号}を実施してください。"
 
   case_2_dependent_feature:
     # 依存機能（データ管理機能）- 認証機能との統合確認必要

@@ -30,17 +30,14 @@ echo "✅ テンプレートファイル確認完了"
 
 # agentsセッション作成（4ペイン）
 echo "📊 agentsセッション作成中..."
-tmux new-session -d -s agents
+tmux split-window -v -t agents:0.1 -# 4つのペインを作成
+tmux split-window -h -t agents    # 2つ目のペイン作成
+tmux split-window -v -t agents    # 3つ目のペイン作成
+tmux split-window -v -t agents    # 4つ目のペイン作成
 
-# ペイン分割（各25%ずつ均等配分）
-# 最初に縦に分割して左右50%ずつ
-tmux split-window -h -t agents -p 50
-
-# 左側を上下に分割（LEADER 25%, engineer-1 25%）
-tmux split-window -v -t agents:0.0 -p 50
-
-# 右側を上下に分割（engineer-2 25%, engineer-3 25%）
-tmux split-window -v -t agents:0.1 -p 50
+# tiledレイアウトを適用して均等分割（25%ずつ）
+echo "⚡ tiledレイアウト適用中..."
+tmux select-layout -t agents tiled
 
 # ペインタイトル表示設定
 echo "🏷️ ペインタイトル表示設定中..."
