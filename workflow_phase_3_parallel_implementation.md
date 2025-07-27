@@ -1,10 +1,10 @@
-# Phase 3: 並列実装・エージェント間通信ワークフロー
+# Phase 3: 協業実装・エージェント間通信ワークフロー
 
 ## 🎯 フェーズ概要
-**目的**: 複数エージェントがリアルタイムで連携し、TDD並列実装を実行する
-**担当**: LEADERエージェント（調整）+ engineer-1,2,3（実装）+ qa-agent（品質保証）
+**目的**: 複数エージェントが1つの機能に集中し、高品質な実装を協業で実現する
+**担当**: LEADERエージェント（調整）+ Implementation Engineer（メイン実装）+ Quality Engineer（テスト・品質）+ Documentation Engineer（レビュー支援・ドキュメント）
 **実行環境**: **tmux使用開始** - 4分割マルチエージェント体制
-**完了条件**: 全Issue実装完了・逐次PR作成・レビュー・マージ完了
+**完了条件**: 機能ごとの実装完了・統合PR作成・レビュー・マージ完了
 
 ---
 
@@ -21,55 +21,69 @@
 
 ## 📋 実行チェックリスト
 
-### **Step 3-1: タスク分配・環境構築** 🤖➡️🤖🤖
+### **Step 3-1: 機能開発チーム編成・環境構築** 🤖➡️🤖🤖
 ```yaml
-トリガー: Phase 2完了 + ユーザーの明示的なタスク分配開始指示
+トリガー: Phase 2完了 + ユーザーの明示的な開発開始指示
 実行者: LEADERエージェント → エンジニアエージェント
 
 LEADER_MANDATORY_PROTOCOL:
   critical_recognition:
     - "私はリーダーエージェントです。実装は行いません"
-    - "エンジニアエージェント（engineer-1, engineer-2, engineer-3）に作業を分配します"
-    - "各エンジニアエージェントは別のClaude Codeインスタンスです"
+    - "エンジニアエージェント（Implementation, Quality, Documentation）に役割を分配します"
+    - "チーム全体で1つの機能に集中して開発します"
 
 CRITICAL_COMMUNICATION_STEPS:
   step_1_team_notification:
     message: |
-      マルチエージェント体制でのタスク分配を開始します
+      協業体制での機能開発を開始します
       
-      **エンジニアエージェント各位へ:**
-      - engineer-1: 汎用エンジニア・タスク分配待ち
-      - engineer-2: 汎用エンジニア・タスク分配待ち  
-      - engineer-3: 汎用エンジニア・タスク分配待ち
-      - qa-agent: E2Eテスト設計・実装待ち
+      **エンジニアエージェント役割分担:**
+      - Implementation Engineer: メイン実装担当（TDD統合実装）
+      - Quality Engineer: テスト・品質担当（追加テスト・品質保証）
+      - Documentation Engineer: レビュー支援・ドキュメント担当
       
-      GitHub Issues が作成済みです。各エージェントにタスクを分配します。
+      現在のタスク: TASK-{ID}（{機能名}）を協業で実装します。
 
-  step_2_individual_assignment:
-    engineer_1: |
-      **engineer-1への指示:**
+  step_2_role_based_assignment:
+    implementation_engineer: |
+      **Implementation Engineerへの指示:**
       
       重要: まず以下のファイルを読み込んでください:
         - @.ai-framework/workflow_phase_3_parallel_implementation.md
         - @.ai-framework/05_practical_agent_communication_system.md
       
-      担当Issue: Issue #{Issue番号}（{機能名}）
+      役割: メイン実装担当
+      タスク: TASK-{ID}（{機能名}）
       
-      ファイル読み込み後、以下の手順で作業を開始してください:
-      - GitHub Issue #{Issue番号} を確認
-      - git worktree add worktrees/issue-{番号}-{機能} feature/issue-{番号}-{機能}
-      - 作業ディレクトリに移動（cd worktrees/issue-{番号}-{機能}）
-      - TDD で実装開始（ワークフローのTDD詳細手順に従って）
+      作業内容:
+      1. 設計ドキュメント作成（.ai/design/task_{ID}_design.md）
+      2. git worktree add worktrees/task-{ID}-{機能} feature/task-{ID}-{機能}
+      3. TDD統合実装（Red → Green → Refactor）
+      4. 実装完了後、統合PR作成
       
-      ファイル読み込み・作業開始後、進捗を報告してください。
+      設計ドキュメント作成後、他のエンジニアに共有してください。
     
-    engineer_2: |
-      **engineer-2への指示:**
-      [同様のフォーマットで個別指示]
+    quality_engineer: |
+      **Quality Engineerへの指示:**
+      
+      役割: テスト・品質担当
+      
+      作業内容:
+      1. Implementation Engineerの設計ドキュメントをレビュー（技術品質観点）
+      2. 追加テストケース作成（E2E・統合・エッジケース）
+      3. パフォーマンステスト実装
+      4. セキュリティ観点でのレビュー
     
-    engineer_3: |
-      **engineer-3への指示:**
-      [同様のフォーマットで個別指示]
+    documentation_engineer: |
+      **Documentation Engineerへの指示:**
+      
+      役割: レビュー支援・ドキュメント担当
+      
+      作業内容:
+      1. Implementation Engineerの設計ドキュメントをレビュー（保守性観点）
+      2. 実装解説ドキュメント作成
+      3. レビューガイド作成
+      4. APIドキュメント・ユーザーガイド作成
 
   step_3_confirmation:
     - 各エンジニアエージェントからの「作業開始しました」確認を待つ
@@ -85,21 +99,21 @@ next_steps:
   - Step 3-2: TDD並列実装実行開始
 ```
 
-### **Step 3-2: TDD並列実装実行** 🤖⚡🤖⚡
+### **Step 3-2: 協業実装実行** 🤖🤝🤖
 ```yaml
-トリガー: Step 3-1完了・全エージェント作業開始確認
-実行者: エンジニアエージェント（並列）
+トリガー: Step 3-1完了・全エージェント役割確認
+実行者: エンジニアエージェント（協業）
 
 ENGINEER_AGENT_IDENTITY:
 engineer_identity:
-  engineer_1: "私はengineer-1です。Issue #{担当Issue番号}を担当します"
-  engineer_2: "私はengineer-2です。Issue #{担当Issue番号}を担当します"
-  engineer_3: "私はengineer-3です。Issue #{担当Issue番号}を担当します"
+  implementation_engineer: "私はImplementation Engineerです。TASK-{ID}のメイン実装を担当します"
+  quality_engineer: "私はQuality Engineerです。TASK-{ID}のテスト・品質を担当します"
+  documentation_engineer: "私はDocumentation Engineerです。TASK-{ID}のレビュー支援・ドキュメントを担当します"
 
 role_clarity:
-  - "私は実装専門のエンジニアエージェントです"
-  - "LEADERからの指示に従ってTDD実装を行います"
-  - "進捗・課題・完了はLEADERに報告します"
+  implementation_engineer: "設計・TDD実装・統合を主導します"
+  quality_engineer: "品質保証・追加テスト・技術レビューを担当します"
+  documentation_engineer: "ドキュメント作成・保守性レビューを担当します"
 
 CRITICAL_TDD_WORKFLOW:
   red_phase:
@@ -123,41 +137,58 @@ CRITICAL_TDD_WORKFLOW:
     - セキュリティ観点での設計調整
     - 実装知見に基づく設計改善提案
 
-parallel_tdd_execution_examples:
-  engineer-1_assigned_tasks:
-    - 担当Issue: Issue #1（ユーザー認証API実装）
-    - 作業環境: worktrees/issue-1-auth/ worktree
-    - 実装内容:
-      * GitHub Issue要件に基づく認証APIテスト実装
-      * バリデーション・セキュリティロジック実装
-      * 権限チェック・セッション管理テスト実装
-      * 実装中の認証フロー詳細設計調整
-    - 成果物: PR作成（Issue #1リンク・テスト含む）
+collaborative_implementation_flow:
+  phase_1_design_documentation:
+    implementation_engineer_tasks:
+      - 設計ドキュメント作成: .ai/design/task_{ID}_design.md
+      - 技術選定理由・アーキテクチャ説明
+      - 実装方針・インターフェース定義
+      - 他エンジニアへの共有: "**全エンジニアへの連絡:** 設計ドキュメントを作成しました。レビューをお願いします。"
+    
+  phase_2_design_review:
+    quality_engineer_review:
+      focus: "技術品質・テスタビリティ観点"
+      checklist:
+        - テスト可能な設計か
+        - エラーハンドリング適切か
+        - パフォーマンス考慮
+        - セキュリティリスク
+      feedback: "設計ドキュメントの技術品質セクションにコメント追加"
+    
+    documentation_engineer_review:
+      focus: "保守性・ドキュメント観点"
+      checklist:
+        - 既存システムとの整合性
+        - 命名規則・規約準拠
+        - ドキュメント必要箇所
+        - 将来の拡張性
+      feedback: "設計ドキュメントの保守性セクションにコメント追加"
   
-  engineer-2_assigned_tasks:
-    - 担当Issue: Issue #2（データ管理CRUD機能実装）
-    - 作業環境: worktrees/issue-2-data-management/ worktree
-    - 実装内容:
-      * GitHub Issue要件に基づくデータCRUD操作テスト実装
-      * データベース連携
-      * データ整合性・バリデーションテスト実装
-      * 実装中のデータモデル詳細設計調整
-    - 成果物: PR作成（Issue #2リンク・テスト含む）
+  phase_3_parallel_work:
+    implementation_engineer_work:
+      - TDD実装（Red → Green → Refactor）
+      - メイン機能の統合実装
+      - 単体テスト作成
+      - コミット戦略遵守
+    
+    quality_engineer_work:
+      - E2Eテストケース作成
+      - エッジケーステスト追加
+      - パフォーマンステスト実装
+      - セキュリティテスト作成
+    
+    documentation_engineer_work:
+      - 実装解説ドキュメント作成
+      - レビューガイド作成
+      - APIドキュメント更新
+      - ユーザーガイド作成
   
-  engineer-3_assigned_tasks:
-    - 担当Issue: Issue #3（API統合機能実装）
-    - 作業環境: worktrees/issue-3-api-integration/ worktree
-    - 実装内容:
-      * GitHub Issue要件に基づくAPI統合テスト実装
-      * 外部API連携・エラーハンドリングテスト
-      * API仕様準拠・レスポンス処理テスト実装
-      * 実装中のAPI統合詳細設計調整
-    - 成果物: PR作成（Issue #3リンク・テスト含む）
-  
-  additional_issue_assignment:
-    - 必要に応じてengineer-1, engineer-2, engineer-3に追加Issueを分配
-    - 例: engineer-1にIssue #5（UI改善機能）を追加分配（worktrees/issue-5-ui-improvement/）
-    - 各エージェントが複数Issue・worktree環境で並行作業可能
+  phase_4_integration:
+    activities:
+      - 全成果物を1つのブランチに統合
+      - 統合PR作成（全エンジニアの成果物含む）
+      - Documentation EngineerのレビューガイドをPR説明に添付
+      - ユーザーレビュー負荷を最小化
 
 design_coordination:
   real_time_communication:
@@ -181,22 +212,31 @@ PROGRESS_REPORTING_PROTOCOL:
     required_info: "PR番号・テスト結果・ユーザーレビュー依頼"
     post_report_status: "PRマージ待機中 - 新規タスク受付不可"
 
-CRITICAL_TDD_COMMIT_STRATEGY:
-  red_phase_commit:
+COLLABORATIVE_COMMIT_STRATEGY:
+  implementation_engineer_commits:
+    design_doc:
+      - git add .ai/design/
+      - git commit -m "docs: TASK-{ID} - 設計ドキュメント作成"
+    
+    red_phase:
+      - git add .
+      - git commit -m "test: TASK-{ID} - {機能名} テストケース実装（Red Phase）"
+    
+    green_phase:
+      - git add .
+      - git commit -m "feat: TASK-{ID} - {機能名} 最小実装完了（Green Phase）"
+    
+    refactor_phase:
+      - git add .
+      - git commit -m "refactor: TASK-{ID} - {機能名} コード品質向上"
+  
+  quality_engineer_commits:
     - git add .
-    - git commit -m "test: Issue #{Issue番号} - {機能名} テストケース実装（Red Phase）"
-
-  green_phase_commit:
+    - git commit -m "test: TASK-{ID} - E2E・統合テスト追加"
+  
+  documentation_engineer_commits:
     - git add .
-    - git commit -m "feat: Issue #{Issue番号} - {機能名} 最小実装完了（Green Phase）"
-
-  refactor_phase_commit:
-    - git add .
-    - git commit -m "refactor: Issue #{Issue番号} - {機能名} コード品質向上・リファクタリング完了"
-
-  final_commit_before_pr:
-    - git add .
-    - git commit -m "feat: Issue #{Issue番号} 実装完了 - {機能名} TDD完了・PR作成準備完了"
+    - git commit -m "docs: TASK-{ID} - 実装解説・レビューガイド作成"
 
 completion_criteria:
   - 各Issue実装完了次第、即座にPR作成・報告
@@ -208,44 +248,62 @@ next_steps:
   - Step 3-3: 逐次PRレビュー・マージフロー開始
 ```
 
-### **Step 3-3: 逐次PRレビュー・マージフロー** 🤖⚡🔄
+### **Step 3-3: 統合PRレビュー・マージフロー** 🤖🤝✅
 ```yaml
-トリガー: 各エンジニアエージェントのIssue実装完了・PR作成
-実行者: エンジニアエージェント（PR作成）→ AI自動レビューツール・ユーザー（レビュー）→ LEADERエージェント（マージ実行）
+トリガー: チーム全体の機能実装完了・統合PR作成
+実行者: Implementation Engineer（統合PR作成）→ AI自動レビューツール・ユーザー（レビュー）→ LEADERエージェント（マージ実行）
 
-CRITICAL_PRINCIPLE: 並列実装・レビュー完了後逐次統合
+CRITICAL_PRINCIPLE: 1機能1PR・高品質レビュー
 基本原則:
-  - 各エンジニアエージェントは担当Issue完了次第、即座にPR作成
-  - 全Issue完了を待たずに個別にPR作成・AI自動レビューツール・ユーザーレビュー依頼
-  - AI自動レビューツールの自動レビューとユーザーによる手動レビューを実施
-  - レビュー完了後、LEADERに依存関係チェック・マージ依頼
-  - LEADERが依存関係を考慮してマージ優先順位付け・マージ実行
-  - 依存関係に問題なければ即座にmainブランチにマージ
-  - マージ完了後、対応するIssueを閉じる
+  - チーム全体の成果物を1つのPRに統合
+  - engineer-3作成のレビューガイドで効率的レビュー
+  - AI自動レビューツールとユーザーレビューの負荷軽減
+  - 品質向上による手戻り削減
+  - 1機能完了後、次の機能開発へ移行
 
-実装・レビュー・マージフロー:
-  - 各エンジニアが並列で実装開始
-  - 最初に完了したエンジニアがPR作成・AI自動レビューツール・ユーザーレビュー依頼
-  - AI自動レビューツールによる自動レビュー実行（コード品質・セキュリティ）
-  - ユーザーによる機能仕様・ビジネスロジックレビュー実行
-  - レビュー承認後、ユーザーがLEADERにマージ依頼
-  - LEADERが依存関係チェック・統合テスト実行
-  - 問題なければ即座にmainブランチマージ・Issue閉じる
-  - 次に完了したエンジニアがPR作成・レビュー依頼
-  - レビュー承認後、LEADERが既存マージ内容との整合性確認
-  - 統合テスト実行後マージ・Issue閉じる
-  - 全Issue完了まで繰り返し
+collaborative_review_flow:
+  step_1_integration:
+    - Implementation Engineerが全エンジニアの成果物を統合
+    - 統合テスト実行・確認
+    - PR作成（レビューガイド添付）
+  
+  step_2_efficient_review:
+    pr_description: |
+      ## TASK-{ID}: {機能名}
+      
+      ### 実装概要
+      [Implementation Engineerによる実装サマリー]
+      
+      ### レビューガイド（by Documentation Engineer）
+      - 重点確認ポイント
+      - 想定Q&A
+      - 関連ドキュメントリンク
+      
+      ### テストカバレッジ（by Quality Engineer）
+      - 単体テスト: XX%
+      - 統合テスト: 実装済み
+      - E2Eテスト: 実装済み
+  
+  step_3_review_process:
+    - AI自動レビュー（品質・セキュリティ）
+    - ユーザーレビュー（レビューガイド参照で効率化）
+    - フィードバック対応（チーム全体で分担）
+  
+  step_4_merge:
+    - レビュー承認後、LEADERにマージ依頼
+    - mainブランチへマージ
+    - タスクファイルのステータス更新
 
-DEPENDENCY_MANAGEMENT_EXAMPLES:
-  case_1_independent_feature:
-    # 独立機能（認証機能）- レビュー承認後即座マージ可能
-    engineer_report: "**LEADERへの報告:** Issue #1（認証機能）実装完了。PR #1作成済み。AI自動レビューツール・ユーザーレビュー依頼中。"
-    review_completion: "AI自動レビューツール・ユーザーレビュー承認完了。他機能との依存関係なし。"
-    user_merge_request: "**engineer-1への通知:** PR #1のレビューが承認され、マージされました。リーダーへ報告してください。"
-    engineer_response: "**LEADERへの確認:** マージ完了確認済み・次タスク受付可能状態"
-    leader_response: "**Issueクローズ:** PR #1 がmainブランチにマージされました。Issue #1を閉じます。"
-    # Issue閉じる処理: gh issue close {Issue番号} --comment "PR #{PR番号}でマージ完了。AI自動レビューツール・ユーザーレビュー承認済み。"
-    leader_nortification: "**engineer-1への通知:** Issue #1 - マージ完了・次タスクとして Issue #{番号}を実施してください。"
+COLLABORATIVE_PR_EXAMPLE:
+  task_001_auth_feature:
+    # チーム協業による認証機能実装
+    team_report: "**LEADERへの報告:** TASK-001（認証機能）チーム実装完了。統合PR #1作成済み。"
+    pr_contents:
+      - implementation_engineer: "TDD実装・メイン機能（15コミット）"
+      - quality_engineer: "E2E・セキュリティテスト（8コミット）"
+      - documentation_engineer: "実装解説・APIドキュメント（5コミット）"
+    review_efficiency: "レビューガイドにより、通常3時間→1時間でレビュー完了"
+    merge_notification: "**全エンジニアへの通知:** TASK-001マージ完了。次はTASK-002を開始します。"
 
   case_2_dependent_feature:
     # 依存機能（データ管理機能）- 認証機能との統合確認必要
@@ -298,12 +356,12 @@ CRITICAL_ISSUE_MANAGEMENT:
     - 全Issueが適切に閉じられていることを確認
 
 completion_criteria:
-  - 全Issue実装完了・PR作成済み
-  - 全PRがAI自動レビューツール・ユーザーレビュー承認済み
-  - 依存関係に応じた適切な順序でマージ完了
-  - 全Issue閉じる処理完了
+  - 機能ごとの実装完了・統合PR作成済み
+  - チーム全体での品質保証完了
+  - レビューガイドによる効率的レビュー実施
   - 統合テスト成功
-  - mainブランチに全機能統合済み
+  - mainブランチにマージ完了
+  - 次機能の開発準備完了
 
 next_steps:
   - LEADERエージェント: "全Issue実装完了・AI自動レビューツール・ユーザーレビュー承認済み・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
@@ -353,6 +411,5 @@ redirect_instruction:
 
 # これにより:
 # 1. tmuxセッション「agents」が作成される
-# 2. 4分割でLEADER + engineer-1,2,3が起動
-# 3. 各エージェントが/agentsコマンドで初期化
+# 2. 4分割でLEADER + Implementation/Quality/Documentation Engineerが起動
 ``` 

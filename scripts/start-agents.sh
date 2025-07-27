@@ -35,41 +35,41 @@ tmux send-keys -t agents:0.0 C-space
 tmux send-keys -t agents:0.0 'auto-accept edits on'
 tmux send-keys -t agents:0.0 C-m
 
-# engineer-1 (pane 1)
-echo "💻 engineer-1起動中..."
+# Implementation Engineer (pane 1)
+echo "🛠️ Implementation Engineer起動中..."
 tmux send-keys -t agents:0.1 'claude'
 tmux send-keys -t agents:0.1 C-m
 sleep 3
-tmux send-keys -t agents:0.1 "cat '${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md'"
+tmux send-keys -t agents:0.1 "cat '${SCRIPT_DIR}/../templates/implementation_engineer_template.md'"
 tmux send-keys -t agents:0.1 C-m
 sleep 2
-echo "  🔧 engineer-1 auto-accept有効化中..."
+echo "  🔧 Implementation Engineer auto-accept有効化中..."
 tmux send-keys -t agents:0.1 C-space
 tmux send-keys -t agents:0.1 'auto-accept edits on'
 tmux send-keys -t agents:0.1 C-m
 
-# engineer-2 (pane 2)
-echo "🖥️ engineer-2起動中..."
+# Quality Engineer (pane 2)
+echo "🧪 Quality Engineer起動中..."
 tmux send-keys -t agents:0.2 'claude'
 tmux send-keys -t agents:0.2 C-m
 sleep 3
-tmux send-keys -t agents:0.2 "cat '${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md'"
+tmux send-keys -t agents:0.2 "cat '${SCRIPT_DIR}/../templates/quality_engineer_template.md'"
 tmux send-keys -t agents:0.2 C-m
 sleep 2
-echo "  🔧 engineer-2 auto-accept有効化中..."
+echo "  🔧 Quality Engineer auto-accept有効化中..."
 tmux send-keys -t agents:0.2 C-space
 tmux send-keys -t agents:0.2 'auto-accept edits on'
 tmux send-keys -t agents:0.2 C-m
 
-# engineer-3 (pane 3)
-echo "⚙️ engineer-3起動中..."
+# Documentation Engineer (pane 3)
+echo "📚 Documentation Engineer起動中..."
 tmux send-keys -t agents:0.3 'claude'
 tmux send-keys -t agents:0.3 C-m
 sleep 3
-tmux send-keys -t agents:0.3 "cat '${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md'"
+tmux send-keys -t agents:0.3 "cat '${SCRIPT_DIR}/../templates/documentation_engineer_template.md'"
 tmux send-keys -t agents:0.3 C-m
 sleep 2
-echo "  🔧 engineer-3 auto-accept有効化中..."
+echo "  🔧 Documentation Engineer auto-accept有効化中..."
 tmux send-keys -t agents:0.3 C-space
 tmux send-keys -t agents:0.3 'auto-accept edits on'
 tmux send-keys -t agents:0.3 C-m

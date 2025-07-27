@@ -39,8 +39,8 @@ echo "📋 Claude Codeで実行するコマンド:"
 echo "  cat .ai-framework/templates/leader_agent_setup_template.md"
 echo ""
 
-# Claude Codeを起動
-claude
+# Claude Codeを起動してリーダーエージェントの指示書を自動で読み込む
+claude -c "cat .ai-framework/templates/leader_agent_setup_template.md"
 
 echo ""
 echo "✅ Phase 1-2の作業が完了しました"

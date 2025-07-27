@@ -30,9 +30,9 @@
 
 タスク管理:
   - 機能要求の適切な粒度でのタスク分割
-  - エンジニアエージェントへのタスク配布
-  - 依存関係分析・並列化最適化
-  - 進捗監視・調整
+  - エンジニアエージェントへの役割分担指示
+  - 1機能にチーム全体で集中
+  - 協業作業の進捗監視・調整
 
 統合管理:
   - PRレビュー・マージ
@@ -80,19 +80,18 @@
 
 ### 📋 **エンジニアへの通信例**
 ```bash
-# タスク分配
-@.ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への指示:** TASK-001（認証機能）を担当してください。タスクファイル: @.ai/tasks/task_001.md。実装完了後、PR作成して報告してください。"
+# 機能開発開始指示
+@.ai-framework/scripts/agent-send.sh implementation "**Implementation Engineerへの指示:** TASK-001（認証機能）のメイン実装を担当してください。まず設計ドキュメントを作成し、他エンジニアに共有してください。"
+@.ai-framework/scripts/agent-send.sh quality "**Quality Engineerへの指示:** TASK-001（認証機能）のテスト・品質担当です。Implementation Engineerの設計ドキュメントを技術品質観点でレビューしてください。"
+@.ai-framework/scripts/agent-send.sh documentation "**Documentation Engineerへの指示:** TASK-001（認証機能）のレビュー支援・ドキュメント担当です。Implementation Engineerの設計ドキュメントを保守性観点でレビューしてください。"
+
+# 統合指示
+@.ai-framework/scripts/agent-send.sh implementation "**Implementation Engineerへの連絡:** 全エンジニアの成果物を統合し、統合PRを作成してください。Documentation EngineerのレビューガイドをPR説明に添付してください。"
 
 # マージ通知
-@.ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** PR #5のレビューが承認されました。mainブランチにマージします。"
-
-# 統合テスト指示
-@.ai-framework/scripts/agent-send.sh engineer-2 "**engineer-2への連絡:** PR #3レビュー中。認証機能との統合テストを実行してください。"
-
-# 全体指示（複数エンジニア）
-@.ai-framework/scripts/agent-send.sh engineer-1 "**engineer-1への連絡:** 全機能実装完了。E2Eテストスイートを実行してください。"
-@.ai-framework/scripts/agent-send.sh engineer-2 "**engineer-2への連絡:** 全機能実装完了。E2Eテストスイートを実行してください。"
-@.ai-framework/scripts/agent-send.sh engineer-3 "**engineer-3への連絡:** 全機能実装完了。E2Eテストスイートを実行してください。"
+@.ai-framework/scripts/agent-send.sh implementation "**全エンジニアへの通知:** TASK-001のPRが承認され、マージされました。次はTASK-002を開始します。"
+@.ai-framework/scripts/agent-send.sh quality "**全エンジニアへの通知:** TASK-001のPRが承認され、マージされました。次はTASK-002を開始します。"
+@.ai-framework/scripts/agent-send.sh documentation "**全エンジニアへの通知:** TASK-001のPRが承認され、マージされました。次はTASK-002を開始します。"
 ```
 
 ### ⚠️ **通信ルール**
@@ -110,13 +109,15 @@
 3. **Phase 3移行**: Phase 2完了後、`@.ai-framework/workflow_phase_3_parallel_implementation.md` と `@.ai-framework/05_practical_agent_communication_system.md` を読み込んで並列実装
 4. **Phase 4移行**: Phase 3完了後、`@.ai-framework/workflow_phase_4_review_integration.md` を読み込んでレビュー・統合
 
-## PRマージ制御・エンジニア管理Add commentMore actions
+## 協業開発の管理ポイント
 
-**詳細な制御フロー**: `@.ai-framework/workflow_phase_3_parallel_implementation.md` Step 3-3を参照してください。
+**詳細な協業フロー**: `@.ai-framework/workflow_phase_3_parallel_implementation.md` を参照してください。
 
-### **重要な制御ポイント**
-- **エンジニアはPR作成後、マージ完了まで次タスク受付不可**
-- **マージ完了後は必ずエンジニアに通知し、次タスク受付可能状態に移行**
-- **依存関係を考慮したマージ優先順位付けを実行**
+### **協業体制のポイント**
+- **1機能にチーム全体で集中し、高品質な実装を実現**
+- **役割分担を明確にし、重複作業を防止**
+- **設計レビューによる早期課題発見**
+- **レビューガイドによる効率的なユーザーレビュー**
+- **統合PRによるコンフリクト最小化**
 
 ---
