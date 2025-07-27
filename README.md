@@ -64,24 +64,28 @@
 
 ## 👥 エージェント構成
 
-### **基本構成（4エージェント並列）**
-- **LEADER** (pane 0): 統合リーダー・品質管理 (25%)
-- **engineer-1** (pane 1): TDD並列実装 (25%)
-- **engineer-2** (pane 2): TDD並列実装 (25%)  
-- **engineer-3** (pane 3): TDD並列実装 (25%)
+### **基本構成（4エージェント協業）**
+- **architect** (pane 0): 設計・アーキテクト (25%)
+- **engineer-1** (pane 1): 実装エンジニア (25%)
+- **engineer-2** (pane 2): 実装エンジニア (25%)  
+- **reviewer** (pane 3): コードレビュー・品質管理 (25%)
 
 ### **詳細役割**
 
-#### **Leader Agent（統合リーダー）**
-- **ツール**: Claude Code (multiple instances)
-- **役割**: 要件整理・基本設計・統合指揮・進捗管理
-- **環境**: メインリポジトリ + 統括視点
+#### **Architect Agent（設計・アーキテクト）**
+- **ツール**: Claude Code
+- **役割**: 要件分析・技術選定・アーキテクチャ設計・設計レビュー
+- **環境**: メインリポジトリ + 設計ドキュメント管理
 
-#### **Engineer Agents（TDD並列実装）**
-- **ツール**: Claude Code (multiple instances)
-- **命名**: `agent-{feature-task-name}`
-- **役割**: 詳細設計・TDD実装・単体テスト・PR作成
+#### **Engineer Agents（実装エンジニア）**
+- **ツール**: Claude Code (2 instances)
+- **役割**: 実装・単体テスト作成・技術調査・PR作成
 - **環境**: 共通ブランチでの協調作業
+
+#### **Reviewer Agent（コードレビュー・品質管理）**
+- **ツール**: Claude Code
+- **役割**: コードレビュー・品質チェック・統合テスト・改善提案
+- **環境**: 全ブランチアクセス + 品質基準管理
 
 ### **tmux通信システム**
 - **セッション名**: `agents`
@@ -98,26 +102,25 @@
 │   ├── scripts/           # スクリプト集
 │   │   ├── setup-agent-communication.sh  # tmux環境構築
 │   │   ├── start-agents.sh              # エージェント起動
+│   │   ├── phase1-2-start.sh           # フェーズ1-2起動
+│   │   ├── phase3-start.sh             # フェーズ3起動
 │   │   ├── agent-send.sh               # 通信テスト
 │   │   └── quick-start.sh              # ワンクリック実行
 │   └── templates/         # テンプレート集
-│       ├── leader_agent_setup_template.md
-│       └── engineer_agent_setup_template.md
+│       ├── architect_agent_setup_template.md
+│       ├── engineer_agent_setup_template.md
+│       └── reviewer_agent_setup_template.md
 └── your-project/          # プロダクトコード
     ├── .ai-framework -> ../ai_driven_development  # シンボリックリンク
     ├── .claude/               # Claude Code設定
     │   └── settings.json               # 実際の設定（gitignore推奨）
     ├── .ai/
-    │   ├── knowledge_base/         # AI用構造化データ（YAML中心）
-    │   │   ├── 01_requirements_analysis/  # 要件定義YAML
-    │   │   ├── 02_technical_architecture/  # 技術設計YAML
-    │   │   ├── 03_development_progress/    # 開発進捗YAML
-    │   │   └── 04_quality_assurance/       # QA結果YAML
-    │   ├── workflows/              # 作業手順
-    │   ├── contexts/               # プロジェクト知識
-    │   ├── logs/                   # 開発記録・通信ログ
-    │   │   └── communication.log      # 通信ログ
-    │   └── agent_communication/    # エージェント間通信
+    │   ├── tasks/                  # タスク管理（ファイルベース）
+    │   │   ├── task_list.md           # タスク一覧
+    │   │   └── task_XXX.md            # 個別タスク詳細
+    │   └── logs/                   # 開発記録・通信ログ
+    │       ├── communication.log      # 通信ログ
+    │       └── communication.lock     # 通信ロックファイル
     └── src/                   # プロダクトコード
 ```
 
@@ -145,11 +148,11 @@ rm -f .ai/agent_communication/processed/*
 **詳細な開発手順・プロンプト例・トラブルシューティングは [USAGE.md](./USAGE.md) を参照してください**
 
 ### **基本的な流れ**
-1. 🚀 **開始**: `@.ai-framework/templates/leader_agent_setup_template.md` でリーダーエージェント起動
+1. 🚀 **開始**: `@.ai-framework/templates/architect_agent_setup_template.md` でアーキテクトエージェント起動
 2. 🎯 **要件定義**: 対話的ヒアリングで要件整理
 3. 🏗️ **設計**: 技術選定・アーキテクチャ設計
-4. ⚡ **実装**: 並列TDD実装
-5. ✅ **完成**: 統合テスト・品質確認
+4. ⚡ **実装**: エンジニアによる協調実装
+5. ✅ **完成**: レビュー・統合テスト・品質確認
 
 ---
 
