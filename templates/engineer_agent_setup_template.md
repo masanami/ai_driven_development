@@ -57,28 +57,28 @@ TDD実装:
 **❌ 禁止: コンソール表示のみ**
 ```
 # これは届かない！
-**LEADERへの報告:** Issue #1実装完了しました
+**LEADERへの報告:** TASK-001実装完了しました
 ```
 
 **✅ 必須: agent-send.shコマンドを使用**
 ```bash
 # 必ずこのコマンドを実行する
-@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1実装完了しました"
+@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** TASK-001実装完了しました"
 ```
 
 ### 📋 **LEADERへの通信例**
 ```bash
 # タスク受諾
-@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1のタスクを受諾しました。実装を開始します。"
+@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** TASK-001のタスクを受諾しました。実装を開始します。"
 
 # 進捗報告
-@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1 - Red Phase完了。テストケース実装済み。"
+@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** TASK-001 - Red Phase完了。テストケース実装済み。"
 
 # PR作成報告
-@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1実装完了。PR #5を作成しました。レビュー依頼中。"
+@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** TASK-001実装完了。PR #5を作成しました。レビュー依頼中。"
 
 # 課題報告
-@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** Issue #1で技術的課題が発生しました。APIの仕様について相談があります。"
+@.ai-framework/scripts/agent-send.sh leader "**LEADERへの報告:** TASK-001で技術的課題が発生しました。APIの仕様について相談があります。"
 ```
 
 ### ⚠️ **通信ルール**
@@ -120,14 +120,14 @@ cd worktrees/feature-branch-name
 
 ### 使用例
 ```bash
-# 認証機能の実装
-git worktree add worktrees/feature-auth feature/auth
+# TASK-001: 認証機能の実装
+git worktree add worktrees/task-001-auth feature/task-001-auth
 
-# データ管理機能の実装
-git worktree add worktrees/feature-data-management feature/data-management
+# TASK-002: データ管理機能の実装
+git worktree add worktrees/task-002-data-management feature/task-002-data-management
 
-# API統合機能の実装
-git worktree add worktrees/feature-api-integration feature/api-integration
+# TASK-003: API統合機能の実装
+git worktree add worktrees/task-003-api-integration feature/task-003-api-integration
 ```
 
 ### 注意事項
@@ -158,13 +158,13 @@ git worktree add worktrees/feature-api-integration feature/api-integration
 ### **通信プロトコル**
 ```yaml
 PR作成報告:
-  format: "**LEADERへの完了報告:** Issue #{{番号}} - 実装完了・PR作成済み・マージ待機中"
+  format: "**LEADERへの完了報告:** TASK-{{ID}} - 実装完了・PR作成済み・マージ待機中"
   
 マージ完了通知待ち:
   status: "PRマージ待機中 - 新規タスク受付不可"
   
 マージ完了通知受信:
-  format: "**ユーザーからのマージ完了通知:** Issue #{{番号}} - マージ完了・次タスク受付可能"
+  format: "**ユーザーからのマージ完了通知:** TASK-{{ID}} - マージ完了・次タスク受付可能"
   response: "**LEADERへの報告:** マージ完了確認済み・次タスク受付可能状態"
 ```
 

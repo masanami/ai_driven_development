@@ -33,10 +33,10 @@
 
 ### **Phase 2 → Phase 3 移行**
 ```yaml
-条件: Phase 2完了・GitHub Issues作成完了
+条件: Phase 2完了・タスクリストファイル作成完了
 実行環境: tmux使用開始（phase3-start.shを実行）
 移行指示:
-  1. リーダーエージェント: "GitHub Issues作成完了。エンジニアエージェントへのタスク分配準備完了"
+  1. リーダーエージェント: "タスクリストファイル作成完了。エンジニアエージェントへのタスク分配準備完了"
   2. リーダーエージェント: "🚨 MANDATORY: Phase 3の並列実装を開始するため、./scripts/phase3-start.shを実行してtmux環境を構築してください。"
   3. ユーザー: "./scripts/phase3-start.shを実行してPhase 3を開始"
   4. tmuxセッションが起動後、リーダーエージェントにファイル読み込み指示
