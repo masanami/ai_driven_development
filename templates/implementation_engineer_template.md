@@ -105,37 +105,40 @@ TDD統合実装:
 3. 統合PRを作成
 4. レビューガイドをPR説明に添付
 
-## git worktree使用ルール
+## git共同作業ルール
 ```bash
-# 機能ブランチ作成
-git worktree add worktrees/task-{ID}-{機能名} feature/task-{ID}-{機能名}
+# リーダーが作成したブランチをチェックアウト
+git checkout feature/task-{ID}-{機能名}
 
-# 作業ディレクトリに移動
-cd worktrees/task-{ID}-{機能名}
+# 実装作業実施
+# ...(TDD実装)
 
-# 作業完了後のクリーンアップ
-git worktree remove worktrees/task-{ID}-{機能名}
+# 重要: コミットもpushもしない（全てリーダーが実行）
+# ファイルの作成・編集のみ行う
+# 作業完了後、リーダーに報告し、コミットを依頼
 ```
 
 ## TDD実装の詳細
 
-### コミット戦略
-```bash
-# 設計ドキュメント
-git add .ai/design/
-git commit -m "docs: TASK-{ID} - 設計ドキュメント作成"
+### コミット戦略（リーダーへの報告用）
+```markdown
+# リーダーに以下の形式で報告
 
-# Red Phase
-git add .
-git commit -m "test: TASK-{ID} - {機能名} テストケース実装（Red Phase）"
+## 設計ドキュメント完成
+- ファイル: .ai/design/task_{ID}_design.md
+- コミットメッセージ案: "docs: TASK-{ID} - 設計ドキュメント作成"
 
-# Green Phase
-git add .
-git commit -m "feat: TASK-{ID} - {機能名} 最小実装完了（Green Phase）"
+## Red Phase完了
+- 変更ファイル: [ファイルリスト]
+- コミットメッセージ案: "test: TASK-{ID} - {機能名} テストケース実装（Red Phase）"
 
-# Refactor Phase
-git add .
-git commit -m "refactor: TASK-{ID} - {機能名} コード品質向上"
+## Green Phase完了
+- 変更ファイル: [ファイルリスト]
+- コミットメッセージ案: "feat: TASK-{ID} - {機能名} 最小実装完了（Green Phase）"
+
+## Refactor Phase完了
+- 変更ファイル: [ファイルリスト]
+- コミットメッセージ案: "refactor: TASK-{ID} - {機能名} コード品質向上"
 ```
 
 ## 品質基準

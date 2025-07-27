@@ -120,4 +120,44 @@
 - **レビューガイドによる効率的なユーザーレビュー**
 - **統合PRによるコンフリクト最小化**
 
+### **リーダーのgit管理責任**
+- **ブランチ作成**: 各タスク開始時にfeatureブランチを作成
+- **コミット実行**: エンジニアの報告を受けて全てのコミットを実行
+- **push実行**: 全エンジニアの作業完了後に一括push
+- **PR作成**: Documentation EngineerのレビューガイドをPR説明に含める
+- **マージ管理**: レビュー承認後のマージ実行
+
+### **重要: コミットタイミングの調整**
+同じブランチで複数エンジニアが作業するため、以下の手順でコミットを実行：
+
+```bash
+# ブランチ作成
+git checkout -b feature/task-001-auth
+git push -u origin feature/task-001-auth
+
+# エンジニアからの報告を受けてコミット（個別に実行）
+# 1. Implementation Engineerの作業完了報告後
+git add [Implementation Engineerが報告したファイルのみ]
+git commit -m "[Implementation Engineer提案のメッセージ]"
+
+# 2. Quality Engineerの作業完了報告後
+git add [Quality Engineerが報告したファイルのみ]
+git commit -m "[Quality Engineer提案のメッセージ]"
+
+# 3. Documentation Engineerの作業完了報告後
+git add [Documentation Engineerが報告したファイルのみ]
+git commit -m "[Documentation Engineer提案のメッセージ]"
+
+# 全エンジニアの作業完了後
+git push origin feature/task-001-auth
+
+# PR作成
+gh pr create --base main --title "TASK-001: 認証機能" --body "..."
+```
+
+**注意事項:**
+- 各エンジニアの報告を受けた直後に、そのエンジニアのファイルのみをコミット
+- 他のエンジニアの変更中ファイルはコミットに含めない
+- git addは報告されたファイルのみを指定（ワイルドカードは使用しない）
+
 ---

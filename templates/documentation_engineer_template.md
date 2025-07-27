@@ -240,14 +240,17 @@ paths:
                     type: integer
 ```
 
-## git worktree使用ルール
+## git共同作業ルール
 ```bash
-# Implementation Engineerと同じブランチで作業
-cd worktrees/task-{ID}-{機能名}
+# リーダーが作成したブランチで作業
+git checkout feature/task-{ID}-{機能名}
 
-# ドキュメントファイルの追加
-git add docs/
-git commit -m "docs: TASK-{ID} - レビューガイド・APIドキュメント作成"
+# ドキュメントファイルの作成・編集のみ行う
+# 重要: コミットもpushもしない（全てリーダーが実行）
+
+# 作業完了後、リーダーに以下の形式で報告:
+# - 作成/変更したファイル一覧
+# - コミットメッセージ案: "docs: TASK-{ID} - レビューガイド・APIドキュメント作成"
 ```
 
 ---

@@ -45,6 +45,11 @@ CRITICAL_COMMUNICATION_STEPS:
       現在のタスク: TASK-{ID}（{機能名}）を協業で実装します。
 
   step_2_role_based_assignment:
+    leader_branch_creation: |
+      **リーダーによるブランチ作成:**
+      git checkout -b feature/task-{ID}-{機能}
+      git push -u origin feature/task-{ID}-{機能}
+      
     implementation_engineer: |
       **Implementation Engineerへの指示:**
       
@@ -54,13 +59,14 @@ CRITICAL_COMMUNICATION_STEPS:
       
       役割: メイン実装担当
       タスク: TASK-{ID}（{機能名}）
+      ブランチ: feature/task-{ID}-{機能}（リーダーが作成済み）
       
       作業内容:
       1. 設計ドキュメント作成（.ai/design/task_{ID}_design.md）
-      2. git worktree add worktrees/task-{ID}-{機能} feature/task-{ID}-{機能}
-      3. TDD統合実装（Red → Green → Refactor）
-      4. 実装完了後、統合PR作成
+      2. TDD統合実装（Red → Green → Refactor）
+      3. 実装完了後、リーダーに報告
       
+      注意: コミットもpushもリーダーが行います。
       設計ドキュメント作成後、他のエンジニアに共有してください。
     
     quality_engineer: |
@@ -91,8 +97,8 @@ CRITICAL_COMMUNICATION_STEPS:
     - "全エンジニアエージェントへのタスク分配が完了しました。並列実装を開始してください。"
 
 completion_criteria:
+  - リーダーがfeatureブランチ作成・push完了
   - 全エンジニアエージェントがタスク受諾・確認済み
-  - 各エージェントがworktree環境構築完了
   - 作業開始確認済み
 
 next_steps:
@@ -184,11 +190,16 @@ collaborative_implementation_flow:
       - ユーザーガイド作成
   
   phase_4_integration:
-    activities:
-      - 全成果物を1つのブランチに統合
+    leader_activities:
+      - 全エンジニアの作業完了確認
+      - 最終的なgit push実行
       - 統合PR作成（全エンジニアの成果物含む）
       - Documentation EngineerのレビューガイドをPR説明に添付
-      - ユーザーレビュー負荷を最小化
+    
+    engineer_activities:
+      - ローカルでのコミット完了
+      - 成果物の最終確認
+      - リーダーへの完了報告
 
 design_coordination:
   real_time_communication:
@@ -208,35 +219,42 @@ PROGRESS_REPORTING_PROTOCOL:
     content: "Red/Green/Refactorフェーズの進捗・課題・完了予定"
 
   completion_notification:
-    format: "**LEADERへの完了報告:** Issue #{番号} - 実装完了・PR作成済み・マージ待機中"
-    required_info: "PR番号・テスト結果・ユーザーレビュー依頼"
-    post_report_status: "PRマージ待機中 - 新規タスク受付不可"
+    format: "**LEADERへの完了報告:** TASK-{ID} - 実装完了・コミット済み・push待ち"
+    required_info: "コミット数・テスト結果・次タスク受付可能"
+    post_report_status: "リーダーにpushとPR作成を依頼"
 
 COLLABORATIVE_COMMIT_STRATEGY:
-  implementation_engineer_commits:
-    design_doc:
-      - git add .ai/design/
-      - git commit -m "docs: TASK-{ID} - 設計ドキュメント作成"
+  leader_commits_only:
+    principle: "全てのコミットはリーダーエージェントが実行"
     
-    red_phase:
-      - git add .
-      - git commit -m "test: TASK-{ID} - {機能名} テストケース実装（Red Phase）"
+    engineer_reports:
+      implementation_engineer:
+        - "設計ドキュメント完成: .ai/design/task_{ID}_design.md"
+        - "Red Phase完了: テストファイル一覧とコミットメッセージ案"
+        - "Green Phase完了: 実装ファイル一覧とコミットメッセージ案"
+        - "Refactor Phase完了: 変更ファイル一覧とコミットメッセージ案"
+      
+      quality_engineer:
+        - "追加テスト完了: テストファイル一覧"
+        - "コミットメッセージ案: test: TASK-{ID} - E2E・統合テスト追加"
+      
+      documentation_engineer:
+        - "ドキュメント完了: ドキュメントファイル一覧"
+        - "コミットメッセージ案: docs: TASK-{ID} - 実装解説・レビューガイド作成"
     
-    green_phase:
-      - git add .
-      - git commit -m "feat: TASK-{ID} - {機能名} 最小実装完了（Green Phase）"
+    leader_commit_flow:
+      - "エンジニアから報告を受ける"
+      - "git add [報告されたファイルのみ] # 重要: 他のエンジニアの作業中ファイルは含めない"
+      - "git commit -m \"[エンジニア提案のメッセージ]\""
+      - "各エンジニアの作業単位で個別にコミット（混在を防ぐ）"
+      - "全エンジニアの作業完了後、git push origin feature/task-{ID}-{機能名}"
     
-    refactor_phase:
-      - git add .
-      - git commit -m "refactor: TASK-{ID} - {機能名} コード品質向上"
-  
-  quality_engineer_commits:
-    - git add .
-    - git commit -m "test: TASK-{ID} - E2E・統合テスト追加"
-  
-  documentation_engineer_commits:
-    - git add .
-    - git commit -m "docs: TASK-{ID} - 実装解説・レビューガイド作成"
+    commit_timing_rules:
+      - "Implementation Engineerの各フェーズ完了時にコミット"
+      - "Quality Engineerのテスト追加完了時に別途コミット"
+      - "Documentation Engineerのドキュメント完了時に別途コミット"
+      - "ファイル指定は必ず明示的に行う（例: git add src/auth.ts tests/auth.test.ts）"
+      - "git add . は使用禁止（他エンジニアの作業が混入する恐れ）"
 
 completion_criteria:
   - 各Issue実装完了次第、即座にPR作成・報告
@@ -263,8 +281,8 @@ CRITICAL_PRINCIPLE: 1機能1PR・高品質レビュー
 
 collaborative_review_flow:
   step_1_integration:
-    - Implementation Engineerが全エンジニアの成果物を統合
-    - 統合テスト実行・確認
+    - リーダーが全エンジニアの成果物を確認
+    - git push origin feature/task-{ID}-{機能}
     - PR作成（レビューガイド添付）
   
   step_2_efficient_review:
@@ -297,12 +315,13 @@ collaborative_review_flow:
 COLLABORATIVE_PR_EXAMPLE:
   task_001_auth_feature:
     # チーム協業による認証機能実装
-    team_report: "**LEADERへの報告:** TASK-001（認証機能）チーム実装完了。統合PR #1作成済み。"
-    pr_contents:
-      - implementation_engineer: "TDD実装・メイン機能（15コミット）"
-      - quality_engineer: "E2E・セキュリティテスト（8コミット）"
-      - documentation_engineer: "実装解説・APIドキュメント（5コミット）"
-    review_efficiency: "レビューガイドにより、通常3時間→1時間でレビュー完了"
+    engineer_reports:
+      - implementation: "**LEADERへの報告:** TASK-001 TDD実装完了。15コミット。pushをお願いします。"
+      - quality: "**LEADERへの報告:** TASK-001 E2Eテスト完了。8コミット。"
+      - documentation: "**LEADERへの報告:** TASK-001 ドキュメント完了。5コミット。"
+    leader_actions:
+      - "git push origin feature/task-001-auth"
+      - "gh pr create --base main --title 'TASK-001: 認証機能' --body '...'"
     merge_notification: "**全エンジニアへの通知:** TASK-001マージ完了。次はTASK-002を開始します。"
 
   case_2_dependent_feature:

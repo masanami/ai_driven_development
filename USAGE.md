@@ -22,9 +22,9 @@ cd existing-project
 ln -s ../ai_driven_development .ai-framework
 
 # 4. 最小構成セットアップ  
-mkdir -p .ai/logs .claude worktrees
+mkdir -p .ai/logs .claude
 cp .ai-framework/.claude/settings.json .claude/
-echo -e ".ai/logs/\nworktrees/\n.ai-framework" >> .gitignore
+echo -e ".ai/logs/\n.ai-framework" >> .gitignore
 ```
 
 ### 🚀 実行オプション
@@ -346,11 +346,6 @@ tmux list-panes -t agents
 ./.ai-framework/scripts/agent-send.sh
 ```
 
-**Q: git worktreeでエラー**
-```bash
-# クリーンアップ
-git worktree prune
-```
 
 **Q: フレームワーク更新失敗**
 ```bash

@@ -200,14 +200,17 @@ describe('セキュリティテスト', () => {
 [品質改善のための具体的な提案]
 ```
 
-## git worktree使用ルール
+## git共同作業ルール
 ```bash
-# Implementation Engineerと同じブランチで作業
-cd worktrees/task-{ID}-{機能名}
+# リーダーが作成したブランチで作業
+git checkout feature/task-{ID}-{機能名}
 
-# テストファイルの追加
-git add tests/
-git commit -m "test: TASK-{ID} - E2Eテスト・セキュリティテスト追加"
+# テストファイルの作成・編集のみ行う
+# 重要: コミットもpushもしない（全てリーダーが実行）
+
+# 作業完了後、リーダーに以下の形式で報告:
+# - 作成/変更したファイル一覧
+# - コミットメッセージ案: "test: TASK-{ID} - E2Eテスト・セキュリティテスト追加"
 ```
 
 ---

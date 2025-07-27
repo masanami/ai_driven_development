@@ -18,7 +18,7 @@
 - **🔄 実用性優先**: オーバーエンジニアリング回避、ROI重視
 - **🔧 TDD統合**: テスト駆動開発による品質保証
 - **⚡ tmux直接通信**: リアルタイム協調システム
-- **🎋 git worktree活用**: 効率的な並列開発環境
+- **🤝 ブランチベース協調**: チームでの協調開発
 
 ---
 
@@ -81,7 +81,7 @@
 - **ツール**: Claude Code (multiple instances)
 - **命名**: `agent-{feature-task-name}`
 - **役割**: 詳細設計・TDD実装・単体テスト・PR作成
-- **環境**: git worktree個別ディレクトリ
+- **環境**: 共通ブランチでの協調作業
 
 ### **tmux通信システム**
 - **セッション名**: `agents`
@@ -118,7 +118,6 @@
     │   ├── logs/                   # 開発記録・通信ログ
     │   │   └── communication.log      # 通信ログ
     │   └── agent_communication/    # エージェント間通信
-    ├── worktrees/             # git worktree並列開発環境
     └── src/                   # プロダクトコード
 ```
 
@@ -161,7 +160,6 @@ MIT License - 自由に利用・改変・再配布可能
 ## 🔗 関連リンク
 
 - **[Claude](https://claude.ai/)**: AIエージェント
-- **[git worktree](https://git-scm.com/docs/git-worktree)**: 並列開発環境
 - **[MCP Protocol](https://modelcontextprotocol.io/)**: ツール統合プロトコル
 
 **🌟 Star this repo if you find it helpful!** 
