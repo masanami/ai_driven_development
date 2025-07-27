@@ -81,7 +81,6 @@ completion_criteria:
 
 next_steps:
   - "Phase 4完了・開発フェーズ正常完了"
-  - "追加機能開発時は @.ai-framework/workflow_existing_project_integration.md を参照"
 ```
 
 ---

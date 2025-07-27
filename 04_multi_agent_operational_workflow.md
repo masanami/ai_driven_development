@@ -13,8 +13,7 @@
 ├── workflow_phase_1_requirements_design.md ← Phase 1: 要件定義・基本設計
 ├── workflow_phase_2_task_breakdown.md      ← Phase 2: タスク分割・Issues作成
 ├── workflow_phase_3_parallel_implementation.md ← Phase 3: 並列実装・通信
-├── workflow_phase_4_review_integration.md  ← Phase 4: レビュー・統合・完了
-└── workflow_existing_project_integration.md ← 既存プロジェクト統合
+└── workflow_phase_4_review_integration.md  ← Phase 4: レビュー・統合・完了
 ```
 
 ---
