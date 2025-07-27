@@ -8,6 +8,7 @@
 
 ## 🚀 クイックスタート
 
+### 📋 事前準備
 ```bash
 # 1. 既存プロジェクトのルートで実行
 cd existing-project
@@ -24,8 +25,25 @@ ln -s ../ai_driven_development .ai-framework
 mkdir -p .ai/logs .claude worktrees
 cp .ai-framework/.claude/settings.json .claude/
 echo -e ".ai/logs/\nworktrees/\n.ai-framework" >> .gitignore
+```
 
-# 5. tmux直接通信システムセットアップ
+### 🚀 実行オプション
+
+#### **オプション1: Phase 1-2のみ実行（tmux不使用）**
+```bash
+# 要件定義とタスク分割のみ実行
+./.ai-framework/scripts/phase1-2-start.sh
+```
+
+#### **オプション2: Phase 3から開始（tmux使用）**
+```bash
+# 並列実装から開始
+./.ai-framework/scripts/phase3-start.sh
+```
+
+#### **オプション3: クイックスタート（選択式）**
+```bash
+# 実行オプションを選択
 ./.ai-framework/scripts/quick-start.sh
 ```
 
@@ -52,10 +70,16 @@ echo -e ".ai/logs/\nworktrees/\n.ai-framework" >> .gitignore
 
 ### **システム起動**
 
-#### **簡易実行**
+#### **Phase 1-2（tmux不使用）**
 ```bash
-# 全自動でtmux環境構築＋エージェント起動
-./.ai-framework/scripts/quick-start.sh
+# Claude Codeを直接起動
+./.ai-framework/scripts/phase1-2-start.sh
+```
+
+#### **Phase 3以降（tmux使用）**
+```bash
+# tmux環境構築 + マルチエージェント起動
+./.ai-framework/scripts/phase3-start.sh
 ```
 
 #### **手動ステップ実行（カスタマイズ向け）**
@@ -90,11 +114,24 @@ tmux kill-session -t agents
 ## 📋 基本的な開発フロー
 
 ### **🔧 プロジェクトへの機能追加・改修**
+
+#### **Phase 1-2で開始する場合**
+```bash
+# 1. リーダーエージェントのみで開始
+./.ai-framework/scripts/phase1-2-start.sh
+
+# 2. Claude Codeが起動したら、以下のコマンドでリーダーエージェントの指示書を読み込み
+cat .ai-framework/.claude/agents/leader.md
+
+# 3. 機能追加指示を入力
+```
+
+#### **Phase 3から開始する場合**
 ```bash
 # 1. tmux直接通信システム起動
-./.ai-framework/scripts/quick-start.sh
+./.ai-framework/scripts/phase3-start.sh
 
-# 2. LEADERペインで機能追加指示を入力
+# 2. LEADERペインでタスク分配指示を入力
 # agentsセッションのLEADERペイン（左上）をクリックしてアクティブにし、以下を入力：
 ```
 
@@ -152,14 +189,16 @@ AIエージェントが自動的に以下を実行します：
 1. 🏗️ アーキテクチャ設計（既存の場合は適合性確認）
 2. 📋 タスク分割・並列実装計画
 3. 🧪 テスト計画・設計
-4. 🌿 git worktree並列環境構築
+4. 📊 GitHub Issues作成
 
-#### **Phase 3: 実装**
-1. 🤖 複数エンジニアエージェントに直接タスク分配
-2. ⚡ TDD並列実装（Red-Green-Refactor）
-3. 🔄 リアルタイム直接通信・進捗管理
+#### **Phase 3: 実装（tmux使用開始）**
+1. 🚀 tmux環境構築・マルチエージェント起動
+2. 🤖 複数エンジニアエージェントに直接タスク分配
+3. 🌿 git worktree並列環境構築
+4. ⚡ TDD並列実装（Red-Green-Refactor）
+5. 🔄 リアルタイム直接通信・進捗管理
 
-#### **Phase 4: 統合・完成**
+#### **Phase 4: 統合・完成（tmux使用）**
 1. ✅ PRレビュー・マージ
 2. 🧪 統合テスト・E2Eテスト
 3. 📝 ドキュメント更新

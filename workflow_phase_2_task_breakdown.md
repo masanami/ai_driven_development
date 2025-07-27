@@ -3,6 +3,7 @@
 ## 🎯 フェーズ概要
 **目的**: 基本設計をもとに実装可能なタスクに分割し、GitHub Issuesを作成する
 **担当**: リーダーエージェント
+**実行環境**: **tmux不使用** - 引き続きClaude Codeで実行
 **完了条件**: GitHub Issues作成完了
 
 ---
@@ -15,7 +16,7 @@
 実行者: リーダーエージェント
 
 前提条件:
-  - エージェント環境起動済み（agents tmuxセッション稼働中）
+  - Phase 1完了
   - プロジェクト設計書一式確認済み
 
 CRITICAL_CHECKPOINT: 必ず2段階実行
@@ -86,5 +87,14 @@ next_steps:
 ## 🔗 関連ドキュメント
 - **前フェーズ**: @.ai-framework/workflow_phase_1_requirements_design.md
 - **次フェーズ**: @.ai-framework/workflow_phase_3_parallel_implementation.md
-- **エージェント通信**: @.ai-framework/05_practical_agent_communication_system.md (Phase 3で必要) 
+- **エージェント通信**: @.ai-framework/05_practical_agent_communication_system.md (Phase 3で必要)
+
+## 🚀 実行方法
+```bash
+# Phase 1から継続して実行（同じClaude Codeセッションで）
+# tmuxは使用しない
+
+# Phase 2完了後、Phase 3を開始する場合:
+./scripts/phase3-start.sh
+``` 
  

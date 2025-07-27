@@ -3,6 +3,7 @@
 ## 🎯 フェーズ概要
 **目的**: プロジェクトの要件を整理・構造化し、実装可能な基本設計まで完成させる
 **担当**: リーダーエージェント ↔ ユーザー
+**実行環境**: **tmux不使用** - Claude Codeを直接起動
 **完了条件**: ユーザー承認済み基本設計書の作成
 
 ---
@@ -136,4 +137,10 @@ next_steps:
 
 ## 🔗 関連ドキュメント
 - **次フェーズ**: @.ai-framework/workflow_phase_2_task_breakdown.md
-- **エージェント通信**: @.ai-framework/05_practical_agent_communication_system.md (Phase 3以降で必要) 
+- **エージェント通信**: @.ai-framework/05_practical_agent_communication_system.md (Phase 3以降で必要)
+
+## 🚀 実行方法
+```bash
+# Phase 1-2専用スクリプトを使用
+./scripts/phase1-2-start.sh
+``` 

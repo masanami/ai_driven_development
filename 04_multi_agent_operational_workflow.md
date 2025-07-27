@@ -23,6 +23,7 @@
 ### **Phase 1 → Phase 2 移行**
 ```yaml
 条件: Phase 1完了・ユーザー承認済み基本設計書作成
+実行環境: tmux不使用（同じClaude Codeセッションで継続）
 移行指示: 
   1. リーダーエージェント: "Phase 1完了。Phase 2へ移行準備完了"
   2. リーダーエージェント: "🚨 MANDATORY: Phase 2のタスク分割を開始するため、リーダーエージェントに @.ai-framework/workflow_phase_2_task_breakdown.md を読み込ませてください。"
@@ -33,10 +34,12 @@
 ### **Phase 2 → Phase 3 移行**
 ```yaml
 条件: Phase 2完了・GitHub Issues作成完了
+実行環境: tmux使用開始（phase3-start.shを実行）
 移行指示:
   1. リーダーエージェント: "GitHub Issues作成完了。エンジニアエージェントへのタスク分配準備完了"
-  2. リーダーエージェント: "🚨 MANDATORY: Phase 3の並列実装を開始するため、リーダーエージェントに @.ai-framework/workflow_phase_3_parallel_implementation.md と @.ai-framework/05_practical_agent_communication_system.md を読み込ませてください。"
-  3. ユーザー: "@.ai-framework/workflow_phase_3_parallel_implementation.md と @.ai-framework/05_practical_agent_communication_system.md を読み込んでPhase 3を開始してください"
+  2. リーダーエージェント: "🚨 MANDATORY: Phase 3の並列実装を開始するため、./scripts/phase3-start.shを実行してtmux環境を構築してください。"
+  3. ユーザー: "./scripts/phase3-start.shを実行してPhase 3を開始"
+  4. tmuxセッションが起動後、リーダーエージェントにファイル読み込み指示
 読み込みファイル: 
   - workflow_phase_3_parallel_implementation.md
   - 05_practical_agent_communication_system.md
@@ -69,7 +72,8 @@
 
 ### **3. エージェント役割の明確化**
 - **各フェーズで担当エージェントが明確**
-- **Phase 3のみマルチエージェント体制**
+- **Phase 1-2: リーダーエージェントのみ（tmux不使用）**
+- **Phase 3-4: マルチエージェント体制（tmux使用）**
 - **リーダーエージェントは実装を行わない**
 
 

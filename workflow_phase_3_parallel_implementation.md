@@ -3,6 +3,7 @@
 ## 🎯 フェーズ概要
 **目的**: 複数エージェントがリアルタイムで連携し、TDD並列実装を実行する
 **担当**: LEADERエージェント（調整）+ engineer-1,2,3（実装）+ qa-agent（品質保証）
+**実行環境**: **tmux使用開始** - 4分割マルチエージェント体制
 **完了条件**: 全Issue実装完了・逐次PR作成・レビュー・マージ完了
 
 ---
@@ -343,4 +344,15 @@ redirect_instruction:
 ## 🔗 関連ドキュメント
 - **前フェーズ**: @.ai-framework/workflow_phase_2_task_breakdown.md
 - **次フェーズ**: @.ai-framework/workflow_phase_4_review_integration.md
-- **通信システム**: @.ai-framework/05_practical_agent_communication_system.md 
+- **通信システム**: @.ai-framework/05_practical_agent_communication_system.md
+
+## 🚀 実行方法
+```bash
+# Phase 3専用スクリプトを使用
+./scripts/phase3-start.sh
+
+# これにより:
+# 1. tmuxセッション「agents」が作成される
+# 2. 4分割でLEADER + engineer-1,2,3が起動
+# 3. 各エージェントが/agentsコマンドで初期化
+``` 
