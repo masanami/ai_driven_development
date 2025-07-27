@@ -28,7 +28,7 @@
       "Bash(find:*)",
       "Bash(mkdir:*)",
       "Bash(cp:*)",
-      "Bash(./ai-framework/scripts/*)",
+      "Bash(./.ai-framework/scripts/*)",
       "Read(**)",
       "Edit(**)",
       "Glob(**)",

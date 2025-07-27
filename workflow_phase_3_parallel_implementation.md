@@ -9,7 +9,7 @@
 
 ## 🚨 エージェント間通信プロトコル【最重要】
 
-**📖 詳細な通信システム**: `@ai-framework/08_practical_agent_communication_system.md` を参照【必読】
+**📖 詳細な通信システム**: `@.ai-framework/05_practical_agent_communication_system.md` を参照【必読】
 
 ### **基本通信フォーマット**
 - **LEADERからエンジニア**: `**engineer-{番号}への指示:** {内容}`
@@ -49,8 +49,8 @@ CRITICAL_COMMUNICATION_STEPS:
       **engineer-1への指示:**
       
       重要: まず以下のファイルを読み込んでください:
-      - @ai-framework/workflow_phase_3_parallel_implementation.md
-      - @ai-framework/08_practical_agent_communication_system.md
+        - @.ai-framework/workflow_phase_3_parallel_implementation.md
+        - @.ai-framework/05_practical_agent_communication_system.md
       
       担当Issue: Issue #{Issue番号}（{機能名}）
       
@@ -306,7 +306,7 @@ completion_criteria:
 
 next_steps:
   - LEADERエージェント: "全Issue実装完了・AI自動レビューツール・ユーザーレビュー承認済み・依存関係に応じた逐次マージ完了。mainブランチに全機能統合済み"
-  - LEADERエージェント: "MANDATORY: Phase 3完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。"
+  - LEADERエージェント: "MANDATORY: Phase 3完了。次フェーズへの移行指示のため、@.ai-framework/04_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。"
   - Phase 4: 最終レビュー・品質確認・プロジェクト完了
 ```
 
@@ -341,6 +341,6 @@ redirect_instruction:
 ---
 
 ## 🔗 関連ドキュメント
-- **前フェーズ**: @ai-framework/workflow_phase_2_task_breakdown.md
-- **次フェーズ**: @ai-framework/workflow_phase_4_review_integration.md
-- **通信システム**: @ai-framework/08_practical_agent_communication_system.md 
+- **前フェーズ**: @.ai-framework/workflow_phase_2_task_breakdown.md
+- **次フェーズ**: @.ai-framework/workflow_phase_4_review_integration.md
+- **通信システム**: @.ai-framework/05_practical_agent_communication_system.md 

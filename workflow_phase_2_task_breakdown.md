@@ -64,7 +64,7 @@ next_steps:
   - "STOP_POINT: 実装フェーズには進まない"
   - ユーザーから「エンジニアエージェントにタスクを分配してください」指示を待つ
   - "MANDATORY: 次のように明確に指示する"
-  - 「Phase 2完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。」
+  - 「Phase 2完了。次フェーズへの移行指示のため、@.ai-framework/04_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。」
 ```
 
 ---
@@ -84,7 +84,7 @@ next_steps:
 ---
 
 ## 🔗 関連ドキュメント
-- **前フェーズ**: @ai-framework/workflow_phase_1_requirements_design.md
-- **次フェーズ**: @ai-framework/workflow_phase_3_parallel_implementation.md
-- **エージェント通信**: @ai-framework/08_practical_agent_communication_system.md (Phase 3で必要) 
+- **前フェーズ**: @.ai-framework/workflow_phase_1_requirements_design.md
+- **次フェーズ**: @.ai-framework/workflow_phase_3_parallel_implementation.md
+- **エージェント通信**: @.ai-framework/05_practical_agent_communication_system.md (Phase 3で必要) 
  

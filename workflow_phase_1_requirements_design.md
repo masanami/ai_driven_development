@@ -86,7 +86,7 @@ completion_criteria:
 next_steps:
   - 「Phase 1完了。Phase 2へ移行準備完了」をユーザーに報告
   - "MANDATORY: 次のように明確に指示する"
-  - 「Phase 1完了。次フェーズへの移行指示のため、@ai-framework/06_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。」
+  - 「Phase 1完了。次フェーズへの移行指示のため、@.ai-framework/04_multi_agent_operational_workflow.md をリーダーエージェントに読み込ませてください。」
 ```
 
 ---
@@ -106,5 +106,5 @@ next_steps:
 ---
 
 ## 🔗 関連ドキュメント
-- **次フェーズ**: @ai-framework/workflow_phase_2_task_breakdown.md
-- **エージェント通信**: @ai-framework/08_practical_agent_communication_system.md (Phase 3以降で必要) 
+- **次フェーズ**: @.ai-framework/workflow_phase_2_task_breakdown.md
+- **エージェント通信**: @.ai-framework/05_practical_agent_communication_system.md (Phase 3以降で必要) 

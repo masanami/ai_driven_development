@@ -88,7 +88,7 @@ deliverables:
 workflow_continuation:
   - A-3以降は新規プロジェクトのPhase 2以降と同様のフローを実行
   - 既存システムとの整合性を保ちながら、タスク分割→実装→テスト→統合を実行
-  - @ai-framework/workflow_phase_2_task_breakdown.md から開始
+  - @.ai-framework/workflow_phase_2_task_breakdown.md から開始
 ```
 
 ---
@@ -142,6 +142,6 @@ workflow_continuation:
 ---
 
 ## 🔗 関連ドキュメント
-- **新規プロジェクト**: @ai-framework/06_multi_agent_operational_workflow.md
-- **フェーズ別ワークフロー**: @ai-framework/workflow_phase_1_requirements_design.md 以降
-- **通信システム**: @ai-framework/08_practical_agent_communication_system.md 
+- **新規プロジェクト**: @.ai-framework/04_multi_agent_operational_workflow.md
+- **フェーズ別ワークフロー**: @.ai-framework/workflow_phase_1_requirements_design.md 以降
+- **通信システム**: @.ai-framework/05_practical_agent_communication_system.md 

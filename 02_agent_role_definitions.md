@@ -255,6 +255,5 @@ Level2_統合品質管理:
 ---
 
 ## 🔗 関連ドキュメント
-- **通信システム**: 08_practical_agent_communication_system.md
-- **ワークフロー**: 06_multi_agent_operational_workflow.md
-- **実装戦略**: 07_implementation_strategy_and_optimization.md
+- **通信システム**: 05_practical_agent_communication_system.md
+- **ワークフロー**: 04_multi_agent_operational_workflow.md

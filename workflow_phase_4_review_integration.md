@@ -81,7 +81,7 @@ completion_criteria:
 
 next_steps:
   - "Phase 4完了・開発フェーズ正常完了"
-  - "追加機能開発時は @ai-framework/workflow_existing_project_integration.md を参照"
+  - "追加機能開発時は @.ai-framework/workflow_existing_project_integration.md を参照"
 ```
 
 ---
@@ -106,9 +106,9 @@ next_steps:
 ---
 
 ## 🔗 関連ドキュメント
-- **前フェーズ**: @ai-framework/workflow_phase_3_parallel_implementation.md
-- **全体概要**: @ai-framework/06_multi_agent_operational_workflow.md
-- **通信システム**: @ai-framework/08_practical_agent_communication_system.md
+- **前フェーズ**: @.ai-framework/workflow_phase_3_parallel_implementation.md
+- **全体概要**: @.ai-framework/04_multi_agent_operational_workflow.md
+- **通信システム**: @.ai-framework/05_practical_agent_communication_system.md
 
 ---
 

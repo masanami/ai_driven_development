@@ -21,7 +21,7 @@ MAX_WAIT=60  # 最大待機時間（秒）
 
 # 引数チェック
 if [ -z "$AGENT_NAME" ] || [ -z "$MESSAGE" ]; then
-    echo "使用方法: ./ai-framework/scripts/agent-send.sh [エージェント名] [メッセージ]"
+    echo "使用方法: ./.ai-framework/scripts/agent-send.sh [エージェント名] [メッセージ]"
     echo ""
     echo "利用可能なエージェント:"
     echo "  leader      (pane 0)"
@@ -30,12 +30,12 @@ if [ -z "$AGENT_NAME" ] || [ -z "$MESSAGE" ]; then
     echo "  engineer-3  (pane 3)"
     echo ""
     echo "直接通信例:"
-    echo "  ./ai-framework/scripts/agent-send.sh engineer-1 'engineer-2への連絡: API仕様について相談があります'"
-    echo "  ./ai-framework/scripts/agent-send.sh engineer-3 'qa-agentへの連絡: 統合テストをお願いします'"
+    echo "  ./.ai-framework/scripts/agent-send.sh engineer-1 'engineer-2への連絡: API仕様について相談があります'"
+echo "  ./.ai-framework/scripts/agent-send.sh engineer-3 'qa-agentへの連絡: 統合テストをお願いします'"
     echo ""
     echo "worktreeからの実行例:"
     echo "  cd worktrees/issue-1-auth/"
-    echo "  ../../ai-framework/scripts/agent-send.sh engineer-2 'LEADERへの報告: 認証機能実装完了'"
+    echo "  ../../.ai-framework/scripts/agent-send.sh engineer-2 'LEADERへの報告: 認証機能実装完了'"
     exit 1
 fi
 

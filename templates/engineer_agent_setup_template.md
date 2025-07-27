@@ -10,10 +10,10 @@
 - `@path/to/development_docs` - 開発手順書
 
 ## 🎯 あなたの役割
-**@ai-framework/02_agent_role_definitions.md のEngineer Agents役割定義に従って行動してください。**
+**@.ai-framework/02_agent_role_definitions.md のEngineer Agents役割定義に従って行動してください。**
 
 ## 🎯 エージェント間通信
-**@ai-framework/08_practical_agent_communication_system.md の通信ルールに従って他のエージェントと連携してください。**
+**@.ai-framework/05_practical_agent_communication_system.md の通信ルールに従って他のエージェントと連携してください。**
 
 ## 📝 実装フロー
 1. **LEADERからの指示を受信・理解**

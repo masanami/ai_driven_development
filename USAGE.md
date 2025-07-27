@@ -2,6 +2,8 @@
 
 **最小構成でのシンプル導入ガイド**
 
+> **📋 システム概要・エージェント構成・ディレクトリ構造については [README.md](./README.md) を参照してください**
+
 ---
 
 ## 🚀 クイックスタート
@@ -10,24 +12,25 @@
 # 1. 既存プロジェクトのルートで実行
 cd existing-project
 
-# 2. AIフレームワーク追加
-git remote add ai-framework-remote <this-repo-url>
-git subtree add --prefix ai-framework ai-framework-remote main --squash
+# 2. AIフレームワーク準備（プロジェクト外部）
+cd ..
+git clone <this-repo-url> ai_driven_development
 
-# 3. 最小構成セットアップ  
+# 3. プロジェクト内にシンボリックリンク作成
+cd existing-project
+ln -s ../ai_driven_development .ai-framework
+
+# 4. 最小構成セットアップ  
 mkdir -p .ai/logs .claude worktrees
-cp ai-framework/.claude/settings.json .claude/
-echo -e ".ai/logs/\nworktrees/" >> .gitignore
+cp .ai-framework/.claude/settings.json .claude/
+echo -e ".ai/logs/\nworktrees/\n.ai-framework" >> .gitignore
 
-# 4. tmux直接通信システムセットアップ
-./ai-framework/scripts/quick-start.sh
+# 5. tmux直接通信システムセットアップ
+./.ai-framework/scripts/quick-start.sh
 ```
 
-### 2. エージェント構成
-- **LEADER** (pane 0): 統合リーダー・品質管理 (25%)
-- **engineer-1** (pane 1): TDD並列実装 (25%)
-- **engineer-2** (pane 2): TDD並列実装 (25%)  
-- **engineer-3** (pane 3): TDD並列実装 (25%)
+### 2. エージェント起動完了
+4つのエージェントが自動的に起動されます
 
 ## ⚙️ 最小設定
 
@@ -41,25 +44,7 @@ echo -e ".ai/logs/\nworktrees/" >> .gitignore
 - 🔒 **セキュリティ重視**: 最低限の権限で安全な開発環境を提供
 - 📝 **ファイル操作許可**: プロジェクト内のファイル読み書き・編集
 
-### **基本ディレクトリ構造**
-```
-your-project/
-├── ai-framework/          # フレームワーク（自動更新）
-│   ├── scripts/           # スクリプト集
-│   │   ├── setup-agent-communication.sh  # tmux環境構築
-│   │   ├── start-agents.sh              # エージェント起動
-│   │   ├── agent-send.sh               # 通信テスト
-│   │   └── quick-start.sh              # ワンクリック実行
-│   └── templates/         # テンプレート集
-│       ├── leader_agent_setup_template.md
-│       └── engineer_agent_setup_template.md
-├── .claude/               # Claude Code設定
-│   └── settings.json               # 実際の設定（gitignore推奨）
-├── .ai/
-│   └── logs/              # 開発記録・通信ログ
-│       └── communication.log      # 通信ログ
-└── src/                   # プロダクトコード
-```
+**プロジェクト構造の詳細はREADME.mdを参照してください**
 
 ---
 
@@ -70,26 +55,20 @@ your-project/
 #### **簡易実行**
 ```bash
 # 全自動でtmux環境構築＋エージェント起動
-./ai-framework/scripts/quick-start.sh
+./.ai-framework/scripts/quick-start.sh
 ```
 
 #### **手動ステップ実行（カスタマイズ向け）**
 ```bash
 # 1. tmux環境構築 + エージェント起動
-./ai-framework/scripts/setup-agent-communication.sh
-./ai-framework/scripts/start-agents.sh
+./.ai-framework/scripts/setup-agent-communication.sh
+./.ai-framework/scripts/start-agents.sh
 
 # 2. 通信テスト（オプション）
-./ai-framework/scripts/agent-send.sh
+./.ai-framework/scripts/agent-send.sh
 ```
 
-### **エージェント構成**
-- **LEADER** (pane 0): 統合リーダー・品質管理 (25%)
-- **engineer-1** (pane 1): TDD並列実装 (25%)
-- **engineer-2** (pane 2): TDD並列実装 (25%)
-- **engineer-3** (pane 3): TDD並列実装 (25%)
-
-**tmuxペイン名**: 各ペインには名前が設定されており、視覚的に識別しやすくなっています。
+**エージェント構成の詳細はREADME.mdを参照してください**
 
 ### **基本操作**
 ```bash
@@ -113,7 +92,7 @@ tmux kill-session -t agents
 ### **🆕 新規プロジェクト開発**
 ```bash
 # 1. tmux直接通信システム起動
-./ai-framework/scripts/quick-start.sh
+./.ai-framework/scripts/quick-start.sh
 
 # 2. LEADERペインで開発指示を入力
 # agentsセッションのLEADERペイン（左上）をクリックしてアクティブにし、以下を入力：
@@ -123,10 +102,10 @@ tmux kill-session -t agents
 要件定義から実装まで、エージェント間で協調して進めてください。
 ```
 
-### **🔧 ai-framework導入済みプロジェクトの機能追加・改修**
+### **🔧 .ai-framework導入済みプロジェクトの機能追加・改修**
 ```bash
 # 1. tmux直接通信システム起動
-./ai-framework/scripts/quick-start.sh
+./.ai-framework/scripts/quick-start.sh
 
 # 2. LEADERペインで機能追加指示を入力
 # agentsセッションのLEADERペイン（左上）をクリックしてアクティブにし、以下を入力：
@@ -144,15 +123,15 @@ tmux kill-session -t agents
 エージェント間で協調しながら要件定義から実装まで進めてください。
 ```
 
-### **📦 ai-framework未導入プロジェクトの移行 + 機能追加**
+### **📦 .ai-framework未導入プロジェクトの移行 + 機能追加**
 ```bash
 # 1. tmux直接通信システム起動
-./ai-framework/scripts/quick-start.sh
+./.ai-framework/scripts/quick-start.sh
 
 # 2. LEADERペインでプロジェクト移行＋機能追加指示を入力
 # agentsセッションのLEADERペイン（左上）をクリックしてアクティブにし、以下を入力：
 
-ai-framework未導入プロジェクトの移行 + 機能追加：
+.ai-framework未導入プロジェクトの移行 + 機能追加：
 Next.js + TypeScript + PostgreSQLで構築済みのECサイトに、
 商品レビュー機能を追加したいです。
 
@@ -194,7 +173,7 @@ AIエージェントが自動的に以下を実行します：
 1. ✅ PRレビュー・マージ
 2. 🧪 統合テスト・E2Eテスト
 
-### **🔧 ai-framework導入済みプロジェクトの機能追加・改修フロー**
+### **🔧 .ai-framework導入済みプロジェクトの機能追加・改修フロー**
 
 AIエージェントが自動的に以下を実行します：
 
@@ -259,15 +238,15 @@ graph TD
 
 ### **テンプレートファイルの直接編集**
 
-git subtree後、テンプレートファイルは`./ai-framework/templates/`に配置されます。
+テンプレートファイルは`./.ai-framework/templates/`に配置されます。
 これらのファイルは直接編集してプロジェクト固有の指示にカスタマイズできます：
 
 ```bash
 # リーダーエージェントの指示書編集
-code ./ai-framework/templates/leader_agent_setup_template.md
+code ./.ai-framework/templates/leader_agent_setup_template.md
 
 # エンジニアエージェントの指示書編集  
-code ./ai-framework/templates/engineer_agent_setup_template.md
+code ./.ai-framework/templates/engineer_agent_setup_template.md
 ```
 
 ### **カスタマイズ例**
@@ -319,7 +298,7 @@ code ./ai-framework/templates/engineer_agent_setup_template.md
 tmux kill-session -t agents 2>/dev/null || true
 
 # エージェント再起動（編集済みテンプレートが読み込まれる）
-./ai-framework/scripts/quick-start.sh
+./.ai-framework/scripts/quick-start.sh
 ```
 
 ### **⚠️ 注意事項**
@@ -334,10 +313,11 @@ tmux kill-session -t agents 2>/dev/null || true
 
 ```bash
 # フレームワーク更新
-git subtree pull --prefix ai-framework ai-framework-remote main --squash
+cd ../ai_driven_development
+git pull origin main
 
-# チーム同期
-git pull
+# プロジェクトに戻る
+cd ../your-project
 
 # tmuxセッションクリーンアップ
 tmux kill-session -t agents 2>/dev/null || true
@@ -362,7 +342,7 @@ tmux list-sessions
 # エージェント起動状況確認
 tmux list-panes -t agents
 # 通信テスト実行
-./ai-framework/scripts/agent-send.sh
+./.ai-framework/scripts/agent-send.sh
 ```
 
 **Q: git worktreeでエラー**
@@ -371,12 +351,14 @@ tmux list-panes -t agents
 git worktree prune
 ```
 
-**Q: subtree更新失敗**
+**Q: フレームワーク更新失敗**
 ```bash
 # 強制更新
-git subtree pull --prefix ai-framework ai-framework-remote main --squash --force
+cd ../ai_driven_development
+git reset --hard HEAD
+git pull origin main
 ```
 
 ---
 
-*このガイドで基本的な使用は可能です。詳細が必要な場合は各プロジェクトドキュメント（ai-framework/）を参照してください。*
+*このガイドで基本的な使用は可能です。詳細が必要な場合は各プロジェクトドキュメント（.ai-framework/）を参照してください。*
