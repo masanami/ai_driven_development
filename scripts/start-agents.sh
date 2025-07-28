@@ -30,6 +30,10 @@ sleep 3
 tmux send-keys -t agents:0.0 "cat '${SCRIPT_DIR}/../templates/leader_agent_setup_template.md'"
 tmux send-keys -t agents:0.0 C-m
 sleep 2
+echo "  📚 全体ワークフローを読み込み中..."
+tmux send-keys -t agents:0.0 "cat '${SCRIPT_DIR}/../04_multi_agent_operational_workflow.md'"
+tmux send-keys -t agents:0.0 C-m
+sleep 2
 echo "  🔧 LEADER auto-accept有効化中..."
 tmux send-keys -t agents:0.0 C-space
 tmux send-keys -t agents:0.0 'auto-accept edits on'
