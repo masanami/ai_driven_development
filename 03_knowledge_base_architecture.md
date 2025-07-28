@@ -26,7 +26,7 @@ AIエージェントの「長期記憶」と「共有知」として機能する
 project-root/
 └── docs/                            # 知識ベースルート
     ├── 01_requirements/             # 要件・仕様ドキュメント
-    ├── 02_architecture/             # 技術アーキテクチャ文書
+    ├── 02_design/                   # 設計ドキュメント
     ├── 03_development/              # 開発標準・規約
     └── 04_quality/                  # 品質保証ドキュメント
 ```
@@ -49,16 +49,19 @@ docs/01_requirements/
 ├── project_overview.md             # プロジェクト概要
 ├── user_stories.md                 # ユーザーストーリー
 ├── functional_specs.md             # 機能仕様
-├── acceptance_criteria.md          # 受け入れ基準
 └── business_rules.md               # ビジネスルール
 ```
 
-### 02_architecture/ - 技術アーキテクチャ
+### 02_design/ - 設計ドキュメント
 
-#### 📄 AI主導ファイル構成 (docs/02_architecture/)
+#### 📄 AI主導ファイル構成 (docs/02_design/)
 ```
-docs/02_architecture/
-├── system_design.md                # システム設計
+docs/02_design/
+├── architecture.md                 # システムアーキテクチャ
+├── feature_designs/                # 機能設計
+│   ├── feature_001_auth.md         # 認証機能(例)
+│   ├── feature_002_user.md         # ユーザー管理（例）
+│   └── feature_XXX_name.md         # 各種機能設計
 ├── technology_stack.md             # 技術スタック
 ├── api_specifications.md           # API仕様
 ├── database_design.md              # データベース設計
@@ -71,9 +74,7 @@ docs/02_architecture/
 ```
 docs/03_development/
 ├── coding_standards.md             # コーディング規約
-├── git_workflow.md                 # Git ワークフロー
 ├── development_setup.md            # 開発環境セットアップ
-├── code_review_process.md          # コードレビュープロセス
 └── troubleshooting.md              # トラブルシューティング
 ```
 
@@ -82,11 +83,13 @@ docs/03_development/
 #### 📄 AI主導ファイル構成 (docs/04_quality/)
 ```
 docs/04_quality/
-├── test_strategy.md                # テスト戦略
+├── test_strategy.md                # テスト戦略（TDD方針、カバレッジ目標）
+├── e2e_test_scenarios/             # E2Eテストシナリオ
+│   ├── scenario_001_user_flow.md   # ユーザー登録〜ログインフロー
+│   ├── scenario_002_main_feature.md # メイン機能の操作フロー
+│   └── scenario_XXX_name.md        # 各種E2Eシナリオ
 ├── quality_standards.md            # 品質基準
-├── test_cases.md                   # テストケース
-├── automation_config.md            # テスト自動化設定
-└── bug_reports.md                  # バグレポート
+└── ci_cd_config.md                 # CI/CD設定、自動化パイプライン
 ```
 
 ---
@@ -97,24 +100,24 @@ docs/04_quality/
 
 #### 要件 (Requirements)
 - [ ] ユーザーストーリーが文書化されているか
-- [ ] 受け入れ基準が明確か
 - [ ] ビジネスルールが明確化されているか
+- [ ] 機能仕様が定義されているか
 
-#### アーキテクチャ (Architecture)
-- [ ] システム設計が記載されているか
+#### 設計 (Design)
+- [ ] システムアーキテクチャが定義されているか
+- [ ] 各機能の設計書が存在するか
 - [ ] API仕様書が存在するか
 - [ ] データベース設計が定義されているか
-- [ ] デプロイメント設定が準備されているか
+- [ ] 技術スタックが明確か
 
 #### 開発 (Development)
 - [ ] コーディング規約が定義されているか
-- [ ] Gitワークフローが明文化されているか
 - [ ] 開発環境セットアップガイドが存在するか
 
 #### 品質 (Quality)
 - [ ] テスト戦略が定義されているか
-- [ ] 品質ゲートが設定されているか
-- [ ] 自動化設定が準備されているか
+- [ ] E2Eテストシナリオが作成されているか
+- [ ] CI/CDパイプラインが構築されているか
 
 ---
 
@@ -136,12 +139,79 @@ docs/04_quality/
 - **I want**: メールアドレスとパスワードでアカウントを作成したい
 - **So that**: サービスを利用開始できる
 
-### 受け入れ基準
-1. 有効なメールアドレス形式でのみ登録可能
-2. パスワードは8文字以上で英数字記号混在
-
 ### タグ
 `authentication`, `mvp`, `user_management`
+```
+
+### 機能設計例 (feature_designs/feature_001_auth.md)
+
+```markdown
+# 認証機能設計
+
+## 概要
+ユーザー認証・認可機能の詳細設計
+
+## 機能要件
+- ユーザー登録（メール/パスワード）
+- ログイン/ログアウト
+- パスワードリセット
+- セッション管理
+
+## 技術仕様
+### API エンドポイント
+- POST /api/auth/register
+- POST /api/auth/login
+- POST /api/auth/logout
+- POST /api/auth/reset-password
+
+### データモデル
+- users テーブル: id, email, password_hash, created_at
+- sessions テーブル: id, user_id, token, expires_at
+
+### セキュリティ要件
+- パスワードは bcrypt でハッシュ化
+- JWT トークンによる認証
+- リフレッシュトークンの実装
+```
+
+### E2Eテストシナリオ例 (e2e_test_scenarios/scenario_001_user_flow.md)
+
+```markdown
+# ユーザー登録・ログインフロー
+
+## シナリオ概要
+新規ユーザーがアカウントを作成してログインするまでの一連の流れを検証
+
+## 前提条件
+- アプリケーションが起動している
+- テスト用メールアドレスが利用可能
+
+## テストステップ
+1. **トップページアクセス**
+   - URL: https://example.com
+   - 期待: トップページが正常に表示される
+
+2. **新規登録画面へ遷移**
+   - 操作: 「新規登録」ボタンをクリック
+   - 期待: 登録フォームが表示される
+
+3. **登録情報入力**
+   - 入力: 
+     - メール: test@example.com
+     - パスワード: Test1234!
+   - 期待: バリデーションエラーなし
+
+4. **登録完了**
+   - 操作: 「登録」ボタンをクリック
+   - 期待: 確認メール送信メッセージが表示
+
+5. **ログイン確認**
+   - 操作: ログイン画面で認証情報を入力
+   - 期待: ダッシュボードへリダイレクト
+
+## 異常系テスト
+- 既存メールアドレスでの登録 → エラーメッセージ表示
+- 無効なパスワード形式 → バリデーションエラー
 ```
 
 ---
