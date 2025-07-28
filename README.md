@@ -102,7 +102,8 @@
 │   ├── scripts/           # スクリプト集
 │   │   ├── setup-agent-communication.sh  # tmux環境構築
 │   │   ├── start-agents.sh              # エージェント起動
-│   │   ├── phase1-2-start.sh           # フェーズ1-2起動
+│   │   ├── phase1-start.sh             # フェーズ1起動
+│   │   ├── phase2-start.sh             # フェーズ2起動
 │   │   ├── phase3-start.sh             # フェーズ3起動
 │   │   ├── agent-send.sh               # 通信テスト
 │   │   └── quick-start.sh              # ワンクリック実行

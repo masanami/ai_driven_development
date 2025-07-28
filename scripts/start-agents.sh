@@ -4,6 +4,9 @@ set -euo pipefail
 # スクリプトのディレクトリを取得
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# AI Framework の基本パス
+BASE_PATH="$SCRIPT_DIR/.."
+
 echo "🤖 直接通信型エージェント起動中..."
 
 # agentsセッションの存在確認
@@ -27,11 +30,11 @@ echo "👑 LEADER起動中..."
 tmux send-keys -t agents:0.0 'claude'
 tmux send-keys -t agents:0.0 C-m
 sleep 3
-tmux send-keys -t agents:0.0 "cat '${SCRIPT_DIR}/../templates/leader_agent_setup_template.md'"
+tmux send-keys -t agents:0.0 "cat '${BASE_PATH}/templates/leader_agent_setup_template.md'"
 tmux send-keys -t agents:0.0 C-m
 sleep 2
 echo "  📚 全体ワークフローを読み込み中..."
-tmux send-keys -t agents:0.0 "cat '${SCRIPT_DIR}/../04_multi_agent_operational_workflow.md'"
+tmux send-keys -t agents:0.0 "cat '${BASE_PATH}/04_multi_agent_operational_workflow.md'"
 tmux send-keys -t agents:0.0 C-m
 sleep 2
 echo "  🔧 LEADER auto-accept有効化中..."
@@ -44,7 +47,7 @@ echo "🛠️ Implementation Engineer起動中..."
 tmux send-keys -t agents:0.1 'claude'
 tmux send-keys -t agents:0.1 C-m
 sleep 3
-tmux send-keys -t agents:0.1 "cat '${SCRIPT_DIR}/../templates/implementation_engineer_template.md'"
+tmux send-keys -t agents:0.1 "cat '${BASE_PATH}/templates/implementation_engineer_template.md'"
 tmux send-keys -t agents:0.1 C-m
 sleep 2
 echo "  🔧 Implementation Engineer auto-accept有効化中..."
@@ -57,7 +60,7 @@ echo "🧪 Quality Engineer起動中..."
 tmux send-keys -t agents:0.2 'claude'
 tmux send-keys -t agents:0.2 C-m
 sleep 3
-tmux send-keys -t agents:0.2 "cat '${SCRIPT_DIR}/../templates/quality_engineer_template.md'"
+tmux send-keys -t agents:0.2 "cat '${BASE_PATH}/templates/quality_engineer_template.md'"
 tmux send-keys -t agents:0.2 C-m
 sleep 2
 echo "  🔧 Quality Engineer auto-accept有効化中..."
@@ -70,7 +73,7 @@ echo "📚 Documentation Engineer起動中..."
 tmux send-keys -t agents:0.3 'claude'
 tmux send-keys -t agents:0.3 C-m
 sleep 3
-tmux send-keys -t agents:0.3 "cat '${SCRIPT_DIR}/../templates/documentation_engineer_template.md'"
+tmux send-keys -t agents:0.3 "cat '${BASE_PATH}/templates/documentation_engineer_template.md'"
 tmux send-keys -t agents:0.3 C-m
 sleep 2
 echo "  🔧 Documentation Engineer auto-accept有効化中..."

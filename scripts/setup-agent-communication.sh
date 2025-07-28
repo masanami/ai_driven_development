@@ -15,14 +15,27 @@ echo "📝 テンプレートファイルの存在確認中..."
 # スクリプトのディレクトリを取得
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# AI Framework の基本パス
+BASE_PATH="$SCRIPT_DIR/.."
+
 # テンプレートファイルの存在確認
-if [[ ! -f "${SCRIPT_DIR}/../templates/leader_agent_setup_template.md" ]]; then
+if [[ ! -f "${BASE_PATH}/templates/leader_agent_setup_template.md" ]]; then
     echo "❌ エラー: templates/leader_agent_setup_template.md が見つかりません"
     exit 1
 fi
 
-if [[ ! -f "${SCRIPT_DIR}/../templates/engineer_agent_setup_template.md" ]]; then
-    echo "❌ エラー: templates/engineer_agent_setup_template.md が見つかりません"
+if [[ ! -f "${BASE_PATH}/templates/implementation_engineer_template.md" ]]; then
+    echo "❌ エラー: templates/implementation_engineer_template.md が見つかりません"
+    exit 1
+fi
+
+if [[ ! -f "${BASE_PATH}/templates/quality_engineer_template.md" ]]; then
+    echo "❌ エラー: templates/quality_engineer_template.md が見つかりません"
+    exit 1
+fi
+
+if [[ ! -f "${BASE_PATH}/templates/documentation_engineer_template.md" ]]; then
+    echo "❌ エラー: templates/documentation_engineer_template.md が見つかりません"
     exit 1
 fi
 
@@ -30,10 +43,10 @@ echo "✅ テンプレートファイル確認完了"
 
 # agentsセッション作成（4ペイン）
 echo "📊 agentsセッション作成中..."
-tmux split-window -v -t agents:0.1 -# 4つのペインを作成
+tmux new-session -d -s agents
 tmux split-window -h -t agents    # 2つ目のペイン作成
-tmux split-window -v -t agents    # 3つ目のペイン作成
-tmux split-window -v -t agents    # 4つ目のペイン作成
+tmux split-window -v -t agents:0.0    # 3つ目のペイン作成
+tmux split-window -v -t agents:0.1    # 4つ目のペイン作成
 
 # tiledレイアウトを適用して均等分割（25%ずつ）
 echo "⚡ tiledレイアウト適用中..."
@@ -47,18 +60,18 @@ tmux set-option -t agents -g pane-border-format "#{?pane_active,#[fg=green],#[fg
 # ペイン名設定
 echo "🏷️ ペイン名設定中..."
 tmux select-pane -t agents:0.0 -T "LEADER"
-tmux select-pane -t agents:0.1 -T "engineer-1"
-tmux select-pane -t agents:0.2 -T "engineer-2"
-tmux select-pane -t agents:0.3 -T "engineer-3"
+tmux select-pane -t agents:0.1 -T "Implementation Engineer"
+tmux select-pane -t agents:0.2 -T "Quality Engineer"
+tmux select-pane -t agents:0.3 -T "Documentation Engineer"
 
 # ペイン初期化メッセージ
 tmux send-keys -t agents:0.0 'echo "👑 LEADER ready"'
 tmux send-keys -t agents:0.0 C-m
-tmux send-keys -t agents:0.1 'echo "💻 engineer-1 ready"'
+tmux send-keys -t agents:0.1 'echo "🛠️ Implementation Engineer ready"'
 tmux send-keys -t agents:0.1 C-m
-tmux send-keys -t agents:0.2 'echo "🖥️ engineer-2 ready"'
+tmux send-keys -t agents:0.2 'echo "🧪 Quality Engineer ready"'
 tmux send-keys -t agents:0.2 C-m
-tmux send-keys -t agents:0.3 'echo "⚙️ engineer-3 ready"'
+tmux send-keys -t agents:0.3 'echo "📚 Documentation Engineer ready"'
 tmux send-keys -t agents:0.3 C-m
 
 # LEADERペインをアクティブに設定

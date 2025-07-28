@@ -4,6 +4,9 @@ set -euo pipefail
 # スクリプトのディレクトリを取得
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# AI Framework の基本パス
+BASE_PATH="$SCRIPT_DIR/.."
+
 echo "🚀 Phase 3: 並列実装フェーズ - tmuxマルチエージェント起動"
 echo ""
 
@@ -80,7 +83,8 @@ echo ""
 echo "🎯 次のステップ:"
 echo "1. tmux attach-session -t agents でセッションに接続"
 echo "2. LEADERペインで以下のファイルを読み込ませてください:"
-echo "   - @workflow_phase_3_parallel_implementation.md"
+echo "   - @${BASE_PATH}/workflow_phase_3_parallel_implementation.md"
+echo "   - @${BASE_PATH}/05_practical_agent_communication_system.md"
 echo "3. LEADERペインでタスク分配を開始"
 echo "4. 各エンジニアエージェントが並列実装を実行"
 echo ""

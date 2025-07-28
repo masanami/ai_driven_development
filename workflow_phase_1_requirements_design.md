@@ -141,6 +141,6 @@ next_steps:
 
 ## 🚀 実行方法
 ```bash
-# Phase 1-2専用スクリプトを使用
-./scripts/phase1-2-start.sh
+# Phase 1専用スクリプトを使用
+./scripts/phase1-start.sh
 ``` 
